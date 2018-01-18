@@ -1,0 +1,37 @@
+{
+    "parser": "babel-eslint",
+    "plugins": [
+        "react"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "strict": 0,
+        "semi": [2, "always"],
+        "no-extra-semi": 2,
+        "no-irregular-whitespace": 2,
+        "no-mixed-spaces-and-tabs": 2,
+        "semi-spacing": [2, {"before": false, "after": true}],
+        "eqeqeq": 2,
+        "comma-dangle": [2, "never"],
+        "comma-spacing": [2, {"before": false, "after": true}],
+        "space-in-parens": [2, "never"],
+        "space-before-function-paren": [2, {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
+        "space-before-blocks": 2,
+        "keyword-spacing": 2,
+        "no-unneeded-ternary": 2,
+        "curly": [2, "multi-line"],
+        "space-infix-ops": 2,
+        "no-else-return": ["error", { "allowElseIf": true }],
+        "multiline-ternary": ["error", "always"],
+        "key-spacing": ["error", { "mode": "strict" }],
+        "arrow-parens": ["error", "always"],
+        "func-style": ["error", "declaration"],
+        "react/jsx-wrap-multilines": "error",
+        "prefer-const": "error",
+        "no-debugger": "error"
+    }
+}

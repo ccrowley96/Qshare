@@ -21,6 +21,11 @@
     "babel-preset-react": "^6.1.18",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
     "jquery": "^2.2.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
@@ -29,8 +34,11 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "babel-eslint": "^8.2.1",
     "babel-preset-stage-1": "^6.1.18",
+    "body-parser": "^1.18.2",
     "lodash": "^3.10.1",
+    "mongoose": "^5.0.0",
     "nodemon": "^1.14.11",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

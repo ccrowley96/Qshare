@@ -34,9 +34,11 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-eslint": "^8.2.1",
     "babel-preset-stage-1": "^6.1.18",
     "body-parser": "^1.18.2",
+    "express-prettify": "0.0.10",
     "lodash": "^3.10.1",
     "mongoose": "^5.0.0",
     "nodemon": "^1.14.11",

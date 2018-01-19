@@ -5,7 +5,7 @@ GitHub Repo for qshare QTMA project.
 - Install Node.js & node package manager NPM
   - [Install NPM & Node.js](https://www.npmjs.com/get-npm?utm_source=house&utm_medium=homepage&utm_campaign=free%20orgs&utm_term=Install%20npm)
 - Make sure git is installed and configured on your computer, then clone this github repository
-  - `git clone https://github.com/QueensRideshare/qshare.git`
+  - `git clone https://github.com/QueensRideshare/Qshare.git`
 - Inside the **project directory** pull the latest updates from Github & install all of the package dependencies
   - `git pull origin dev`
   - `npm install`
@@ -29,7 +29,7 @@ GitHub Repo for qshare QTMA project.
   - `git push origin feature/updating-header-image`
 
 ### Integrating your changes into the dev branch
-- Go to the Github [project repository](https://github.com/QueensRideshare/qshare)
+- Go to the Github [project repository](https://github.com/QueensRideshare/Qshare)
 - Go to the **pull requests** tab
 - Create a pull request from your feature branch into the **dev** branch
 - Project admin (Cory) will review the code and merge the feature branch into the dev branch

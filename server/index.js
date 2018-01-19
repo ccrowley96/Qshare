@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const API = require('./api/api');
+const API = require('./api/index');
 const port = 3000;
 const BUNDLE_DIR = path.join(__dirname, '../'); // Path to static files
 

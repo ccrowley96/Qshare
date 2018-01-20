@@ -12,7 +12,7 @@ class RidesIndex extends Component {
     const { rides } = this.props.rides;
     return _.map(rides, (ride) => {
       return (
-        <tr className="table-group-item" key={ride.name}>
+        <tr className="table-group-item" key={ride._id}>
           <td>
             {ride.name}
           </td>

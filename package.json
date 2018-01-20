@@ -38,6 +38,8 @@
     "babel-eslint": "^8.2.1",
     "babel-preset-stage-1": "^6.1.18",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
     "express-prettify": "0.0.10",
     "lodash": "^3.10.1",
     "mongoose": "^5.0.0",
@@ -47,6 +49,8 @@
     "react-facebook-login": "^3.7.2",
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
-    "redux": "^3.0.4"
+    "react-router-dom": "^4.0.0",
+    "redux": "^3.0.4",
+    "redux-promise": "^0.5.3"
   }
 }

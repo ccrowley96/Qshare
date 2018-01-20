@@ -13,7 +13,7 @@ class FBLogin extends React.Component {
         appId="152331278836309"
         autoLoad={true}
         fields="name,email,picture"
-        scorpe="public_profile,user_friends"
+        scope="public_profile,user_friends"
         callback={this.responseFacebook}
         icon="fa-facebook"
       />

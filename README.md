@@ -10,9 +10,20 @@ GitHub Repo for qshare QTMA project.
   - `git pull origin dev`
   - `npm install`
 - **Make your changes to the project**
-- **Test changes** by running the server on your localhost: **localhost:8080**
-  - `npm run start`
-  - visit localhost:8080 in your browser
+- **Use scripts below to test & build application** 
+```
+# install dependancies
+npm install
+
+# run the server in development mode with nodemon
+npm run server-dev
+
+# runs webpack-dev-server for ui development
+npm run client-dev
+
+# run the server in production mode, bundle client and serve bundle
+npm run start
+```
 
 ### Commiting your changes to the project github repository
 - **Before you make changes**, create a feature branch off of **dev**

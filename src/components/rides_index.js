@@ -13,6 +13,7 @@ class RidesIndex extends Component {
     const { rides } = this.props.rides;
     return _.map(rides, (ride) => {
       return (
+<<<<<<< HEAD
           <tr className="table-group-item" key={ride._id}>
               <td>
                 <Link to={`/rides/${ride._id}`}>
@@ -28,6 +29,19 @@ class RidesIndex extends Component {
 
           </tr>
 
+=======
+        <tr className="table-group-item" key={ride._id}>
+          <td>
+            {ride.name}
+          </td>
+          <td>
+            {ride.price}
+          </td>
+          <td>
+            {ride.capacity}
+          </td>
+        </tr>
+>>>>>>> cc634ffe0e639185b91891944d8e7ceaa191b178
       );
     });
   }

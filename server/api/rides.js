@@ -8,7 +8,6 @@ const Ride = require('../db/models/rides');
 /* ------------------------- RIDE CRUD API --------------------------*/
 //GET All Rides
 router.get('/', (req, res, next) => {
-  console.log('Routing Worked!');
   Ride.find({}, (err, rides) => {
       if (err) {
         console.log("/api ride find error");
@@ -41,22 +40,22 @@ router.post('/', (req, res, next) => {
     });
 });
 
-//Query Ride by name
-router.get('/:name', (req, res, next) => {
-  const ride_name = req.params.name;
-  console.log(`Query for name: ${ride_name}`);
-  Ride.find({name: ride_name}, (err, rides) =>{
+//Query Ride by ID
+router.get('/:id', (req, res, next) => {
+  const ride_id = req.params.id;
+  console.log(`Query for id: ${ride_id}`);
+  Ride.find({"_id": ObjectId(`${ride_id}`) }, (err, ride) =>{
     if (err) {
       console.log(err);
       throw err;
     } else {
+      console.log(ride);
       res.json({
-        title: 'Rides',
-        rides
+        title: 'Ride',
+        ride
       });
     }
   });
-
 });
 
 //Delete Ride by ID

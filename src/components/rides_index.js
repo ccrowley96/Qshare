@@ -1,5 +1,6 @@
 import React, {Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'; //Substitute for <a> tag
 import _ from 'lodash';
 import { fetchRides } from '../actions';
 
@@ -12,17 +13,21 @@ class RidesIndex extends Component {
     const { rides } = this.props.rides;
     return _.map(rides, (ride) => {
       return (
-        <tr className="table-group-item" key={ride.name}>
-          <td>
-            {ride.name}
-          </td>
-          <td>
-            {ride.price}
-          </td>
-          <td>
-            {ride.capacity}
-          </td>
-        </tr>
+          <tr className="table-group-item" key={ride._id}>
+              <td>
+                <Link to={`/rides/${ride._id}`}>
+                  {ride.name}
+                </Link>
+              </td>
+              <td>
+                {ride.price}
+              </td>
+              <td>
+                {ride.capacity}
+              </td>
+
+          </tr>
+
       );
     });
   }
@@ -30,6 +35,11 @@ class RidesIndex extends Component {
   render() {
     return (
       <div>
+        <div className="text-xs-right">
+          <Link className="btn btn-primary" to="/post-ride">
+            Post a Ride
+          </Link>
+        </div>
       <h3> Rides </h3>
         <table className="table">
           <tbody>
@@ -38,7 +48,7 @@ class RidesIndex extends Component {
               <th>Price</th>
               <th>Capacity</th>
             </tr>
-            {this.renderRides()}
+              {this.renderRides()}
           </tbody>
         </table>
       </div>

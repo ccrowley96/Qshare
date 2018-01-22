@@ -1,6 +1,19 @@
 body{
   padding-top:50px;
 }
+/* Ride Index */
+.ride_index_heading{
+  cursor: pointer;
+}
+/* .ride_index_heading:hover,
+.ride_index_heading:active
+.ride_index_heading:focus{
+  background-color: rgba(0, 0, 0, 0.15);
+} */
+.active{
+  background-color: rgba(0, 0, 0, 0.15);
+}
+/* Post Ride Form */
 form .form-group input{
   background-color: rgba(0, 0, 0, 0.03);
 }

@@ -1,3 +1,10 @@
 body{
   padding-top:50px;
 }
+form .form-group input{
+  background-color: rgba(0, 0, 0, 0.03);
+}
+form .description textarea{
+  background-color: rgba(0, 0, 0, 0.03);
+  height: 100px;
+}

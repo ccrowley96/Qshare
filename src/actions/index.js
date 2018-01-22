@@ -17,6 +17,8 @@ export function fetchRides() {
 }
 
 export function createRide(values, callback) {
+  console.log(`sending values:`);
+  console.log(values);
   //Callback redirects user to home page
   const request = axios.post(`${LOCAL_ROOT_URL}/rides`, values)
     .then(() => callback());

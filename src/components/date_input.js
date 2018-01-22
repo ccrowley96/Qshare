@@ -48,22 +48,24 @@ export default class renderDatePicker extends React.Component {
       ...rest
     } = this.props;
 
-    const className = ` form-group ${touched && error
+    const className = `form-group ${touched && error
       ? 'has-danger'
       : ''}`;
 
     return (
       <div className={className}>
+      <label>{this.props.label}</label>
         <DatePicker
+          className = "form-control"
           {...rest}
           selected={this.state.selectedDate}
           onChange={this.handleChange}
         />
-          <div className="text-help">
-              {
-                touched ? error : ''
-              }
-          </div>
+        <div className="text-help">
+            {
+              touched ? error : ''
+            }
+        </div>
       </div>
     );
   }

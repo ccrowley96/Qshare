@@ -11,18 +11,51 @@ import renderDatePicker from './date_input.js';
 
 class RidesNew extends Component {
 
-  renderField(field) {
+  renderInputField(field) {
     //field.meta.error automatically added to field object in validate
     // Must take field as arg to wire field to event handlers
-
-    const className = ` form-group ${field.meta.touched && field.meta.error
-      ? 'has-danger'
-      : ''}`;
+    let customClass = '';
+    if (field.customClass) {
+       customClass = field.customClass;
+    }
+    const className = `form-group
+    ${field.meta.touched && field.meta.error ? 'has-danger' : ''} ${customClass}`;
 
     return (
       <div className = {className}>
         <label>{field.label}</label>
         <input
+          placeholder={field.placeholder}
+          className = "form-control"
+          type = {field.type}
+          {...field.input}
+        />
+        <div className="text-help">
+          {
+            field.meta.touched
+            ? field.meta.error
+            : ''
+          }
+        </div>
+      </div>
+    );
+  }
+
+  renderTextAreaField(field) {
+    //field.meta.error automatically added to field object in validate
+    // Must take field as arg to wire field to event handlers
+    let customClass = '';
+    if (field.customClass) {
+       customClass = field.customClass;
+    }
+    const className = `form-group
+    ${field.meta.touched && field.meta.error ? 'has-danger' : ''} ${customClass}`;
+
+    return (
+      <div className = {className}>
+        <label>{field.label}</label>
+        <textarea
+          placeholder={field.placeholder}
           className = "form-control"
           type = {field.type}
           {...field.input}
@@ -45,32 +78,6 @@ class RidesNew extends Component {
     });
   }
 
-//   renderDatePicker(field) {
-//     const className = ` form-group ${field.meta.touched && field.meta.error
-//       ? 'has-danger'
-//       : ''}`;
-//     return (
-//       <div className={className}>
-//           <label>{field.label}</label>
-//
-//           <DatePicker
-//             selected={this.state.startDate}
-//             onChange={this.handleChange}
-//             showTimeSelect
-//             timeFormat="HH:mm"
-//
-//           />
-//           <div className="text-help">
-//             {
-//               field.meta.touched
-//               ? field.meta.error
-//               : ''
-//             }
-//           </div>
-//       </div>
-//     );
-// }
-
   render() {
     const { handleSubmit } = this.props;
     // Field handles redux action / reducer interaction & event handling
@@ -86,49 +93,56 @@ class RidesNew extends Component {
               label="Enter Name"
               type="text"
               name="name"
-              component={this.renderField}
+              placeholder="Driver's name"
+              component={this.renderInputField}
           />
           <Field
               label="Ride Price"
               type="number"
               name="price"
-              component={this.renderField}
+              placeholder="How much are you charging?"
+              component={this.renderInputField}
           />
           <Field
               label="Ride Capacity"
               type="number"
               name="capacity"
-              component={this.renderField}
+              placeholder="How many seats are available?"
+              component={this.renderInputField}
           />
           <Field
               label="Origin"
               type="text"
               name="origin"
-              component={this.renderField}
+              placeholder="Where are you leaving from?"
+              component={this.renderInputField}
           />
           <Field
               label="Destination"
+              placeholder="Where are you going?"
               type="text"
               name="destination"
-              component={this.renderField}
+              component={this.renderInputField}
           />
           <Field
+            label="Date"
             name="date"
             inputValueFormat="YYYY-MM-DD"
-            dateFormat="L"
-            dateFormatCalendar="dddd"
-            fixedHeight
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode="select"
+            dateFormat="LL"
+            dateFormatCalendar="MMMM"
+            placeholderText={moment().format('LL')}
             normalize={(value) => (value ? moment(value).format('YYYY-MM-DD') : null)}
+            minDate={moment()}
+            maxDate={moment().add(90, "days")}
             component={renderDatePicker}
           />
           <Field
               label="Description"
-              type="text"
+              type="textarea"
               name="description"
-              component={this.renderField}
+              placeholder="Enter ride details (optional)"
+              customClass = "description"
+              component={this.renderTextAreaField}
           />
         <button type="submit" className="btn btn-success">Post</button>
         </form>

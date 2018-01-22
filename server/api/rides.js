@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
     ride.origin = req.body.origin.toLowerCase();
     ride.destination = req.body.destination.toLowerCase();
     ride.date = req.body.date;
-    if (ride.description) {
+    if (req.body.description) {
       ride.description = req.body.description;
     }
 

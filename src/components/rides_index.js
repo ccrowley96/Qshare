@@ -2,6 +2,7 @@ import React, {Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'; //Substitute for <a> tag
 import _ from 'lodash';
+import moment from 'moment';
 import { fetchRides } from '../actions';
 
 class RidesIndex extends Component {
@@ -9,21 +10,33 @@ class RidesIndex extends Component {
     this.props.fetchRides();
   }
 
+  formatFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   renderRides() {
     const { rides } = this.props.rides;
+    let readableDate;
     return _.map(rides, (ride) => {
+      readableDate =  moment(ride.date).format('ddd, MMM Do');
       return (
           <tr className="table-group-item" key={ride._id}>
               <td>
                 <Link to={`/rides/${ride._id}`}>
-                  {ride.name}
+                  {this.formatFirstLetter(ride.name)}
                 </Link>
               </td>
               <td>
-                {ride.price}
+                {this.formatFirstLetter(ride.origin)}
               </td>
               <td>
-                {ride.capacity}
+                {this.formatFirstLetter(ride.destination)}
+              </td>
+              <td>
+                {readableDate}
+              </td>
+              <td>
+                {ride.price}
               </td>
           </tr>
       );
@@ -43,8 +56,10 @@ class RidesIndex extends Component {
           <tbody>
             <tr>
               <th>Name</th>
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Date</th>
               <th>Price</th>
-              <th>Capacity</th>
             </tr>
               {this.renderRides()}
           </tbody>

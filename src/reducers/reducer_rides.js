@@ -1,17 +1,17 @@
 import _ from 'lodash';
-import { FETCH_RIDES, FETCH_POST, DELETE_POST } from '../actions';
+import { FETCH_RIDES, FETCH_RIDE, DELETE_RIDE } from '../actions';
 
 export default function(state = {}, action) {
   switch (action.type) {
     case FETCH_RIDES:
       return action.payload.data;
-    case FETCH_POST:
+    case FETCH_RIDE:
       let { ride } = action.payload.data;
       ride = ride[0];
       const newState =  {...state};
       newState[ride._id] = ride;
       return newState;
-    case DELETE_POST:
+    case DELETE_RIDE:
       return _.omit(state, action.payload);
 
     default:

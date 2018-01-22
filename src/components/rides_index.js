@@ -25,9 +25,7 @@ class RidesIndex extends Component {
               <td>
                 {ride.capacity}
               </td>
-
           </tr>
-
       );
     });
   }

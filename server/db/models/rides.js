@@ -13,6 +13,21 @@ const rideSchema = mongoose.Schema({
   capacity: {
     type: Number,
     required: true
+  },
+  origin: {
+    type: String,
+    required: true
+  },
+  destination: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: Date,
+    required: true
+  },
+  description: {
+    type: String
   }
 });
 

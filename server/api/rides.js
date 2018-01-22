@@ -27,6 +27,12 @@ router.post('/', (req, res, next) => {
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;
+    ride.origin = req.body.origin.toLowerCase();
+    ride.destination = req.body.destination.toLowerCase();
+    ride.date = req.body.date;
+    if (ride.description) {
+      ride.description = req.body.description;
+    }
 
     ride.save((err) => {
       if (err) {
@@ -34,7 +40,7 @@ router.post('/', (req, res, next) => {
         res.send("Data Deposit Error A");
       }
       else {
-        console.log(`Ride Created: name: ${ride.name}, price: ${ride.price}, capacity: ${ride.capacity}`);
+        console.log(`Ride Created, name: ${ride.name}`);
         res.redirect('/');
       }
     });

@@ -2,8 +2,8 @@ import axios from 'axios';
 
 export const FETCH_RIDES = 'fetch_rides';
 export const CREATE_RIDE = 'create_ride';
-export const FETCH_POST = 'fetch_post';
-export const DELETE_POST = 'delete_post';
+export const FETCH_RIDE = 'fetch_ride';
+export const DELETE_RIDE = 'delete_ride';
 
 const LOCAL_ROOT_URL = "http://localhost:3000/api";
 
@@ -30,7 +30,7 @@ export function createRide(values, callback) {
 export function fetchRide(id) {
   const request = axios.get(`${LOCAL_ROOT_URL}/rides/${id}`);
   return {
-    type: FETCH_POST,
+    type: FETCH_RIDE,
     payload: request
   };
 }
@@ -40,7 +40,7 @@ export function deleteRide(id, callback) {
     .then(() => callback());
 
   return {
-    type: DELETE_POST,
+    type: DELETE_RIDE,
     payload: id
   };
 }

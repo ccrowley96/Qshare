@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactDom from 'react-dom';
 import FacebookLogin from 'react-facebook-login';
-import { fb_status_change } from '../../actions';
+import { fb_status_change, fb_user_state } from '../../actions';
 
 class FB_Login extends React.Component {
 
@@ -12,6 +12,7 @@ class FB_Login extends React.Component {
     this.state = {
       fb_button_text: "Login with facebook"
     };
+
   }
 
   componentDidMount() {
@@ -42,29 +43,45 @@ class FB_Login extends React.Component {
         }.bind(this));
       }
       else {
-        this.setState({fb_button_text: "Logout"});
         window.FB.login(
            function(response) {
               this.statusChangeCallback(response);
-           }.bind(this), { scope: 'email,public_profile' }
-        );
+           }.bind(this),
+           {
+             scope: 'email, public_profile',
+             return_scopes: true
+           });
       }
-
     }
 
-  // This is called with the results from from FB.getLoginStatus().
   statusChangeCallback(response) {
-    console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-      this.props.fb_status_change(true);
+      this.setState({fb_button_text: "Logout"});
+      //this.props.fb_status_change(true);
+      const tempProps = this.props;
+      let userObject = {};
       // Logged into your app and Facebook.
-      this.testAPI();
+      FB.api('/me?fields=id,name,email,picture.width(800).height(800),cover.width(1200)', function(response) {
+        userObject = {
+          loggedIn: true,
+          name: response.name,
+          email: response.email,
+          uid: response.id,
+          cover: response.cover,
+          profile_pic: response.picture
+        };
+        tempProps.fb_user_state(userObject);
+      });
+      //Console log login message
+      FB.api('/me', function(response) {
+        console.log('Successful login for: ' + response.name);
+      });
     } else {
-      this.props.fb_status_change(false, ()=> {
+      this.props.fb_user_state({loggedIn: false}, ()=> {
         this.props.history.push("/");
       });
       // The person is not logged into your app or we are unable to tell.
@@ -80,14 +97,6 @@ class FB_Login extends React.Component {
     }.bind(this));
   }
 
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  testAPI() {
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-    });
-  }
-
   render() {
     return (
       <div>
@@ -100,7 +109,7 @@ class FB_Login extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { loggedIn: state.loggedIn };
+  return { loggedIn: state.fb_state.loggedIn};
 }
 
-export default connect(mapStateToProps, { fb_status_change })(FB_Login); // MAP state to props stuff
+export default connect(mapStateToProps, { fb_user_state })(FB_Login); // MAP state to props stuff

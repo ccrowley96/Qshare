@@ -5,7 +5,7 @@ import FB_Reducer from './reducer_facebook';
 
 const rootReducer = combineReducers({
   rides: RidesReducer,
-  loggedIn: FB_Reducer,
+  fb_state: FB_Reducer,
   form: formReducer
 });
 

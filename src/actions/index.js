@@ -7,6 +7,7 @@ export const FETCH_RIDE = 'fetch_ride';
 export const DELETE_RIDE = 'delete_ride';
 export const FB_LOGIN = 'facebook_login';
 export const FB_LOGOUT = 'facebook_logout';
+export const FB_USER_STATE = 'facebook_user_info';
 
 const LOCAL_ROOT_URL = "http://localhost:3000/api";
 
@@ -17,6 +18,13 @@ export function fb_status_change(status, callback) {
   return {
     type: FB_LOGIN,
     payload: status
+  };
+}
+
+export function fb_user_state(userInfo) {
+  return {
+    type: FB_USER_STATE,
+    payload: userInfo
   };
 }
 

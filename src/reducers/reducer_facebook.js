@@ -1,10 +1,20 @@
-import { FB_LOGIN, FB_LOGOUT } from '../actions';
+import { FB_USER_STATE } from '../actions';
 
-export default function(state = false, action) {
+export default function(state = { loggedIn: false}, action) {
   switch (action.type) {
-    case FB_LOGIN:
-      console.log(`Login State Changing: ${action.payload}`);
-      return action.payload;
+    case FB_USER_STATE:
+      console.log(`payload.loggedIn: ${action.payload.loggedIn}`);
+      let newState = {};
+      if (action.payload.loggedIn) {
+         newState = {
+          ...action.payload
+        };
+      } else {
+        newState = { loggedIn: false };
+      }
+      console.log(newState);
+      return newState;
+
     default:
       return state;
   }

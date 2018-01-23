@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'; //Substitute for <a> tag
 import _ from 'lodash';
 import moment from 'moment';
 import { fetchRides } from '../actions';
+import { capFirst } from '../utils/string_manipulation';
 
 const SORT_BY_DATE = 'sort_by_date';
 const SORT_BY_ORIGIN = 'sort_by_origin';
@@ -14,9 +15,11 @@ class RidesIndex extends Component {
     super(props);
     this.props.fetchRides()
       .then(() => {
-        this.sortRides(SORT_BY_DATE);
-        this.updateRideFlag();
-        this.handleHeaderHighlight();
+        if (this.props.rides) {
+          this.sortRides(SORT_BY_DATE);
+          this.updateRideFlag();
+          this.handleHeaderHighlight();
+        }
       });
 
       this.state = {
@@ -34,15 +37,15 @@ class RidesIndex extends Component {
   handleHeaderHighlight() {
     const table_headers = document.getElementsByClassName("ride_index_heading");
 
-  // Loop through the buttons and add the active class to the current/clicked button
-  for (let i = 0; i < table_headers.length; i++) {
-    table_headers[i].addEventListener("click", function() {
-      const current = document.body.getElementsByClassName("active");
-      current[0].className = current[0].className.replace(" active", "");
-      this.className += " active";
+    // Loop through the buttons and add the active class to the current/clicked button
+    for (let i = 0; i < table_headers.length; i++) {
+      table_headers[i].addEventListener("click", function() {
+        const current = document.body.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
 
-    });
-  }
+      });
+    }
 }
   //Ride flag Helper
   updateRideFlag() {
@@ -83,7 +86,6 @@ class RidesIndex extends Component {
       case SORT_BY_DESTINATION:
         sortedRides = rides.sort(this.compareByDestination);
         break;
-
       default:
         sortedRides = rides.sort(this.compareByDate);
     }
@@ -91,10 +93,6 @@ class RidesIndex extends Component {
     this.setState({sortedRides});
   }
 
-  //Helper to CAPS first letter of text
-  formatFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
   //Click handlers
   handleOriginClick() {
     this.sortRides(SORT_BY_ORIGIN);
@@ -123,14 +121,14 @@ class RidesIndex extends Component {
           <tr className="table-group-item" key={ride._id}>
               <td>
                 <Link to={`/rides/${ride._id}`}>
-                  {this.formatFirstLetter(ride.name)}
+                  {capFirst(ride.name)}
                 </Link>
               </td>
               <td>
-                {this.formatFirstLetter(ride.origin)}
+                {capFirst(ride.origin)}
               </td>
               <td>
-                {this.formatFirstLetter(ride.destination)}
+                {capFirst(ride.destination)}
               </td>
               <td>
                 {readableDate}
@@ -142,28 +140,35 @@ class RidesIndex extends Component {
   //Render Rideindex page --> table, title, button
   render() {
     // Wait for successfull ride fetch
-    if (!this.props.rides.rides) {
+    if (!this.state.ridesFetched) {
       return (<div><h5>Loading...</h5></div>);
     }
     return (
       <div>
-        <div className="text-xs-right">
-          <Link className="btn btn-success" to="/post-ride">
-            Post a Ride
-          </Link>
+        <div className="row">
+          <div className="btn-toolbar user-buttons">
+              <Link className="btn btn-warning" to="/profile">
+                Profile
+              </Link>
+              <Link className="btn btn-success" to="/post-ride">
+                Post a Ride
+              </Link>
+          </div>
         </div>
-      <h3> Rides </h3>
-        <table className="table">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th className="ride_index_heading orig-head" onClick={this.handleOriginClick}>Origin</th>
-              <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}>Destination</th>
-              <th className="ride_index_heading date-head active"onClick={this.handleDateClick}>Date</th>
-            </tr>
-              {this.renderRides()}
-          </tbody>
-        </table>
+        <div className="row">
+          <h3> Rides </h3>
+            <table className="table">
+              <tbody>
+                <tr>
+                  <th>Name</th>
+                  <th className="ride_index_heading orig-head" onClick={this.handleOriginClick}>Origin</th>
+                  <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}>Destination</th>
+                  <th className="ride_index_heading date-head active"onClick={this.handleDateClick}>Date</th>
+                </tr>
+                  {this.renderRides()}
+              </tbody>
+            </table>
+        </div>
       </div>
     );
   }

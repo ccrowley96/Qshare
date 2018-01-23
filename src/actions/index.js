@@ -1,11 +1,24 @@
 import axios from 'axios';
+import {withRouter} from "react-router-dom";
 
 export const FETCH_RIDES = 'fetch_rides';
 export const CREATE_RIDE = 'create_ride';
 export const FETCH_RIDE = 'fetch_ride';
 export const DELETE_RIDE = 'delete_ride';
+export const FB_LOGIN = 'facebook_login';
+export const FB_LOGOUT = 'facebook_logout';
 
 const LOCAL_ROOT_URL = "http://localhost:3000/api";
+
+export function fb_status_change(status, callback) {
+  if (status === false) {
+    callback();
+  }
+  return {
+    type: FB_LOGIN,
+    payload: status
+  };
+}
 
 export function fetchRides() {
   const request = axios.get(`${LOCAL_ROOT_URL}/rides`);
@@ -17,8 +30,6 @@ export function fetchRides() {
 }
 
 export function createRide(values, callback) {
-  console.log(`sending values:`);
-  console.log(values);
   //Callback redirects user to home page
   const request = axios.post(`${LOCAL_ROOT_URL}/rides`, values)
     .then(() => callback());

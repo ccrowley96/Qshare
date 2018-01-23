@@ -5,7 +5,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import { fetchRides } from '../actions';
 
-
 const SORT_BY_DATE = 'sort_by_date';
 const SORT_BY_ORIGIN = 'sort_by_origin';
 const SORT_BY_DESTINATION = 'sort_by_destination';
@@ -34,14 +33,14 @@ class RidesIndex extends Component {
 
   handleHeaderHighlight() {
     const table_headers = document.getElementsByClassName("ride_index_heading");
-    console.log(table_headers.length);
+
   // Loop through the buttons and add the active class to the current/clicked button
   for (let i = 0; i < table_headers.length; i++) {
     table_headers[i].addEventListener("click", function() {
       const current = document.body.getElementsByClassName("active");
       current[0].className = current[0].className.replace(" active", "");
       this.className += " active";
-      console.log('active changin');
+
     });
   }
 }
@@ -149,7 +148,7 @@ class RidesIndex extends Component {
     return (
       <div>
         <div className="text-xs-right">
-          <Link className="btn btn-primary" to="/post-ride">
+          <Link className="btn btn-success" to="/post-ride">
             Post a Ride
           </Link>
         </div>
@@ -169,6 +168,7 @@ class RidesIndex extends Component {
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return { rides: state.rides };

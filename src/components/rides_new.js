@@ -11,6 +11,11 @@ import renderDatePicker from './date_input.js';
 
 class RidesNew extends Component {
 
+  constructor(props) {
+    super(props);
+    this.attachUID = this.attachUID.bind(this);
+  }
+
   renderInputField(field) {
     //field.meta.error automatically added to field object in validate
     // Must take field as arg to wire field to event handlers
@@ -26,7 +31,7 @@ class RidesNew extends Component {
         <label>{field.label}</label>
         <input
           placeholder={field.placeholder}
-          className = "form-control"
+          className = "form-control input-field"
           type = {field.type}
           {...field.input}
         />
@@ -71,14 +76,48 @@ class RidesNew extends Component {
     );
   }
 
+  attachUID(field) {
+    return (
+      <div className="form-group">
+          <label>{field.label}</label>
+          <input
+            {...field.input}
+            placeholder={field.placeholder}
+            className = "form-control uid-field"
+            tabIndex = "-1"
+            readOnly = "true"
+            value={this.props.userInfo.uid}
+            type = {field.type}
+
+          />
+      </div>
+    );
+  }
+
+
   onSubmit(values) {
-    this.props.createRide(values, () => {
+    const uid = this.props.userInfo.uid;
+    this.props.createRide(values, uid, () => {
       // Programmatic Redirect
       this.props.history.push('/');
     });
   }
 
   render() {
+    if (!this.props.userInfo.loggedIn) {
+      return (
+        <div>
+          <div className="text-xs-right">
+            <Link className="btn btn-danger" to="/">
+              Cancel
+            </Link>
+          </div>
+          <div className="form-login-message">
+            <h2> Log in to post ride </h2>
+          </div>
+        </div>
+      );
+    }
     const { handleSubmit } = this.props;
     // Field handles redux action / reducer interaction & event handling
     return (
@@ -90,10 +129,17 @@ class RidesNew extends Component {
         </div>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
+              name="uid"
+              label="User ID"
+              type="text"
+              value={this.props.userInfo.uid}
+              component={this.attachUID}
+            />
+          <Field
               label="Enter Name"
               type="text"
               name="name"
-              placeholder="Driver's name"
+              placeholder={this.props.userInfo.full_name}
               component={this.renderInputField}
           />
           <Field
@@ -179,11 +225,15 @@ function validate(values) {
   //If errors has *any* props, redux form assumes form is invalid
   return errors;
 }
+
+function mapStateToProps(state) {
+  return { userInfo: state.fb_state };
+}
 //Allows redux form to communicate directly from this component to reducer state
 //This adds additional props to component
 export default reduxForm({
   validate, //validate: validate
   form: 'NewRidesForm'
 })(
-  connect(null, { createRide})(RidesNew)
+  connect(mapStateToProps, { createRide })(RidesNew)
 );

@@ -6,6 +6,10 @@ const rideSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  uid: {
+    type: String,
+    required: true
+  },
   price: {
     type: Number,
     required: true

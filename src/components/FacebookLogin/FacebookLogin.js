@@ -65,10 +65,12 @@ class FB_Login extends React.Component {
       const tempProps = this.props;
       let userObject = {};
       // Logged into your app and Facebook.
-      FB.api('/me?fields=id,name,email,picture.width(800).height(800),cover.width(1200)', function(response) {
+      FB.api('/me?fields=id,name,first_name,last_name,email,picture.width(800).height(800),cover.width(1200)', function(response) {
         userObject = {
           loggedIn: true,
-          name: response.name,
+          full_name: response.name,
+          first_name: response.first_name,
+          last_name: response.last_name,
           email: response.email,
           uid: response.id,
           cover: response.cover,

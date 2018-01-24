@@ -24,6 +24,7 @@ router.get('/', (req, res, next) => {
 //POST single Ride
 router.post('/', (req, res, next) => {
     const ride = new Ride();
+    ride.uid = req.body.uid;
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;

@@ -11,7 +11,7 @@ export default function(state = { loggedIn: false}, action) {
       } else {
         newState = { loggedIn: false };
       }
-      console.log(newState);
+      console.log("Login State Change: ", newState);
       return newState;
 
     default:

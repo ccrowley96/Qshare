@@ -31,6 +31,7 @@ class RidesShow extends Component {
             <Link to="/" className="btn btn-primary">Home</Link>
           </div>
         <h3>{capFirst(ride.name)}</h3>
+        <h5><b>User ID:</b> {ride.uid}</h5>
         <h5><b>Price:</b> ${ride.price}</h5>
         <h5><b>Capacity:</b> {ride.capacity} seats</h5>
         <h5><b>Origin:</b> {capFirst(ride.origin)}</h5>

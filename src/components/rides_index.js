@@ -147,7 +147,7 @@ class RidesIndex extends Component {
       <div>
         <div className="row">
           <div className="btn-toolbar user-buttons">
-              <Link className="btn btn-warning" to="/profile">
+              <Link className="btn btn-info" to="/profile">
                 Profile
               </Link>
               <Link className="btn btn-success" to="/post-ride">

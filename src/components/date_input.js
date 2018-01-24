@@ -48,7 +48,7 @@ export default class renderDatePicker extends React.Component {
       ...rest
     } = this.props;
 
-    const className = `form-group ${touched && error
+    const className = `date-picker form-group ${touched && error
       ? 'has-danger'
       : ''}`;
 

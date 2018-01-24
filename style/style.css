@@ -4,6 +4,14 @@ body{
   padding-left: 25px;
   padding-right: 25px;
 }
+/* Login Button */
+.login-button-wrap{
+  position: relative;
+  right: 10px;
+}
+.login-button{
+
+}
 /* Ride Index */
 .ride_index_heading{
   cursor: pointer;

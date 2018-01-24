@@ -101,8 +101,8 @@ class FB_Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <button className="btn btn-primary" onClick={this.facebookLogin.bind(this)}>
+      <div className="login-button-wrap">
+        <button className="btn btn-primary login-button" onClick={this.facebookLogin.bind(this)}>
           {this.state.fb_button_text}
         </button>
       </div>

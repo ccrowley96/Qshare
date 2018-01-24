@@ -8,11 +8,6 @@ class FB_Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.checkLoginState = this.checkLoginState.bind(this);
-    this.state = {
-      fb_button_text: "Login with facebook"
-    };
-
   }
 
   componentDidMount() {
@@ -37,7 +32,6 @@ class FB_Login extends React.Component {
 
     facebookLogin = () => {
       if (this.props.loggedIn) {
-        this.setState({fb_button_text: "Login with facebook"});
         FB.logout(function(response) {
           this.statusChangeCallback(response);
         }.bind(this));
@@ -60,7 +54,7 @@ class FB_Login extends React.Component {
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-      this.setState({fb_button_text: "Logout"});
+      this.props.history.push("/");
       //this.props.fb_status_change(true);
       const tempProps = this.props;
       let userObject = {};
@@ -93,17 +87,16 @@ class FB_Login extends React.Component {
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
-  checkLoginState() {
-    window.FB.getLoginStatus(function(response) {
-      this.statusChangeCallback(response);
-    }.bind(this));
-  }
 
+// {this.state.fb_button_text}
   render() {
     return (
       <div className="login-button-wrap">
         <button className="btn btn-primary login-button" onClick={this.facebookLogin.bind(this)}>
-          {this.state.fb_button_text}
+        {
+          this.props.loggedIn ?
+          <div>Logout</div> : <div>Login with Facebook</div>
+        }
         </button>
       </div>
     );

@@ -1,10 +1,11 @@
 import React, {Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'; //Substitute for <a> tag
+import { Link, Route } from 'react-router-dom'; //Substitute for <a> tag
 import _ from 'lodash';
 import moment from 'moment';
 import { fetchRides } from '../actions';
 import { capFirst } from '../utils/string_manipulation';
+import FB_Login from './FacebookLogin/FacebookLogin';
 
 const SORT_BY_DATE = 'sort_by_date';
 const SORT_BY_ORIGIN = 'sort_by_origin';
@@ -141,10 +142,16 @@ class RidesIndex extends Component {
   render() {
     // Wait for successfull ride fetch
     if (!this.state.ridesFetched) {
-      return (<div><h5>Loading...</h5></div>);
+      return (
+        <div>
+        <Route component={FB_Login} />
+        <h5>Loading...</h5>
+        </div>
+      );
     }
     return (
       <div>
+      <Route component={FB_Login} />
         <div className="row">
           <div className="btn-toolbar user-buttons">
               <Link className="btn btn-info" to="/profile">

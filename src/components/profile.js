@@ -25,7 +25,7 @@ class Profile extends Component {
         <div className="row welcome-row">
           <div className="container-fluid text-center">
             <h2>Hey {first_name}!</h2>
-            <h5>Here's your unique rideshare ID: {uid},</h5>
+            <h5>Here&#8217;s your unique rideshare ID: {uid},</h5>
             <h5>& account email: {email}</h5>
           </div>
         </div>

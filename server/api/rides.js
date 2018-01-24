@@ -56,10 +56,26 @@ router.get('/:id', (req, res, next) => {
       console.log(err);
       throw err;
     } else {
-      console.log(ride);
       res.json({
         title: 'Ride',
         ride
+      });
+    }
+  });
+});
+
+//Query Ride by User ID
+router.get('/user/:id', (req, res, next) => {
+  const user_id = req.params.id;
+  console.log(`Query for user id: ${user_id}`);
+  Ride.find({"uid": `${user_id}`}, (err, rides) =>{
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      res.json({
+        title: 'Ride',
+        rides
       });
     }
   });

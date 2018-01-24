@@ -1,11 +1,13 @@
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
+
 export const FETCH_RIDES = 'fetch_rides';
 export const CREATE_RIDE = 'create_ride';
 export const FETCH_RIDE = 'fetch_ride';
 export const DELETE_RIDE = 'delete_ride';
 export const FB_USER_STATE = 'facebook_user_info';
+export const FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
 
 const LOCAL_ROOT_URL = "http://localhost:3000/api";
 
@@ -44,6 +46,14 @@ export function fetchRide(id) {
   const request = axios.get(`${LOCAL_ROOT_URL}/rides/${id}`);
   return {
     type: FETCH_RIDE,
+    payload: request
+  };
+}
+
+export function fetchRidesBy_UID(id) {
+  const request = axios.get(`${LOCAL_ROOT_URL}/rides/user/${id}`);
+  return {
+    type: FETCH_RIDE_BY_UID,
     payload: request
   };
 }

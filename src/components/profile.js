@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchRidesBy_UID } from '../actions';
 
 class Profile extends Component {
 
+  constructor(props) {
+    super(props);
+    this.fetchUserRides = this.fetchUserRides.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchUserRides();
+  }
+
+  fetchUserRides() {
+    this.props.fetchRidesBy_UID(this.props.userInfo.uid)
+      .then(()=>{
+        this.forceUpdate();
+      });
+  }
 
   renderUser() {
     if (!this.props.userInfo.loggedIn) {
@@ -14,7 +30,9 @@ class Profile extends Component {
       );
     }
     const { uid, loggedIn, name, first_name, last_name, email, about_me } = this.props.userInfo;
+    const { userRides } = this.props;
     const picture_url = this.props.userInfo.profile_pic.data.url;
+
     return (
       <div className="profile-container">
         <div className="row profile-picture-row">
@@ -53,7 +71,10 @@ class Profile extends Component {
 }
 
 function mapStateToProps(state) {
-  return { userInfo: state.fb_state};
+  return {
+    userInfo: state.fb_state,
+    userRides: state.rides.userRides
+  };
 }
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { fetchRidesBy_UID })(Profile);

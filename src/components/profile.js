@@ -7,17 +7,17 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
-    this.fetchUserRides = this.fetchUserRides.bind(this);
+    this.state = {
+      myRidesFetched: false
+    };
   }
 
   componentDidMount() {
-    this.fetchUserRides();
-  }
-
-  fetchUserRides() {
     this.props.fetchRidesBy_UID(this.props.userInfo.uid)
       .then(()=>{
-        this.forceUpdate();
+        //this.forceUpdate();
+        console.log(this.props.userRides);
+        this.setState({ myRidesFetched: true });
       });
   }
 

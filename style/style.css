@@ -91,6 +91,7 @@ form .description textarea{
 }
 .profile-container{
   /* Specify profile font here */
+  margin-top: 20px;
 }
 .profile-picture{
   display: block;

@@ -19,6 +19,18 @@ class RidesShow extends Component {
     });
   }
 
+  renderDelete() {
+    const uid  = this.props.ride.uid;
+    if (this.props.userInfo.uid === uid) {
+      return (
+        <button className="btn btn-danger pull-xs-left" onClick={this.onDeleteClick.bind(this)}>
+          Delete Post
+        </button>
+      );
+    }
+    return (<div></div>);
+  }
+
   render() {
     const { ride } = this.props;
     if (!ride) {
@@ -38,20 +50,18 @@ class RidesShow extends Component {
         <h5><b>Destination:</b> {capFirst(ride.destination)}</h5>
         <h5><b>Date:</b> {readableDate}</h5>
         <h5><b>Description:</b></h5><p> {ride.description}</p>
-          <button
-            className="btn btn-danger pull-xs-left"
-            onClick={this.onDeleteClick.bind(this)}
-          >
-            Delete Post
-          </button>
+        {this.renderDelete()}
       </div>
     );
 
   }
 }
 
-function mapStateToProps({rides}, ownProps) {
-  return { ride: rides[ownProps.match.params.id]};
+function mapStateToProps(state, ownProps) {
+  return {
+     ride: state.rides[ownProps.match.params.id],
+     userInfo: state.fb_state
+  };
 }
 
 export default connect(mapStateToProps, {fetchRide, deleteRide})(RidesShow);

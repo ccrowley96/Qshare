@@ -91,6 +91,7 @@ form .description textarea{
 }
 .profile-container{
   /* Specify profile font here */
+  margin-top: 20px;
 }
 .profile-picture{
   display: block;
@@ -102,4 +103,7 @@ form .description textarea{
 .welcome-row{
   margin-top: 25px;
   text-align: center;
+}
+.my-rides-container{
+  margin-top: 20px;
 }

@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchRidesBy_UID } from '../actions';
+import MyRideTable from './my_rides';
 
 class Profile extends Component {
 
   constructor(props) {
     super(props);
-    this.fetchUserRides = this.fetchUserRides.bind(this);
+    this.state = {
+      myRidesFetched: false
+    };
   }
 
   componentDidMount() {
-    this.fetchUserRides();
-  }
-
-  fetchUserRides() {
     this.props.fetchRidesBy_UID(this.props.userInfo.uid)
       .then(()=>{
-        this.forceUpdate();
+        this.setState({ myRidesFetched: true });
       });
   }
 
@@ -51,6 +50,15 @@ class Profile extends Component {
     );
   }
 
+  renderRidesWhenReady() {
+    if (this.props.userRides) {
+      return (
+        <MyRideTable userRides={this.props.userRides}/>
+      );
+    }
+    return (<div> Loading... </div>);
+  }
+
   render() {
     return (
       <div>
@@ -65,6 +73,7 @@ class Profile extends Component {
           </div>
         </div>
         {this.renderUser()}
+        {this.renderRidesWhenReady()}
       </div>
     );
   }

@@ -2,11 +2,13 @@
 GitHub Repo for qshare QTMA project.
 
 # Development & Contribution Set-up
-- Install Node.js & node package manager NPM
+- Install Node.js, MongoDB, & node package manager NPM
   - [Install NPM & Node.js](https://www.npmjs.com/get-npm?utm_source=house&utm_medium=homepage&utm_campaign=free%20orgs&utm_term=Install%20npm)
+  - [Install MongoDB](https://www.mongodb.com/download-center?jmp=nav#community)
 - Make sure git is installed and configured on your computer, then clone this github repository
   - `git clone https://github.com/QueensRideshare/Qshare.git`
 - Inside the **project directory** pull the latest updates from Github & install all of the package dependencies
+  - `git checkout dev`
   - `git pull origin dev`
   - `npm install`
 - **Make your changes to the project**

@@ -173,11 +173,11 @@ class RidesNew extends Component {
           <Field
             label="Date"
             name="date"
-            inputValueFormat="YYYY-MM-DD"
+            inputValueFormat="YYYY/MM/DD"
             dateFormat="LL"
             dateFormatCalendar="MMMM"
             placeholderText={moment().format('LL')}
-            normalize={(value) => (value ? moment(value).format('YYYY-MM-DD') : null)}
+            normalize={(value) => (value ? moment(value).format('YYYY/MM/DD') : null)}
             minDate={moment()}
             maxDate={moment().add(90, "days")}
             component={renderDatePicker}

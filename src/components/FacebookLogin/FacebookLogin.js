@@ -31,6 +31,7 @@ class FB_Login extends React.Component {
     }
 
     facebookLogin = () => {
+      console.log(this.props);
       if (this.props.loggedIn) {
         FB.logout(function(response) {
           this.statusChangeCallback(response);
@@ -102,6 +103,11 @@ class FB_Login extends React.Component {
     );
   }
 }
+
+
+
+
+
 
 function mapStateToProps(state) {
   return { loggedIn: state.fb_state.loggedIn};

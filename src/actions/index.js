@@ -42,6 +42,19 @@ export function createRide(values, uid, callback) {
   };
 }
 
+export function updateRide(values, uid, rideID, callback) {
+  values["uid"] = uid;
+  values["rideID"] = rideID;
+  //Callback redirects user to home page
+  const request = axios.post(`${LOCAL_ROOT_URL}/rides/update`, values)
+    .then(() => callback());
+
+  return {
+    type: CREATE_RIDE,
+    payload: request
+  };
+}
+
 export function fetchRide(id) {
   const request = axios.get(`${LOCAL_ROOT_URL}/rides/${id}`);
   return {

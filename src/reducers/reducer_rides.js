@@ -17,7 +17,6 @@ export default function(state = {}, action) {
       newState = {...state};
       newState.userRides = rides;
       return newState;
-
     case DELETE_RIDE:
       return _.omit(state, action.payload);
 

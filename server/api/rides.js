@@ -46,6 +46,34 @@ router.post('/', (req, res, next) => {
       }
     });
 });
+//UPDATE single Ride
+router.post('/update', (req, res, next) => {
+    const ride = {};
+    const rideID = req.body.rideID;
+
+    ride.uid = req.body.uid;
+    ride.name = req.body.name.toLowerCase();
+    ride.price = req.body.price;
+    ride.capacity = req.body.capacity;
+    ride.origin = req.body.origin.toLowerCase();
+    ride.destination = req.body.destination.toLowerCase();
+    ride.date = req.body.date;
+
+    if (req.body.description) {
+      ride.description = req.body.description;
+    }
+  
+    Ride.update({"_id":ObjectId(`${rideID}`)}, ride, (err) => {
+      if (err) {
+        console.log(err);
+        res.send("Data Update Error");
+      }
+      else {
+        console.log(`Ride Updated, name: ${ride.name}`);
+        res.redirect('/');
+      }
+    });
+});
 
 //Query Ride by ID
 router.get('/:id', (req, res, next) => {

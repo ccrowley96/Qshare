@@ -1,53 +1,33 @@
 import React, {Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, Route } from 'react-router-dom'; //Substitute for <a> tag
 import _ from 'lodash';
-import { fetchRides } from '../actions';
+import moment from 'moment';
+import FB_Login from './FacebookLogin/FacebookLogin';
+import RideTable from './ride_table';
 
-class RidesIndex extends Component {
-  componentDidMount() {
-    this.props.fetchRides();
+export default class RidesIndex extends Component {
+  constructor(props) {
+    super(props);
   }
 
-  renderRides() {
-    const { rides } = this.props.rides;
-    return _.map(rides, (ride) => {
-      return (
-        <tr className="table-group-item" key={ride._id}>
-          <td>
-            {ride.name}
-          </td>
-          <td>
-            {ride.price}
-          </td>
-          <td>
-            {ride.capacity}
-          </td>
-        </tr>
-      );
-    });
-  }
-
+  //Render Rideindex page --> table, title, button
   render() {
     return (
       <div>
-      <h3> Rides </h3>
-        <table className="table">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Capacity</th>
-            </tr>
-            {this.renderRides()}
-          </tbody>
-        </table>
+      <Route component={FB_Login} />
+        <div className="row">
+          <div className="btn-toolbar user-buttons">
+              <Link className="btn btn-info" to="/profile">
+                Profile
+              </Link>
+              <Link className="btn btn-success" to="/post-ride">
+                Post a Ride
+              </Link>
+          </div>
+        </div>
+        <RideTable />
       </div>
     );
   }
 }
-
-function mapStateToProps(state) {
-  return { rides: state.rides };
-}
-
-export default connect(mapStateToProps, { fetchRides })(RidesIndex); // MAP state to props stuff

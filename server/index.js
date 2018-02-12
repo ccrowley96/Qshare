@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
+const frameguard = require('frameguard')
 const cors = require('cors');
 const API = require('./api/index');
 const port = 3000;
@@ -12,6 +14,12 @@ const app = express();
 
 // Enable Cross Origin Requests with CORS
 app.use(cors({credentials: true, origin: true}));
+
+// Allow from a specific host:
+app.use(frameguard({
+  action: 'allow-from',
+  domain: 'http://facebook.com'
+}));
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: true }));

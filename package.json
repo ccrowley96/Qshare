@@ -8,7 +8,9 @@
     "client-dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "server-dev": "nodemon server/index.js",
     "client-prod": "webpack",
-    "start": "npm run client-prod && node server",
+    "start": "node server",
+    "bundle": "./node_modules/.bin/webpack --config webpack.config.js",
+    "prestart": "npm run bundle",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
@@ -30,7 +32,6 @@
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "react-addons-test-utils": "^0.14.7",
-    "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
@@ -39,18 +40,30 @@
     "babel-preset-stage-1": "^6.1.18",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "css-loader": "^0.28.9",
     "dotenv": "^4.0.0",
+    "express": "^4.16.2",
     "express-prettify": "0.0.10",
+    "frameguard": "^3.0.0",
+    "helmet": "^3.10.0",
     "lodash": "^3.10.1",
+    "moment": "2.18.1",
+    "mongodb": "^3.0.2",
     "mongoose": "^5.0.0",
+    "nconf": "^0.10.0",
     "nodemon": "^1.14.11",
+    "prop-types": "^15.6.0",
     "react": "^0.14.3",
+    "react-datepicker": "^1.0.4",
     "react-dom": "^0.14.9",
     "react-facebook-login": "^3.7.2",
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
     "react-router-dom": "^4.0.0",
     "redux": "^3.0.4",
-    "redux-promise": "^0.5.3"
+    "redux-form": "^7.2.1",
+    "redux-promise": "^0.5.3",
+    "style-loader": "^0.19.1",
+    "webpack": "^1.15.0"
   }
 }

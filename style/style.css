@@ -1,0 +1,114 @@
+body{
+  padding-top:50px;
+  padding-bottom: 100px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+/* Login Page */
+.login-page-wrap{
+  margin-top: 20px;
+}
+.login-page-wrap .jumbotron{
+  text-align: center;
+  text-shadow: 20px;
+}
+/* Login Button */
+.login-button-wrap{
+  position: relative;
+  right: 10px;
+}
+.login-button{
+
+}
+/* Ride Index */
+.ride_index_heading{
+  cursor: pointer;
+}
+.active{
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.user-buttons{
+  margin-top: 15px;
+  float:right;
+}
+
+/* Individual Ride Page */
+.my-edit-button{
+  margin-left: 20px;
+}
+/* Post Ride Form */
+form .form-group .input-field{
+  background-color: rgba(0, 0, 0, 0.03);
+  width:50%;
+}
+form .form-group .uid-field{
+  width:25%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+form .form-group .uid-field:hover{
+  cursor: not-allowed;
+}
+form .form-group .uid-field:focus{
+  outline:none;
+  border: none;
+}
+form .description textarea{
+  width:75%;
+  background-color: rgba(0, 0, 0, 0.03);
+  height: 100px;
+}
+.form-login-message{
+  margin-top: 30px;
+  text-align: center;
+}
+.react-datepicker-wrapper input{
+  background-color: rgba(0, 0, 0, 0.03);
+}
+/* Tablet Form Query */
+@media (max-width: 775px) {
+  form .form-group .input-field{
+    width:75%;
+  }
+  form .form-group .uid-field{
+    width:50%;
+  }
+  form .description textarea{
+    width:100%;
+  }
+}
+/* Phone Form Query */
+@media (max-width: 450px) {
+  form .form-group .input-field{
+    width:100%;
+  }
+  form .form-group .uid-field{
+    width:75%;
+  }
+  form .description textarea{
+    width:100%;
+  }
+}
+/* Profile Page */
+.profile-login-message{
+  margin-top: 30px;
+  text-align: center;
+}
+.profile-container{
+  /* Specify profile font here */
+  margin-top: 20px;
+}
+.profile-picture{
+  display: block;
+  margin:auto;
+  width:200px;
+  heigh:200px;
+  border-radius: 50%;
+}
+.welcome-row{
+  margin-top: 25px;
+  text-align: center;
+}
+.my-rides-container{
+  margin-top: 20px;
+}

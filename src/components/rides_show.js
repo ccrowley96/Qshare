@@ -41,6 +41,10 @@ class RidesShow extends Component {
   onEditClick() {
     this.setState({editOn:true});
   }
+  onfblinkClick() {
+    const link  = this.props.ride.link;
+    window.location = link;
+  }
 
   resetEditFlag(){
     const id  = this.props.match.params.id;
@@ -69,6 +73,18 @@ class RidesShow extends Component {
       return (
         <button className="my-edit-button btn btn-success pull-xs-left" onClick={this.onEditClick.bind(this)}>
           Edit Ride
+        </button>
+      );
+    }
+    return (<div></div>);
+  }
+
+  renderFBLink() {
+    const uid  = this.props.ride.uid;
+    if (this.props.userInfo.uid !== uid) {
+      return (
+        <button className="my-fblink-button btn btn-primary pull-xs-left" onClick={this.onfblinkClick.bind(this)}>
+          Facebook Profile
         </button>
       );
     }
@@ -110,6 +126,7 @@ class RidesShow extends Component {
           <h5><b>Description:</b></h5><p> {ride.description}</p>
           {this.renderDelete()}
           {this.renderEdit()}
+          {this.renderFBLink()}
         </div>
       );
     }

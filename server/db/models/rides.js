@@ -10,6 +10,9 @@ const rideSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  link: {
+    type: String
+  },
   price: {
     type: Number,
     required: true

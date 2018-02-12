@@ -97,7 +97,8 @@ class RidesNew extends Component {
 
   onSubmit(values) {
     const uid = this.props.userInfo.uid;
-    this.props.createRide(values, uid, () => {
+    const link = this.props.userInfo.link;
+    this.props.createRide(values, uid, link, () => {
       // Programmatic Redirect
       this.props.history.push('/');
     });

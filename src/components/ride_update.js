@@ -94,8 +94,9 @@ class RidesUpdate extends Component {
 
   onSubmit(values) {
     const uid = this.props.userInfo.uid;
+    const link = this.props.userInfo.link;
     const rideID = this.props.rideID;
-    this.props.updateRide(values, uid, rideID, () => {
+    this.props.updateRide(values, uid, link, rideID, () => {
       this.props.action();
       // Programmatic Redirect to ride_show on specific ID
       this.props.history.push(`/rides/${rideID}`);

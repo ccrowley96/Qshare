@@ -25,6 +25,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const ride = new Ride();
     ride.uid = req.body.uid;
+    ride.link = req.body.link;
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;
@@ -52,6 +53,7 @@ router.post('/update', (req, res, next) => {
     const rideID = req.body.rideID;
 
     ride.uid = req.body.uid;
+    ride.link = req.body.link;
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;
@@ -62,7 +64,7 @@ router.post('/update', (req, res, next) => {
     if (req.body.description) {
       ride.description = req.body.description;
     }
-  
+
     Ride.update({"_id":ObjectId(`${rideID}`)}, ride, (err) => {
       if (err) {
         console.log(err);

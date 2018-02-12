@@ -24,7 +24,7 @@ class RidesShow extends Component {
     if (this.props.userInfo.uid === uid) {
       return (
         <button className="btn btn-danger pull-xs-left" onClick={this.onDeleteClick.bind(this)}>
-          Delete Post
+          Delete Ride
         </button>
       );
     }

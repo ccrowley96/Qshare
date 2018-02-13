@@ -11,7 +11,7 @@ GitHub Repo for qshare QTMA project.
 |DB_PASS|[DB PASSWORD HERE]|
 |DB_NAME|qshare|
 |PORT|8080|
-|LOCAL_ROOT_URL|http://localhost/api|
+|LOCAL_ROOT_URL|http://localhost:8080/api|
 
 **See example.env for syntax reference**
 

@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
     ride.origin = req.body.origin.toLowerCase();
     ride.destination = req.body.destination.toLowerCase();
     ride.date = req.body.date;
-    
+
     if (req.body.description) {
       ride.description = req.body.description;
     }
@@ -67,7 +67,7 @@ router.post('/update', (req, res, next) => {
       ride.description = req.body.description;
     }
 
-    Ride.update({"_id":ObjectId(`${rideID}`)}, ride, (err) => {
+    Ride.update({"_id": ObjectId(`${rideID}`)}, ride, (err) => {
       if (err) {
         console.log(err);
         res.send("Data Update Error");

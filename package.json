@@ -48,6 +48,7 @@
     "cors": "^2.8.4",
     "css-loader": "^0.28.9",
     "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.4",
     "express": "^4.16.2",
     "express-prettify": "0.0.10",
     "frameguard": "^3.0.0",

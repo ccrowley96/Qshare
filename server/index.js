@@ -3,11 +3,14 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const frameguard = require('frameguard')
+const frameguard = require('frameguard');
 const cors = require('cors');
 const API = require('./api/index');
-const port = 8080;
 const BUNDLE_DIR = path.join(__dirname, '../'); // Path to static files
+
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
+const port = process.env.PORT;
 
 // Init App
 const app = express();

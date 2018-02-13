@@ -37,7 +37,6 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-
         <Switch>
           <Route path="/login" component={Login} />
           <PrivateRoute auth={checkLogin} path="/post-ride" component={RidesNew} />

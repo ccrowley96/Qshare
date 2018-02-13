@@ -1,6 +1,7 @@
 import React, {Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Route } from 'react-router-dom'; //Substitute for <a> tag
+import { withRouter } from 'react-router-dom'
 import _ from 'lodash';
 import moment from 'moment';
 import { fetchRides } from '../actions';
@@ -32,6 +33,7 @@ class RideTable extends Component {
       this.handleOriginClick = this.handleOriginClick.bind(this);
       this.handleDestinationClick = this.handleDestinationClick.bind(this);
       this.handleDateClick = this.handleDateClick.bind(this);
+      this.handleRowClick = this.handleRowClick.bind(this);
   }
 
   handleHeaderHighlight() {
@@ -43,7 +45,6 @@ class RideTable extends Component {
         const current = document.body.getElementsByClassName("active");
         current[0].className = current[0].className.replace(" active", "");
         this.className += " active";
-
       });
     }
 }
@@ -103,6 +104,9 @@ class RideTable extends Component {
   handleDateClick() {
     this.sortRides(SORT_BY_DATE);
   }
+  handleRowClick(rideID) {
+     this.props.history.push(`/rides/${rideID}`);
+  }
   //Individual ride row JSX generator
   renderRides() {
     const mq = window.matchMedia("(min-width: 700px)");
@@ -118,20 +122,19 @@ class RideTable extends Component {
       }
       //return JSX for each table element
       return (
-          <tr className="table-group-item" key={ride._id}>
+
+          <tr className="table-group-item ride-row" key={ride._id} onClick={()=> this.handleRowClick(ride._id)}>
               <td>
-                <Link to={`/rides/${ride._id}`}>
-                  {capFirst(ride.name)}
-                </Link>
+                  <p>{capFirst(ride.name)}</p>
               </td>
               <td>
-                {capFirst(ride.origin)}
+                <p>{capFirst(ride.origin)}</p>
               </td>
               <td>
-                {capFirst(ride.destination)}
+                <p>{capFirst(ride.destination)}</p>
               </td>
               <td>
-                {readableDate}
+                <p>{readableDate}</p>
               </td>
           </tr>
       );
@@ -149,14 +152,14 @@ class RideTable extends Component {
     }
     return (
         <div className="row">
-          <h3> Rides </h3>
-            <table className="table">
+          <h2> Rides </h2>
+            <table className="table ride-table">
               <tbody>
                 <tr>
-                  <th>Name</th>
-                  <th className="ride_index_heading orig-head" onClick={this.handleOriginClick}>Origin</th>
-                  <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}>Destination</th>
-                  <th className="ride_index_heading date-head active"onClick={this.handleDateClick}>Date</th>
+                  <th><h4>Name</h4></th>
+                  <th className="ride_index_heading orig-head" onClick={this.handleOriginClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Origin</h4></th>
+                  <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Destination</h4></th>
+                  <th className="ride_index_heading date-head active"onClick={this.handleDateClick}><h4><span><i className="fa fa-sort-up i-sort"></i></span> Date</h4></th>
                 </tr>
                   {this.renderRides()}
               </tbody>
@@ -171,4 +174,4 @@ function mapStateToProps(state) {
   return { rides: state.rides };
 }
 
-export default connect(mapStateToProps, { fetchRides })(RideTable); // MAP state to props stuff
+export default withRouter(connect(mapStateToProps, { fetchRides })(RideTable)); // MAP state to props stuff

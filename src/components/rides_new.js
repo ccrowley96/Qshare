@@ -7,8 +7,6 @@ import  DatePicker from 'react-datepicker';
 import moment from 'moment';
 import renderDatePicker from './date_input.js';
 
-//import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
-
 class RidesNew extends Component {
 
   constructor(props) {
@@ -98,7 +96,8 @@ class RidesNew extends Component {
   onSubmit(values) {
     const uid = this.props.userInfo.uid;
     const link = this.props.userInfo.link;
-    this.props.createRide(values, uid, link, () => {
+    const profile_picture = this.props.userInfo.profile_pic.data.url;
+    this.props.createRide(values, uid, link, profile_picture, () => {
       // Programmatic Redirect
       this.props.history.push('/');
     });
@@ -129,69 +128,83 @@ class RidesNew extends Component {
           </Link>
         </div>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field
-              name="uid"
-              label="User ID"
-              type="text"
-              value={this.props.userInfo.uid}
-              component={this.attachUID}
-            />
-          <Field
-              label="Enter Name"
-              type="text"
-              name="name"
-              placeholder={this.props.userInfo.full_name}
-              component={this.renderInputField}
-          />
-          <Field
-              label="Ride Price"
-              type="number"
-              name="price"
-              placeholder="How much are you charging?"
-              component={this.renderInputField}
-          />
-          <Field
-              label="Ride Capacity"
-              type="number"
-              name="capacity"
-              placeholder="How many seats are available?"
-              component={this.renderInputField}
-          />
-          <Field
-              label="Origin"
-              type="text"
-              name="origin"
-              placeholder="Where are you leaving from?"
-              component={this.renderInputField}
-          />
-          <Field
-              label="Destination"
-              placeholder="Where are you going?"
-              type="text"
-              name="destination"
-              component={this.renderInputField}
-          />
-          <Field
-            label="Date"
-            name="date"
-            inputValueFormat="YYYY/MM/DD"
-            dateFormat="LL"
-            dateFormatCalendar="MMMM"
-            placeholderText={moment().format('LL')}
-            normalize={(value) => (value ? moment(value).format('YYYY/MM/DD') : null)}
-            minDate={moment()}
-            maxDate={moment().add(90, "days")}
-            component={renderDatePicker}
-          />
-          <Field
-              label="Description"
-              type="textarea"
-              name="description"
-              placeholder="Enter ride details (optional)"
-              customClass = "description"
-              component={this.renderTextAreaField}
-          />
-        <button type="submit" className="btn btn-success">Post</button>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-xs-12">
+                <Field
+                    name="uid"
+                    label="User ID"
+                    type="text"
+                    value={this.props.userInfo.uid}
+                    component={this.attachUID}
+                  />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xs-12 col-md-6">
+                <Field
+                    label="Enter Name"
+                    type="text"
+                    name="name"
+                    placeholder={this.props.userInfo.full_name}
+                    component={this.renderInputField}
+                />
+                <Field
+                    label="Ride Price"
+                    type="number"
+                    name="price"
+                    placeholder="How much are you charging?"
+                    component={this.renderInputField}
+                />
+                <Field
+                    label="Ride Capacity"
+                    type="number"
+                    name="capacity"
+                    placeholder="How many seats are available?"
+                    component={this.renderInputField}
+                />
+                <Field
+                  label="Date"
+                  name="date"
+                  inputValueFormat="YYYY/MM/DD"
+                  dateFormat="LL"
+                  dateFormatCalendar="MMMM"
+                  placeholderText={moment().format('LL')}
+                  normalize={(value) => (value ? moment(value).format('YYYY/MM/DD') : null)}
+                  minDate={moment()}
+                  maxDate={moment().add(90, "days")}
+                  component={renderDatePicker}
+                />
+                </div>
+                <div className="col-xs-12 col-md-6">
+                <Field
+                    label="Origin"
+                    type="text"
+                    name="origin"
+                    placeholder="Where are you leaving from?"
+                    component={this.renderInputField}
+                />
+                <Field
+                    label="Destination"
+                    placeholder="Where are you going?"
+                    type="text"
+                    name="destination"
+                    component={this.renderInputField}
+                />
+                <Field
+                    label="Description"
+                    type="textarea"
+                    name="description"
+                    placeholder="Enter ride details (optional)"
+                    customClass = "description"
+                    component={this.renderTextAreaField}
+                />
+                </div>
+              </div>
+              <div className="row">
+                <button type="submit" className="btn btn-success form-submit-button">Post Ride</button>
+              </div>
+            </div>
         </form>
       </div>
     );

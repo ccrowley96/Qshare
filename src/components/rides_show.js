@@ -112,18 +112,60 @@ class RidesShow extends Component {
       );
     } else {
       return (
-        <div>
+        <div className="ride-show-wrap">
             <div className="text-xs-right">
               <Link to="/" className="btn btn-primary">Home</Link>
             </div>
-          <h3>{capFirst(ride.name)}</h3>
-          <h5><b>User ID:</b> {ride.uid}</h5>
-          <h5><b>Price:</b> ${ride.price}</h5>
-          <h5><b>Capacity:</b> {ride.capacity} seats</h5>
-          <h5><b>Origin:</b> {capFirst(ride.origin)}</h5>
-          <h5><b>Destination:</b> {capFirst(ride.destination)}</h5>
-          <h5><b>Date:</b> {readableDate}</h5>
-          <h5><b>Description:</b></h5><p> {ride.description}</p>
+            <div className="container-fluid">
+              <div className="row ride-header">
+                <div className="col-xs-12 col-lg-3 col-sm-12 text-center">
+                  <img className="ride-profile-picture" src={ride.profile_picture} />
+                </div>
+                <div className="col-xs-12 col-lg-9 col-sm-12 locations-wrap">
+                  <span className="locations">{capFirst(ride.origin)} <span className="i-span-arrow"><i className="fas fa-long-arrow-alt-right"></i></span> {capFirst(ride.destination)}</span>
+                </div>
+              </div>
+              <div className="row ride-show-table">
+                <div className="col-lg-8 col-sm-12 col-xs-12">
+                  <table className="table">
+                    <tbody>
+                      <tr className="table-group-item">
+                        <td><h4><span className="i-span"><i className="fas fa-car"></i></span> Driver</h4></td>
+                        <td><p>{capFirst(ride.name)}</p></td>
+                      </tr>
+                      <tr className="table-group-item">
+                        <td><h4><span className="i-span"><i className="fas fa-calendar-alt"></i></span> Departure Date</h4></td>
+                        <td><p>{readableDate}</p></td>
+                      </tr>
+                      <tr className="table-group-item">
+                        <td><h4><span className="i-span"><i className="fas fa-dollar-sign"></i></span>  Price</h4></td>
+                        <td><p>${ride.price}</p></td>
+                      </tr>
+                      <tr className="table-group-item">
+                        <td><h4><span className="i-span"><i className="fas fa-users"></i></span> Capacity</h4></td>
+                        <td><p><b>{ride.capacity}</b> seats remaining</p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="col-lg-4 col-sm-12 col-xs-12">
+                <table className="table">
+                  <tbody>
+                    <tr className="table-group-item description-row">
+                      <td>
+                        <h4><span className="i-span-desc"><i className="fas fa-info-circle"></i></span>Description:</h4>
+                      </td>
+                    </tr>
+                    <tr className="table-group-item">
+                      <td>
+                        <p> {ride.description}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
           {this.renderDelete()}
           {this.renderEdit()}
           {this.renderFBLink()}

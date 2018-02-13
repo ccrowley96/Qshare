@@ -1,6 +1,7 @@
 import React, {Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Route } from 'react-router-dom'; //Substitute for <a> tag
+import { withRouter } from 'react-router-dom'
 import _ from 'lodash';
 import moment from 'moment';
 import { fetchRidesBy_UID } from '../actions';
@@ -20,6 +21,7 @@ class MyRideTable extends Component {
     this.handleOriginClick = this.handleOriginClick.bind(this);
     this.handleDestinationClick = this.handleDestinationClick.bind(this);
     this.handleDateClick = this.handleDateClick.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
   }
 
   componentDidMount() {
@@ -91,6 +93,9 @@ class MyRideTable extends Component {
   handleDateClick() {
     this.sortRides(SORT_BY_DATE);
   }
+  handleRowClick(rideID) {
+     this.props.history.push(`/rides/${rideID}`);
+  }
   //Individual ride row JSX generator
   renderRides() {
     const mq = window.matchMedia("(min-width: 700px)");
@@ -105,20 +110,18 @@ class MyRideTable extends Component {
       }
       //return JSX for each table element
       return (
-          <tr className="table-group-item" key={ride._id}>
+          <tr className="table-group-item ride-row" key={ride._id} onClick={()=> this.handleRowClick(ride._id)}>
               <td>
-                <Link to={`/rides/${ride._id}`}>
-                  {capFirst(ride.name)}
-                </Link>
+                  <p>{capFirst(ride.name)}</p>
               </td>
               <td>
-                {capFirst(ride.origin)}
+                <p>{capFirst(ride.origin)}</p>
               </td>
               <td>
-                {capFirst(ride.destination)}
+                <p>{capFirst(ride.destination)}</p>
               </td>
               <td>
-                {readableDate}
+                <p>{readableDate}</p>
               </td>
           </tr>
       );
@@ -130,13 +133,13 @@ class MyRideTable extends Component {
       <div className="my-rides-container">
         <div className="row">
           <h3> My Rides </h3>
-            <table className="table">
+            <table className="table ride-table">
               <tbody>
                 <tr>
                   <th>Name</th>
-                  <th className="ride_index_heading orig-head" onClick={this.handleOriginClick}>Origin</th>
-                  <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}>Destination</th>
-                  <th className="ride_index_heading date-head active"onClick={this.handleDateClick}>Date</th>
+                  <th className="ride_index_heading orig-head" onClick={this.handleOriginClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Origin</h4></th>
+                  <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Destination</h4></th>
+                  <th className="ride_index_heading date-head active"onClick={this.handleDateClick}><h4><span><i className="fa fa-sort-up i-sort"></i></span> Date</h4></th>
                 </tr>
                   {this.renderRides()}
               </tbody>
@@ -147,4 +150,4 @@ class MyRideTable extends Component {
   }
 }
 
-export default MyRideTable; // MAP state to props stuff
+export default withRouter(MyRideTable); // MAP state to props stuff

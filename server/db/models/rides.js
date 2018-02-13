@@ -13,6 +13,9 @@ const rideSchema = mongoose.Schema({
   link: {
     type: String
   },
+  profile_picture: {
+    type: String
+  },
   price: {
     type: Number,
     required: true

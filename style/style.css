@@ -1,9 +1,24 @@
 body{
   padding-top:50px;
   padding-bottom: 100px;
-  padding-left: 25px;
-  padding-right: 25px;
 }
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6
+{
+  font-family: 'Signika', sans-serif;
+}
+body p{
+  font-family: 'Quicksand', sans-serif;
+}
+
+.btn{
+  font-family: 'Quicksand', sans-serif;
+}
+
 /* Login Page */
 .login-page-wrap{
   margin-top: 20px;
@@ -21,22 +36,116 @@ body{
 .ride_index_heading{
   cursor: pointer;
 }
-.active{
-  background-color: rgba(0, 0, 0, 0.15);
+.ride_index_heading:hover{
+  background-color: #5cb85c57;
 }
+.active{
+  background-color: #5cb85cbd;
+}
+.i-sort{
+  font-size: 18px;
+  visibility: hidden;
+}
+.active .i-sort{
+  visibility: visible;
+}
+
 .user-buttons{
   margin-top: 15px;
   float:right;
 }
 
+
 /* Individual Ride Page */
+.ride-show-wrap{
+  padding: 20px 20px 20px 20px;
+  border-radius: 3px;
+}
+.ride-show-wrap p{
+  font-size: 20px;
+}
+.ride-show-wrap .description-row td{
+  border-top:none;
+}
+.ride-show-wrap .i-span{
+  float: left;
+  width: 60px;
+}
+.ride-show-wrap .i-span-desc{
+  float: left;
+  width: 40px;
+}
 .my-edit-button{
   margin-left: 20px;
+}
+.ride-profile-picture{
+  width:200px;
+  heigh:200px;
+  border-radius: 50%;
+}
+.ride-header {
+  background-color: #d4d4d459;
+  border-radius: 5px;
+  height: 250px;
+  padding: 20px 20px 20px 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.ride-header img{
+  display: block;
+  position: relative;
+  margin:auto;
+  left:0;
+  right:0;
+}
+.locations-wrap{
+  height: 210px;
+  text-align: center;
+  display: table;
+}
+.locations{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 45px;
+}
+
+@media (max-width: 768px) {
+  .ride-show-wrap .i-span{
+    display:none;
+  }
+  .ride-show-wrap .i-span-desc{
+    display:none;
+  }
+  .locations-wrap{
+    margin-top: 40px;
+    height: 100px;
+  }
+  .locations{
+    font-size: 30px;
+  }
+}
+@media (max-width: 520px) {
+  .ride-show-wrap h4{
+    font-weight: bolder;
+    font-size: .97em;
+  }
+  .ride-show-wrap p{
+    font-size: .95em;
+  }
+  .locations-wrap{
+    margin-top: 30px;
+    height: 80px;
+  }
+  .locations{
+    font-size: 20px;
+  }
 }
 /* Post Ride Form */
 form .form-group .input-field{
   background-color: rgba(0, 0, 0, 0.03);
-  width:50%;
+  width:100%;
 }
 form .form-group .uid-field{
   width:25%;
@@ -51,7 +160,7 @@ form .form-group .uid-field:focus{
   border: none;
 }
 form .description textarea{
-  width:75%;
+  width:100%;
   background-color: rgba(0, 0, 0, 0.03);
   height: 100px;
 }
@@ -86,6 +195,9 @@ form .description textarea{
     width:100%;
   }
 }
+.form-submit-button{
+  float: right;
+}
 /* Profile Page */
 .profile-login-message{
   margin-top: 30px;
@@ -108,4 +220,9 @@ form .description textarea{
 }
 .my-rides-container{
   margin-top: 20px;
+}
+.ride-table .ride-row:hover,
+.ride-table .ride-row:focus,
+.ride-table .ride-row:active{
+  background-color: #d4d4d459;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom'; //Substitute for <a> tag
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateRide } from '../actions';
 import  DatePicker from 'react-datepicker';
@@ -95,8 +95,9 @@ class RidesUpdate extends Component {
   onSubmit(values) {
     const uid = this.props.userInfo.uid;
     const link = this.props.userInfo.link;
+    const profile_picture = this.props.userInfo.profile_pic.data.url;
     const rideID = this.props.rideID;
-    this.props.updateRide(values, uid, link, rideID, () => {
+    this.props.updateRide(values, uid, link, rideID, profile_picture, () => {
       this.props.action();
       // Programmatic Redirect to ride_show on specific ID
       this.props.history.push(`/rides/${rideID}`);

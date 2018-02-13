@@ -1,7 +1,11 @@
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
 module.exports = {
+  node: {
+    fs: 'empty'
+  },
   entry: [
     './src/index.js'
   ],
@@ -24,7 +28,11 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    modules: [
+       path.join(__dirname, "src"),
+       "node_modules"
+    ]
   },
   devServer: {
     historyApiFallback: true,
@@ -32,5 +40,8 @@ module.exports = {
     headers: {
            'Access-Control-Allow-Origin': '*'
     }
-  }
+  },
+  plugins: [
+    new Dotenv()
+  ]
 };

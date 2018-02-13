@@ -1,7 +1,8 @@
+//import dotenv from 'dotenv';
+//dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 import axios from 'axios';
-import {withRouter} from "react-router-dom";
-
-
+import {withRouter} from 'react-router-dom';
+import path from 'path';
 export const FETCH_RIDES = 'fetch_rides';
 export const CREATE_RIDE = 'create_ride';
 export const FETCH_RIDE = 'fetch_ride';
@@ -9,7 +10,8 @@ export const DELETE_RIDE = 'delete_ride';
 export const FB_USER_STATE = 'facebook_user_info';
 export const FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
 
-const LOCAL_ROOT_URL = "http://localhost:3000/api";
+const LOCAL_ROOT_URL = process.env.LOCAL_ROOT_URL;
+console.log(process.env.LOCAL_ROOT_URL);
 
 export function fb_user_state(userInfo, callback) {
   if (userInfo.loggedIn === false) {

@@ -6,14 +6,22 @@ const ObjectId = require('mongodb').ObjectID;
 const router = express.Router();
 const Rides = require('./rides');
 
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 /*--------------------------Connect to DB ------------------------------ */
-//Live DB connection 35.203.114.77
+// //Live DB connection 35.203.114.77
 // const host = "35.203.114.77";
 // const name = "qshare";
 // const port = 27017;
-// mongoose.connect(`mongodb://client:qshare-2018@${host}:${port}/${name}`);
-//mongodb://username:password@localhost:27012/database
-mongoose.connect('mongodb://localhost/qshare');
+// mongoose.connect(`mongodb://qshare-client:qshare-2018@${host}:${port}/${name}`);
+//mongodb://username:password@localhost:27012/damongoose.connect('mongodb://localhost/qshare');
+const host = process.env.DB_HOST;
+const username = process.env.DB_USER;
+const password = process.env.DB_PASS;
+const dbname = process.env.DB_NAME;
+const port = 27017;
+
+mongoose.connect(`mongodb://${username}:${password}@${host}:${port}/${dbname}`);
+
 const db = mongoose.connection;
 //Check connection
 db.once('open', () =>{

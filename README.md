@@ -41,6 +41,20 @@ npm run client-dev
 npm run start
 ```
 
+# Setting Up .env Environment Variables 
+**Before you can run, test, or build the application, you must create a .env file!**
+
+|Variable|Value|
+|--------|-----|
+|DB_HOST|localhost|
+|DB_USER|[DB USERNAME HERE]|
+|DB_PASS|[DB PASSWORD HERE]|
+|DB_NAME|qshare|
+|PORT|8080|
+|LOCAL_ROOT_URL|http://localhost:8080/api|
+
+**See example.env for syntax reference**
+
 ### Commiting your changes to the project github repository
 - **Before you make changes**, create a feature branch off of **dev**
   - `git checkout dev`

@@ -20,8 +20,13 @@ const password = process.env.DB_PASS;
 const dbname = process.env.DB_NAME;
 const port = 27017;
 
-mongoose.connect(`mongodb://${username}:${password}@${host}:${port}/${dbname}`);
-
+/* Connect to remote mongo instance only if username & password specified */
+if(!username || !password){
+  console.log('here!');
+  mongoose.connect(`mongodb://${host}:${port}/${dbname}`);
+} else {
+  mongoose.connect(`mongodb://${username}:${password}@${host}:${port}/${dbname}`);
+}
 const db = mongoose.connection;
 //Check connection
 db.once('open', () =>{

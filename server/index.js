@@ -33,4 +33,8 @@ app.use('/api', API);
 // Static Files
 app.use(express.static(BUNDLE_DIR));
 //Start Listening
-app.listen(port, () => console.log(`Qshare running on port: ${port}!`));
+app.listen(port, () => {
+    console.log(`Qshare server running on port: ${port}!`);
+    console.log(`Qshare client running on port: 8080!`);
+  }
+);

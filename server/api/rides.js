@@ -25,12 +25,15 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const ride = new Ride();
     ride.uid = req.body.uid;
+    ride.link = req.body.link;
+    ride.profile_picture = req.body.profile_picture;
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;
     ride.origin = req.body.origin.toLowerCase();
     ride.destination = req.body.destination.toLowerCase();
     ride.date = req.body.date;
+    
     if (req.body.description) {
       ride.description = req.body.description;
     }
@@ -52,6 +55,7 @@ router.post('/update', (req, res, next) => {
     const rideID = req.body.rideID;
 
     ride.uid = req.body.uid;
+    ride.link = req.body.link;
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;
@@ -62,7 +66,7 @@ router.post('/update', (req, res, next) => {
     if (req.body.description) {
       ride.description = req.body.description;
     }
-  
+
     Ride.update({"_id":ObjectId(`${rideID}`)}, ride, (err) => {
       if (err) {
         console.log(err);

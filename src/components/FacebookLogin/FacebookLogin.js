@@ -22,7 +22,7 @@ class FB_Login extends React.Component {
 
         window.fbAsyncInit = function() {
             FB.init({
-              appId: '152331278836309',
+              appId: '1860846777499353',
               cookie: true,  // enable cookies to allow the server to access the session
               xfbml: true,  // parse social plugins on this page
               version: 'v2.8' // use graph api version 2.8

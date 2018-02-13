@@ -8,12 +8,11 @@ const Rides = require('./rides');
 
 /*--------------------------Connect to DB ------------------------------ */
 //Live DB connection 35.203.114.77
-// const host = "35.203.114.77";
-// const name = "qshare";
-// const port = 27017;
-// mongoose.connect(`mongodb://client:qshare-2018@${host}:${port}/${name}`);
-//mongodb://username:password@localhost:27012/database
-mongoose.connect('mongodb://localhost/qshare');
+const host = "35.203.114.77";
+const name = "qshare";
+const port = 27017;
+mongoose.connect(`mongodb://qshare-client:qshare-2018@${host}:${port}/${name}`);
+//mongodb://username:password@localhost:27012/damongoose.connect('mongodb://localhost/qshare');
 const db = mongoose.connection;
 //Check connection
 db.once('open', () =>{

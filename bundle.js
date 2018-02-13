@@ -98,11 +98,11 @@
 
 	var _FacebookLogin2 = _interopRequireDefault(_FacebookLogin);
 
-	var _profile = __webpack_require__(663);
+	var _profile = __webpack_require__(664);
 
 	var _profile2 = _interopRequireDefault(_profile);
 
-	var _login = __webpack_require__(665);
+	var _login = __webpack_require__(666);
 
 	var _login2 = _interopRequireDefault(_login);
 
@@ -38792,7 +38792,6 @@
 	      newState = _extends({}, state);
 	      newState.userRides = rides;
 	      return newState;
-
 	    case _actions.DELETE_RIDE:
 	      return _lodash2.default.omit(state, action.payload);
 
@@ -51180,6 +51179,7 @@
 	exports.fb_user_state = fb_user_state;
 	exports.fetchRides = fetchRides;
 	exports.createRide = createRide;
+	exports.updateRide = updateRide;
 	exports.fetchRide = fetchRide;
 	exports.fetchRidesBy_UID = fetchRidesBy_UID;
 	exports.deleteRide = deleteRide;
@@ -51220,10 +51220,28 @@
 	  };
 	}
 
-	function createRide(values, uid, callback) {
+	function createRide(values, uid, link, profile_picture, callback) {
 	  values["uid"] = uid;
+	  values["link"] = link;
+	  values["profile_picture"] = profile_picture;
 	  //Callback redirects user to home page
 	  var request = _axios2.default.post(LOCAL_ROOT_URL + '/rides', values).then(function () {
+	    return callback();
+	  });
+
+	  return {
+	    type: CREATE_RIDE,
+	    payload: request
+	  };
+	}
+
+	function updateRide(values, uid, link, rideID, profile_picture, callback) {
+	  values["uid"] = uid;
+	  values["link"] = link;
+	  values["rideID"] = rideID;
+	  values["profile_picture"] = profile_picture;
+	  //Callback redirects user to home page
+	  var request = _axios2.default.post(LOCAL_ROOT_URL + '/rides/update', values).then(function () {
 	    return callback();
 	  });
 
@@ -68776,6 +68794,7 @@
 	    var _this = _possibleConstructorReturn(this, (FB_Login.__proto__ || Object.getPrototypeOf(FB_Login)).call(this, props));
 
 	    _this.facebookLogin = function () {
+	      console.log(_this.props);
 	      if (_this.props.loggedIn) {
 	        FB.logout(function (response) {
 	          this.statusChangeCallback(response);
@@ -68808,7 +68827,7 @@
 
 	      window.fbAsyncInit = function () {
 	        FB.init({
-	          appId: '152331278836309',
+	          appId: '1860846777499353',
 	          cookie: true, // enable cookies to allow the server to access the session
 	          xfbml: true, // parse social plugins on this page
 	          version: 'v2.8' // use graph api version 2.8
@@ -68830,7 +68849,7 @@
 	        var tempProps = this.props;
 	        var userObject = {};
 	        // Logged into your app and Facebook.
-	        FB.api('/me?fields=id,name,first_name,last_name,email,picture.width(800).height(800),cover.width(1200)', function (response) {
+	        FB.api('/me?fields=id,link,name,first_name,last_name,email,picture.width(800).height(800),cover.width(1200)', function (response) {
 	          userObject = {
 	            loggedIn: true,
 	            full_name: response.name,
@@ -68839,7 +68858,8 @@
 	            email: response.email,
 	            uid: response.id,
 	            cover: response.cover,
-	            profile_pic: response.picture
+	            profile_pic: response.picture,
+	            link: response.link
 	          };
 	          tempProps.fb_user_state(userObject);
 	        });
@@ -68970,6 +68990,7 @@
 	    _this.handleOriginClick = _this.handleOriginClick.bind(_this);
 	    _this.handleDestinationClick = _this.handleDestinationClick.bind(_this);
 	    _this.handleDateClick = _this.handleDateClick.bind(_this);
+	    _this.handleRowClick = _this.handleRowClick.bind(_this);
 	    return _this;
 	  }
 
@@ -69066,11 +69087,18 @@
 	    value: function handleDateClick() {
 	      this.sortRides(SORT_BY_DATE);
 	    }
+	  }, {
+	    key: 'handleRowClick',
+	    value: function handleRowClick(rideID) {
+	      this.props.history.push('/rides/' + rideID);
+	    }
 	    //Individual ride row JSX generator
 
 	  }, {
 	    key: 'renderRides',
 	    value: function renderRides() {
+	      var _this2 = this;
+
 	      var mq = window.matchMedia("(min-width: 700px)");
 	      var rides = this.state.sortedRides;
 	      var readableDate = void 0;
@@ -69085,30 +69113,44 @@
 	        //return JSX for each table element
 	        return _react2.default.createElement(
 	          'tr',
-	          { className: 'table-group-item', key: ride._id },
+	          { className: 'table-group-item ride-row', key: ride._id, onClick: function onClick() {
+	              return _this2.handleRowClick(ride._id);
+	            } },
 	          _react2.default.createElement(
 	            'td',
 	            null,
 	            _react2.default.createElement(
-	              _reactRouterDom.Link,
-	              { to: '/rides/' + ride._id },
+	              'p',
+	              null,
 	              (0, _string_manipulation.capFirst)(ride.name)
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            (0, _string_manipulation.capFirst)(ride.origin)
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              (0, _string_manipulation.capFirst)(ride.origin)
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            (0, _string_manipulation.capFirst)(ride.destination)
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              (0, _string_manipulation.capFirst)(ride.destination)
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            readableDate
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              readableDate
+	            )
 	          )
 	        );
 	      });
@@ -69134,13 +69176,13 @@
 	        'div',
 	        { className: 'row' },
 	        _react2.default.createElement(
-	          'h3',
+	          'h2',
 	          null,
 	          ' Rides '
 	        ),
 	        _react2.default.createElement(
 	          'table',
-	          { className: 'table' },
+	          { className: 'table ride-table' },
 	          _react2.default.createElement(
 	            'tbody',
 	            null,
@@ -69150,22 +69192,53 @@
 	              _react2.default.createElement(
 	                'th',
 	                null,
-	                'Name'
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  'Name'
+	                )
 	              ),
 	              _react2.default.createElement(
 	                'th',
 	                { className: 'ride_index_heading orig-head', onClick: this.handleOriginClick },
-	                'Origin'
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    _react2.default.createElement('i', { className: 'fa fa-sort-alpha-up i-sort' })
+	                  ),
+	                  ' Origin'
+	                )
 	              ),
 	              _react2.default.createElement(
 	                'th',
 	                { className: 'ride_index_heading dest-head', onClick: this.handleDestinationClick },
-	                'Destination'
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    _react2.default.createElement('i', { className: 'fa fa-sort-alpha-up i-sort' })
+	                  ),
+	                  ' Destination'
+	                )
 	              ),
 	              _react2.default.createElement(
 	                'th',
 	                { className: 'ride_index_heading date-head active', onClick: this.handleDateClick },
-	                'Date'
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    _react2.default.createElement('i', { className: 'fa fa-sort-up i-sort' })
+	                  ),
+	                  ' Date'
+	                )
 	              )
 	            ),
 	            this.renderRides()
@@ -69182,7 +69255,7 @@
 	  return { rides: state.rides };
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchRides: _actions.fetchRides })(RideTable); // MAP state to props stuff
+	exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, { fetchRides: _actions.fetchRides })(RideTable)); // MAP state to props stuff
 
 /***/ }),
 /* 645 */
@@ -69253,8 +69326,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //Substitute for <a> tag
 
-
-	//import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
 
 	var RidesNew = function (_Component) {
 	  _inherits(RidesNew, _Component);
@@ -69358,7 +69429,9 @@
 	      var _this2 = this;
 
 	      var uid = this.props.userInfo.uid;
-	      this.props.createRide(values, uid, function () {
+	      var link = this.props.userInfo.link;
+	      var profile_picture = this.props.userInfo.profile_pic.data.url;
+	      this.props.createRide(values, uid, link, profile_picture, function () {
 	        // Programmatic Redirect
 	        _this2.props.history.push('/');
 	      });
@@ -69408,74 +69481,102 @@
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: handleSubmit(this.onSubmit.bind(this)) },
-	          _react2.default.createElement(_reduxForm.Field, {
-	            name: 'uid',
-	            label: 'User ID',
-	            type: 'text',
-	            value: this.props.userInfo.uid,
-	            component: this.attachUID
-	          }),
-	          _react2.default.createElement(_reduxForm.Field, {
-	            label: 'Enter Name',
-	            type: 'text',
-	            name: 'name',
-	            placeholder: this.props.userInfo.full_name,
-	            component: this.renderInputField
-	          }),
-	          _react2.default.createElement(_reduxForm.Field, {
-	            label: 'Ride Price',
-	            type: 'number',
-	            name: 'price',
-	            placeholder: 'How much are you charging?',
-	            component: this.renderInputField
-	          }),
-	          _react2.default.createElement(_reduxForm.Field, {
-	            label: 'Ride Capacity',
-	            type: 'number',
-	            name: 'capacity',
-	            placeholder: 'How many seats are available?',
-	            component: this.renderInputField
-	          }),
-	          _react2.default.createElement(_reduxForm.Field, {
-	            label: 'Origin',
-	            type: 'text',
-	            name: 'origin',
-	            placeholder: 'Where are you leaving from?',
-	            component: this.renderInputField
-	          }),
-	          _react2.default.createElement(_reduxForm.Field, {
-	            label: 'Destination',
-	            placeholder: 'Where are you going?',
-	            type: 'text',
-	            name: 'destination',
-	            component: this.renderInputField
-	          }),
-	          _react2.default.createElement(_reduxForm.Field, {
-	            label: 'Date',
-	            name: 'date',
-	            inputValueFormat: 'YYYY-MM-DD',
-	            dateFormat: 'LL',
-	            dateFormatCalendar: 'MMMM',
-	            placeholderText: (0, _moment2.default)().format('LL'),
-	            normalize: function normalize(value) {
-	              return value ? (0, _moment2.default)(value).format('YYYY-MM-DD') : null;
-	            },
-	            minDate: (0, _moment2.default)(),
-	            maxDate: (0, _moment2.default)().add(90, "days"),
-	            component: _date_input2.default
-	          }),
-	          _react2.default.createElement(_reduxForm.Field, {
-	            label: 'Description',
-	            type: 'textarea',
-	            name: 'description',
-	            placeholder: 'Enter ride details (optional)',
-	            customClass: 'description',
-	            component: this.renderTextAreaField
-	          }),
 	          _react2.default.createElement(
-	            'button',
-	            { type: 'submit', className: 'btn btn-success' },
-	            'Post'
+	            'div',
+	            { className: 'container-fluid' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-xs-12' },
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  name: 'uid',
+	                  label: 'User ID',
+	                  type: 'text',
+	                  value: this.props.userInfo.uid,
+	                  component: this.attachUID
+	                })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-xs-12 col-md-6' },
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  label: 'Enter Name',
+	                  type: 'text',
+	                  name: 'name',
+	                  placeholder: this.props.userInfo.full_name,
+	                  component: this.renderInputField
+	                }),
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  label: 'Ride Price',
+	                  type: 'number',
+	                  name: 'price',
+	                  placeholder: 'How much are you charging?',
+	                  component: this.renderInputField
+	                }),
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  label: 'Ride Capacity',
+	                  type: 'number',
+	                  name: 'capacity',
+	                  placeholder: 'How many seats are available?',
+	                  component: this.renderInputField
+	                }),
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  label: 'Date',
+	                  name: 'date',
+	                  inputValueFormat: 'YYYY/MM/DD',
+	                  dateFormat: 'LL',
+	                  dateFormatCalendar: 'MMMM',
+	                  placeholderText: (0, _moment2.default)().format('LL'),
+	                  normalize: function normalize(value) {
+	                    return value ? (0, _moment2.default)(value).format('YYYY/MM/DD') : null;
+	                  },
+	                  minDate: (0, _moment2.default)(),
+	                  maxDate: (0, _moment2.default)().add(90, "days"),
+	                  component: _date_input2.default
+	                })
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-xs-12 col-md-6' },
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  label: 'Origin',
+	                  type: 'text',
+	                  name: 'origin',
+	                  placeholder: 'Where are you leaving from?',
+	                  component: this.renderInputField
+	                }),
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  label: 'Destination',
+	                  placeholder: 'Where are you going?',
+	                  type: 'text',
+	                  name: 'destination',
+	                  component: this.renderInputField
+	                }),
+	                _react2.default.createElement(_reduxForm.Field, {
+	                  label: 'Description',
+	                  type: 'textarea',
+	                  name: 'description',
+	                  placeholder: 'Enter ride details (optional)',
+	                  customClass: 'description',
+	                  component: this.renderTextAreaField
+	                })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'submit', className: 'btn btn-success form-submit-button' },
+	                'Post Ride'
+	              )
+	            )
 	          )
 	        )
 	      );
@@ -76269,6 +76370,10 @@
 
 	var _actions = __webpack_require__(496);
 
+	var _ride_update = __webpack_require__(663);
+
+	var _ride_update2 = _interopRequireDefault(_ride_update);
+
 	var _string_manipulation = __webpack_require__(645);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -76282,17 +76387,33 @@
 	var RidesShow = function (_Component) {
 	  _inherits(RidesShow, _Component);
 
-	  function RidesShow() {
+	  function RidesShow(props) {
 	    _classCallCheck(this, RidesShow);
 
-	    return _possibleConstructorReturn(this, (RidesShow.__proto__ || Object.getPrototypeOf(RidesShow)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (RidesShow.__proto__ || Object.getPrototypeOf(RidesShow)).call(this, props));
+
+	    _this.state = {
+	      editOn: false,
+	      rideFetched: false
+	    };
+	    _this.resetEditFlag = _this.resetEditFlag.bind(_this);
+	    var id = _this.props.match.params.id;
+
+	    _this.props.fetchRide(id).then(function () {
+	      _this.updateRideFlag();
+	    });
+
+	    _this.updateRideFlag = _this.updateRideFlag.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(RidesShow, [{
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var id = this.props.match.params.id;
-	      this.props.fetchRide(id);
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'updateRideFlag',
+	    value: function updateRideFlag() {
+	      this.setState({ rideFetched: true });
 	    }
 	  }, {
 	    key: 'onDeleteClick',
@@ -76305,14 +76426,63 @@
 	      });
 	    }
 	  }, {
+	    key: 'onEditClick',
+	    value: function onEditClick() {
+	      this.setState({ editOn: true });
+	    }
+	  }, {
+	    key: 'onfblinkClick',
+	    value: function onfblinkClick() {
+	      var link = this.props.ride.link;
+	      window.location = link;
+	    }
+	  }, {
+	    key: 'resetEditFlag',
+	    value: function resetEditFlag() {
+	      var _this3 = this;
+
+	      var id = this.props.match.params.id;
+	      this.setState({ editOn: false, rideFetched: false });
+	      this.props.fetchRide(id).then(function () {
+	        _this3.updateRideFlag();
+	      });
+	      this.forceUpdate();
+	    }
+	  }, {
 	    key: 'renderDelete',
 	    value: function renderDelete() {
 	      var uid = this.props.ride.uid;
 	      if (this.props.userInfo.uid === uid) {
 	        return _react2.default.createElement(
 	          'button',
-	          { className: 'btn btn-danger pull-xs-left', onClick: this.onDeleteClick.bind(this) },
-	          'Delete Post'
+	          { className: 'my-delete-button btn btn-danger pull-xs-left', onClick: this.onDeleteClick.bind(this) },
+	          'Delete Ride'
+	        );
+	      }
+	      return _react2.default.createElement('div', null);
+	    }
+	  }, {
+	    key: 'renderEdit',
+	    value: function renderEdit() {
+	      var uid = this.props.ride.uid;
+	      if (this.props.userInfo.uid === uid) {
+	        return _react2.default.createElement(
+	          'button',
+	          { className: 'my-edit-button btn btn-success pull-xs-left', onClick: this.onEditClick.bind(this) },
+	          'Edit Ride'
+	        );
+	      }
+	      return _react2.default.createElement('div', null);
+	    }
+	  }, {
+	    key: 'renderFBLink',
+	    value: function renderFBLink() {
+	      var uid = this.props.ride.uid;
+	      if (this.props.userInfo.uid !== uid) {
+	        return _react2.default.createElement(
+	          'button',
+	          { className: 'my-fblink-button btn btn-primary pull-xs-left', onClick: this.onfblinkClick.bind(this) },
+	          'Facebook Profile'
 	        );
 	      }
 	      return _react2.default.createElement('div', null);
@@ -76333,108 +76503,244 @@
 	          )
 	        );
 	      }
-	      var readableDate = (0, _moment2.default)(ride.date).format('dddd, MMMM Do');
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
+	      // Wait for successfull ride fetch
+	      if (!this.state.rideFetched) {
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'text-xs-right' },
+	          null,
 	          _react2.default.createElement(
-	            _reactRouterDom.Link,
-	            { to: '/', className: 'btn btn-primary' },
-	            'Home'
+	            'h5',
+	            null,
+	            'Loading...'
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          (0, _string_manipulation.capFirst)(ride.name)
-	        ),
-	        _react2.default.createElement(
-	          'h5',
-	          null,
+	        );
+	      }
+	      var readableDate = (0, _moment2.default)(ride.date).format('dddd, MMMM Do');
+
+	      if (this.state.editOn) {
+	        return _react2.default.createElement(_ride_update2.default, { action: this.resetEditFlag, initialValues: ride, rideID: this.props.match.params.id, oldRide: ride });
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'ride-show-wrap' },
 	          _react2.default.createElement(
-	            'b',
-	            null,
-	            'User ID:'
+	            'div',
+	            { className: 'text-xs-right' },
+	            _react2.default.createElement(
+	              _reactRouterDom.Link,
+	              { to: '/', className: 'btn btn-primary' },
+	              'Home'
+	            )
 	          ),
-	          ' ',
-	          ride.uid
-	        ),
-	        _react2.default.createElement(
-	          'h5',
-	          null,
 	          _react2.default.createElement(
-	            'b',
-	            null,
-	            'Price:'
+	            'div',
+	            { className: 'container-fluid' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row ride-header' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-xs-12 col-lg-3 col-sm-12 text-center' },
+	                _react2.default.createElement('img', { className: 'ride-profile-picture', src: ride.profile_picture })
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-xs-12 col-lg-9 col-sm-12 locations-wrap' },
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'locations' },
+	                  (0, _string_manipulation.capFirst)(ride.origin),
+	                  ' ',
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'i-span-arrow' },
+	                    _react2.default.createElement('i', { className: 'fas fa-long-arrow-alt-right' })
+	                  ),
+	                  ' ',
+	                  (0, _string_manipulation.capFirst)(ride.destination)
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'row ride-show-table' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-lg-8 col-sm-12 col-xs-12' },
+	                _react2.default.createElement(
+	                  'table',
+	                  { className: 'table' },
+	                  _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    _react2.default.createElement(
+	                      'tr',
+	                      { className: 'table-group-item' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'h4',
+	                          null,
+	                          _react2.default.createElement(
+	                            'span',
+	                            { className: 'i-span' },
+	                            _react2.default.createElement('i', { className: 'fas fa-car' })
+	                          ),
+	                          ' Driver'
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'p',
+	                          null,
+	                          (0, _string_manipulation.capFirst)(ride.name)
+	                        )
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'tr',
+	                      { className: 'table-group-item' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'h4',
+	                          null,
+	                          _react2.default.createElement(
+	                            'span',
+	                            { className: 'i-span' },
+	                            _react2.default.createElement('i', { className: 'fas fa-calendar-alt' })
+	                          ),
+	                          ' Departure Date'
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'p',
+	                          null,
+	                          readableDate
+	                        )
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'tr',
+	                      { className: 'table-group-item' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'h4',
+	                          null,
+	                          _react2.default.createElement(
+	                            'span',
+	                            { className: 'i-span' },
+	                            _react2.default.createElement('i', { className: 'fas fa-dollar-sign' })
+	                          ),
+	                          '  Price'
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'p',
+	                          null,
+	                          '$',
+	                          ride.price
+	                        )
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'tr',
+	                      { className: 'table-group-item' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'h4',
+	                          null,
+	                          _react2.default.createElement(
+	                            'span',
+	                            { className: 'i-span' },
+	                            _react2.default.createElement('i', { className: 'fas fa-users' })
+	                          ),
+	                          ' Capacity'
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'p',
+	                          null,
+	                          _react2.default.createElement(
+	                            'b',
+	                            null,
+	                            ride.capacity
+	                          ),
+	                          ' seats remaining'
+	                        )
+	                      )
+	                    )
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'col-lg-4 col-sm-12 col-xs-12' },
+	                _react2.default.createElement(
+	                  'table',
+	                  { className: 'table' },
+	                  _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    _react2.default.createElement(
+	                      'tr',
+	                      { className: 'table-group-item description-row' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'h4',
+	                          null,
+	                          _react2.default.createElement(
+	                            'span',
+	                            { className: 'i-span-desc' },
+	                            _react2.default.createElement('i', { className: 'fas fa-info-circle' })
+	                          ),
+	                          'Description:'
+	                        )
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'tr',
+	                      { className: 'table-group-item' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                          'p',
+	                          null,
+	                          ' ',
+	                          ride.description
+	                        )
+	                      )
+	                    )
+	                  )
+	                )
+	              )
+	            )
 	          ),
-	          ' $',
-	          ride.price
-	        ),
-	        _react2.default.createElement(
-	          'h5',
-	          null,
-	          _react2.default.createElement(
-	            'b',
-	            null,
-	            'Capacity:'
-	          ),
-	          ' ',
-	          ride.capacity,
-	          ' seats'
-	        ),
-	        _react2.default.createElement(
-	          'h5',
-	          null,
-	          _react2.default.createElement(
-	            'b',
-	            null,
-	            'Origin:'
-	          ),
-	          ' ',
-	          (0, _string_manipulation.capFirst)(ride.origin)
-	        ),
-	        _react2.default.createElement(
-	          'h5',
-	          null,
-	          _react2.default.createElement(
-	            'b',
-	            null,
-	            'Destination:'
-	          ),
-	          ' ',
-	          (0, _string_manipulation.capFirst)(ride.destination)
-	        ),
-	        _react2.default.createElement(
-	          'h5',
-	          null,
-	          _react2.default.createElement(
-	            'b',
-	            null,
-	            'Date:'
-	          ),
-	          ' ',
-	          readableDate
-	        ),
-	        _react2.default.createElement(
-	          'h5',
-	          null,
-	          _react2.default.createElement(
-	            'b',
-	            null,
-	            'Description:'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' ',
-	          ride.description
-	        ),
-	        this.renderDelete()
-	      );
+	          this.renderDelete(),
+	          this.renderEdit(),
+	          this.renderFBLink()
+	        );
+	      }
 	    }
 	  }]);
 
@@ -76460,6 +76766,324 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reduxForm = __webpack_require__(254);
+
+	var _reactRouterDom = __webpack_require__(199);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _actions = __webpack_require__(496);
+
+	var _reactDatepicker = __webpack_require__(647);
+
+	var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
+
+	var _moment = __webpack_require__(525);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	var _date_input = __webpack_require__(656);
+
+	var _date_input2 = _interopRequireDefault(_date_input);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //Substitute for <a> tag
+
+
+	var RidesUpdate = function (_Component) {
+	  _inherits(RidesUpdate, _Component);
+
+	  function RidesUpdate(props) {
+	    _classCallCheck(this, RidesUpdate);
+
+	    var _this = _possibleConstructorReturn(this, (RidesUpdate.__proto__ || Object.getPrototypeOf(RidesUpdate)).call(this, props));
+
+	    _this.state = {
+	      oldRide: props.oldRide
+	    };
+	    _this.attachUID = _this.attachUID.bind(_this);
+	    _this.renderInputField = _this.renderInputField.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(RidesUpdate, [{
+	    key: 'renderInputField',
+	    value: function renderInputField(field) {
+	      var customClass = '';
+	      if (field.customClass) {
+	        customClass = field.customClass;
+	      }
+	      var className = 'form-group\n    ' + (field.meta.touched && field.meta.error ? 'has-danger' : '') + ' ' + customClass;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: className },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          field.label
+	        ),
+	        _react2.default.createElement('input', _extends({}, field.input, {
+	          placeholder: field.placeholder,
+	          className: 'form-control input-field',
+	          type: field.type
+	        })),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text-help' },
+	          field.meta.touched ? field.meta.error : ''
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'renderTextAreaField',
+	    value: function renderTextAreaField(field) {
+	      //field.meta.error automatically added to field object in validate
+	      // Must take field as arg to wire field to event handlers
+	      var customClass = '';
+	      if (field.customClass) {
+	        customClass = field.customClass;
+	      }
+	      var className = 'form-group\n    ' + (field.meta.touched && field.meta.error ? 'has-danger' : '') + ' ' + customClass;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: className },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          field.label
+	        ),
+	        _react2.default.createElement('textarea', _extends({
+	          placeholder: field.placeholder,
+	          className: 'form-control',
+	          type: field.type
+	        }, field.input)),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text-help' },
+	          field.meta.touched ? field.meta.error : ''
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'attachUID',
+	    value: function attachUID(field) {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'form-group' },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          field.label
+	        ),
+	        _react2.default.createElement('input', _extends({}, field.input, {
+	          className: 'form-control uid-field',
+	          tabIndex: '-1',
+	          readOnly: 'true',
+	          value: this.props.userInfo.uid,
+	          type: field.type
+	        }))
+	      );
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit(values) {
+	      var _this2 = this;
+
+	      var uid = this.props.userInfo.uid;
+	      var link = this.props.userInfo.link;
+	      var profile_picture = this.props.userInfo.profile_pic.data.url;
+	      var rideID = this.props.rideID;
+	      this.props.updateRide(values, uid, link, rideID, profile_picture, function () {
+	        _this2.props.action();
+	        // Programmatic Redirect to ride_show on specific ID
+	        _this2.props.history.push('/rides/' + rideID);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (!this.props.userInfo.loggedIn) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'text-xs-right' },
+	            _react2.default.createElement(
+	              _reactRouterDom.Link,
+	              { className: 'btn btn-danger', to: '/' },
+	              'Cancel'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'form-login-message' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              ' Log in to post ride '
+	            )
+	          )
+	        );
+	      }
+	      var handleSubmit = this.props.handleSubmit;
+	      // Field handles redux action / reducer interaction & event handling
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text-xs-right' },
+	          _react2.default.createElement(
+	            _reactRouterDom.Link,
+	            { className: 'btn btn-danger', to: '/' },
+	            'Cancel'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: handleSubmit(this.onSubmit.bind(this)) },
+	          _react2.default.createElement(_reduxForm.Field, {
+	            name: 'uid',
+	            label: 'User ID',
+	            type: 'text',
+	            component: this.attachUID
+	          }),
+	          _react2.default.createElement(_reduxForm.Field, {
+	            label: 'Enter Name',
+	            type: 'text',
+	            name: 'name',
+	            placeholder: 'What\'s your name?',
+	            component: this.renderInputField
+	          }),
+	          _react2.default.createElement(_reduxForm.Field, {
+	            label: 'Ride Price',
+	            type: 'number',
+	            name: 'price',
+	            placeholder: 'How much are you charging?',
+	            component: this.renderInputField
+	          }),
+	          _react2.default.createElement(_reduxForm.Field, {
+	            label: 'Ride Capacity',
+	            type: 'number',
+	            name: 'capacity',
+	            placeholder: 'How many seats are available?',
+	            component: this.renderInputField
+	          }),
+	          _react2.default.createElement(_reduxForm.Field, {
+	            label: 'Origin',
+	            type: 'text',
+	            name: 'origin',
+	            placeholder: 'Where are you leaving from?',
+	            component: this.renderInputField
+	          }),
+	          _react2.default.createElement(_reduxForm.Field, {
+	            label: 'Destination',
+	            placeholder: 'Where are you going?',
+	            type: 'text',
+	            name: 'destination',
+	            component: this.renderInputField
+	          }),
+	          _react2.default.createElement(_reduxForm.Field, {
+	            label: 'Date',
+	            name: 'date',
+	            inputValueFormat: 'YYYY/MM/DD',
+	            dateFormat: 'LL',
+	            dateFormatCalendar: 'MMMM',
+	            placeholderText: (0, _moment2.default)().format('LL'),
+	            normalize: function normalize(value) {
+	              return value ? (0, _moment2.default)(value).format('YYYY/MM/DD') : null;
+	            },
+	            minDate: (0, _moment2.default)(),
+	            maxDate: (0, _moment2.default)().add(90, "days"),
+	            component: _date_input2.default
+	          }),
+	          _react2.default.createElement(_reduxForm.Field, {
+	            label: 'Description',
+	            type: 'textarea',
+	            name: 'description',
+	            placeholder: 'Enter ride details (optional)',
+	            customClass: 'description',
+	            component: this.renderTextAreaField
+	          }),
+	          _react2.default.createElement(
+	            'button',
+	            { type: 'submit', className: 'btn btn-success' },
+	            'Save'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return RidesUpdate;
+	}(_react.Component);
+
+	function validate(values) {
+	  //values contains all values entered into form
+	  var errors = {};
+
+	  //Validate inputs from 'values'
+	  if (!values.name) {
+	    errors.name = "Enter name";
+	  }
+	  if (!values.price) {
+	    errors.price = "Enter price";
+	  }
+	  if (!values.capacity) {
+	    errors.capacity = "Enter ride capacity";
+	  }
+	  if (!values.origin) {
+	    errors.origin = "Enter Origin";
+	  }
+	  if (!values.destination) {
+	    errors.destination = "Enter Destination";
+	  }
+	  if (!values.date) {
+	    errors.date = "Enter Valid Date";
+	  }
+
+	  //If errors is empty, the form is fine to sumbit
+	  //If errors has *any* props, redux form assumes form is invalid
+	  return errors;
+	}
+
+	function mapStateToProps(state) {
+	  return { userInfo: state.fb_state };
+	}
+	//Allows redux form to communicate directly from this component to reducer state
+	//This adds additional props to component
+	exports.default = (0, _reactRouterDom.withRouter)((0, _reduxForm.reduxForm)({
+	  validate: validate, //validate: validate
+	  form: 'NewRidesForm'
+	})((0, _reactRedux.connect)(mapStateToProps, { updateRide: _actions.updateRide })(RidesUpdate)));
+
+/***/ }),
+/* 664 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -76472,7 +77096,7 @@
 
 	var _actions = __webpack_require__(496);
 
-	var _my_rides = __webpack_require__(664);
+	var _my_rides = __webpack_require__(665);
 
 	var _my_rides2 = _interopRequireDefault(_my_rides);
 
@@ -76630,7 +77254,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchRidesBy_UID: _actions.fetchRidesBy_UID })(Profile);
 
 /***/ }),
-/* 664 */
+/* 665 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76689,6 +77313,7 @@
 	    _this.handleOriginClick = _this.handleOriginClick.bind(_this);
 	    _this.handleDestinationClick = _this.handleDestinationClick.bind(_this);
 	    _this.handleDateClick = _this.handleDateClick.bind(_this);
+	    _this.handleRowClick = _this.handleRowClick.bind(_this);
 	    return _this;
 	  }
 
@@ -76782,11 +77407,18 @@
 	    value: function handleDateClick() {
 	      this.sortRides(SORT_BY_DATE);
 	    }
+	  }, {
+	    key: 'handleRowClick',
+	    value: function handleRowClick(rideID) {
+	      this.props.history.push('/rides/' + rideID);
+	    }
 	    //Individual ride row JSX generator
 
 	  }, {
 	    key: 'renderRides',
 	    value: function renderRides() {
+	      var _this2 = this;
+
 	      var mq = window.matchMedia("(min-width: 700px)");
 	      var rides = this.state.sortedRides;
 	      var readableDate = void 0;
@@ -76800,30 +77432,44 @@
 	        //return JSX for each table element
 	        return _react2.default.createElement(
 	          'tr',
-	          { className: 'table-group-item', key: ride._id },
+	          { className: 'table-group-item ride-row', key: ride._id, onClick: function onClick() {
+	              return _this2.handleRowClick(ride._id);
+	            } },
 	          _react2.default.createElement(
 	            'td',
 	            null,
 	            _react2.default.createElement(
-	              _reactRouterDom.Link,
-	              { to: '/rides/' + ride._id },
+	              'p',
+	              null,
 	              (0, _string_manipulation.capFirst)(ride.name)
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            (0, _string_manipulation.capFirst)(ride.origin)
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              (0, _string_manipulation.capFirst)(ride.origin)
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            (0, _string_manipulation.capFirst)(ride.destination)
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              (0, _string_manipulation.capFirst)(ride.destination)
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            readableDate
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              readableDate
+	            )
 	          )
 	        );
 	      });
@@ -76846,7 +77492,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'table',
-	            { className: 'table' },
+	            { className: 'table ride-table' },
 	            _react2.default.createElement(
 	              'tbody',
 	              null,
@@ -76861,17 +77507,44 @@
 	                _react2.default.createElement(
 	                  'th',
 	                  { className: 'ride_index_heading orig-head', onClick: this.handleOriginClick },
-	                  'Origin'
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      _react2.default.createElement('i', { className: 'fa fa-sort-alpha-up i-sort' })
+	                    ),
+	                    ' Origin'
+	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'th',
 	                  { className: 'ride_index_heading dest-head', onClick: this.handleDestinationClick },
-	                  'Destination'
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      _react2.default.createElement('i', { className: 'fa fa-sort-alpha-up i-sort' })
+	                    ),
+	                    ' Destination'
+	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'th',
 	                  { className: 'ride_index_heading date-head active', onClick: this.handleDateClick },
-	                  'Date'
+	                  _react2.default.createElement(
+	                    'h4',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      _react2.default.createElement('i', { className: 'fa fa-sort-up i-sort' })
+	                    ),
+	                    ' Date'
+	                  )
 	                )
 	              ),
 	              this.renderRides()
@@ -76885,10 +77558,10 @@
 	  return MyRideTable;
 	}(_react.Component);
 
-	exports.default = MyRideTable; // MAP state to props stuff
+	exports.default = (0, _reactRouterDom.withRouter)(MyRideTable); // MAP state to props stuff
 
 /***/ }),
-/* 665 */
+/* 666 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76946,7 +77619,7 @@
 	            _react2.default.createElement(
 	              'i',
 	              null,
-	              'Safe. Reliable. Eco-Friendly'
+	              'Safe. Reliable. Eco-Friendly.'
 	            )
 	          ),
 	          _react2.default.createElement(_reactRouterDom.Route, { component: _FacebookLogin2.default })

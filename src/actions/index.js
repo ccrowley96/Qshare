@@ -9,7 +9,7 @@ export const DELETE_RIDE = 'delete_ride';
 export const FB_USER_STATE = 'facebook_user_info';
 export const FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
 
-const LOCAL_ROOT_URL = "http://localhost:3000/api";
+const LOCAL_ROOT_URL = "https://qshare-193904.appspot.com/api";
 
 export function fb_user_state(userInfo, callback) {
   if (userInfo.loggedIn === false) {

@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const frameguard = require('frameguard')
 const cors = require('cors');
 const API = require('./api/index');
-const port = 3000;
+const port = 8080;
 const BUNDLE_DIR = path.join(__dirname, '../'); // Path to static files
 
 // Init App

@@ -84,13 +84,14 @@ body p{
   border-radius: 50%;
 }
 .ride-header {
-  background-color: #d4d4d459;
+  background-color: #FFFFFF;
   border-radius: 5px;
   height: 250px;
   padding: 20px 20px 20px 20px;
   margin-top: 10px;
   margin-bottom: 15px;
 }
+
 .ride-header img{
   display: block;
   position: relative;
@@ -112,6 +113,9 @@ body p{
 }
 
 @media (max-width: 768px) {
+  .ride-header {
+    height: 170px;
+  }
   .ride-show-wrap .i-span{
     display:none;
   }
@@ -119,14 +123,16 @@ body p{
     display:none;
   }
   .locations-wrap{
-    margin-top: 40px;
-    height: 100px;
+    height: 145px;
   }
   .locations{
     font-size: 30px;
   }
 }
 @media (max-width: 520px) {
+  .ride-header {
+    height: 120px;
+  }
   .ride-show-wrap h4{
     font-weight: bolder;
     font-size: .97em;
@@ -135,7 +141,6 @@ body p{
     font-size: .95em;
   }
   .locations-wrap{
-    margin-top: 30px;
     height: 80px;
   }
   .locations{

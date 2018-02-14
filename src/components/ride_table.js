@@ -100,38 +100,6 @@ class RideTable extends Component {
   handleRowClick(rideID) {
      this.props.history.push(`/rides/${rideID}`);
   }
-  //Individual ride row JSX generator
-  renderRides() {
-    const mq = window.matchMedia("(min-width: 700px)");
-    const rides = this.state.sortedRides;
-
-    let readableDate;
-    return _.map(rides.rides, (ride) => {
-      // Change date format on smaller screen sizes
-      if (mq.matches) {
-        readableDate =  moment(ride.date).format('ddd, MMM Do');
-      } else {
-        readableDate =  moment(ride.date).format('MM/DD/YY');
-      }
-      //return JSX for each table element
-      return (
-          <tr className="table-group-item ride-row" key={ride._id} onClick={()=> this.handleRowClick(ride._id)}>
-              <td>
-                <p>{capFirst(ride.name)}</p>
-              </td>
-              <td>
-                <p>{capFirst(ride.origin)}</p>
-              </td>
-              <td>
-                <p>{capFirst(ride.destination)}</p>
-              </td>
-              <td>
-                <p>{readableDate}</p>
-              </td>
-          </tr>
-      );
-    });
-  }
 
   renderRidesV2() {
     const mq = window.matchMedia("(min-width: 700px)");

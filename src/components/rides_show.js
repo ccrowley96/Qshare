@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import {isMobile} from 'react-device-detect';
 import { fetchRide, deleteRide } from '../actions';
 import RidesUpdate from './ride_update'
 import { capFirst } from '../utils/string_manipulation';
@@ -21,12 +22,10 @@ class RidesShow extends Component {
       this.updateRideFlag();
     });
 
+    this.renderHeader = this.renderHeader.bind(this);
     this.updateRideFlag = this.updateRideFlag.bind(this);
   }
 
-  componentDidMount() {
-
-  }
   updateRideFlag() {
     this.setState({rideFetched: true});
   }
@@ -91,6 +90,31 @@ class RidesShow extends Component {
     return (<div></div>);
   }
 
+
+  renderHeader() {
+    console.log("isMobile: ",isMobile);
+    if (!isMobile) {
+      return (
+        <div>
+          <div className="col-xs-12 col-lg-3 col-sm-12 text-center">
+            <img className="ride-profile-picture" src={this.props.ride.profile_picture} />
+          </div>
+          <div className="col-xs-12 col-lg-9 col-sm-12 locations-wrap">
+            <span className="locations">{capFirst(this.props.ride.origin)} <span className="i-span-arrow"><i className="fas fa-long-arrow-alt-right"></i></span> {capFirst(this.props.ride.destination)}</span>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <div className="col-xs-12 locations-wrap">
+          <span className="locations">{capFirst(this.props.ride.origin)} <span className="i-span-arrow"><i className="fas fa-long-arrow-alt-right"></i></span> {capFirst(this.props.ride.destination)}</span>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { ride } = this.props;
     if (!ride) {
@@ -104,8 +128,12 @@ class RidesShow extends Component {
         </div>
       );
     }
+    const profilePicUrl = `http://graph.facebook.com/${this.props.ride.uid}/picture?type=large`;
     const readableDate = moment(ride.date).format('dddd, MMMM Do');
-
+    //<img className="ride-profile-picture" src={ride.profile_picture} />
+    //http://graph.facebook.com/[ID]/picture?type=large
+    //http://graph.facebook.com/${ride.uid}/picture?type=large}
+    this.renderHeader();
     if(this.state.editOn){
       return (
         <RidesUpdate action={this.resetEditFlag} initialValues={ride} rideID={this.props.match.params.id} oldRide={ride} />
@@ -117,13 +145,8 @@ class RidesShow extends Component {
               <Link to="/" className="btn btn-primary">Home</Link>
             </div>
             <div className="container-fluid">
-              <div className="row ride-header">
-                <div className="col-xs-12 col-lg-3 col-sm-12 text-center">
-                  <img className="ride-profile-picture" src={ride.profile_picture} />
-                </div>
-                <div className="col-xs-12 col-lg-9 col-sm-12 locations-wrap">
-                  <span className="locations">{capFirst(ride.origin)} <span className="i-span-arrow"><i className="fas fa-long-arrow-alt-right"></i></span> {capFirst(ride.destination)}</span>
-                </div>
+              <div className="row ride-header" id="header-bg">
+                {this.renderHeader()}
               </div>
               <div className="row ride-show-table">
                 <div className="col-lg-8 col-sm-12 col-xs-12">

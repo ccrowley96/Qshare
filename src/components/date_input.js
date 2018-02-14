@@ -35,10 +35,10 @@ export default class renderDatePicker extends React.Component {
 
   handleChange = (date) => {
 
-    // date.setMinutes( date.getMinutes() + date.getTimezoneOffset() );
-
+    var d = moment.utc(date);
+    
     this.setState({
-      selectedDate: date
+      selectedDate: d
     });
 
     this.props.input.onChange(date);

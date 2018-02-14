@@ -16,7 +16,7 @@ class RideTable extends Component {
     super(props);
 
     this.state = {
-      sortedRides: this.props.rides,
+      sortedRides: this.props.rides.rides
     };
 
     this.sortRides = this.sortRides.bind(this);
@@ -26,12 +26,16 @@ class RideTable extends Component {
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.agreement && nextProps.agreement.id){
-      this.sortRides(SORT_BY_DATE);
-      this.handleHeaderHighlight();
-    }
+  componentDidMount() {
+    this.handleHeaderHighlight();
+    this.sortRides(SORT_BY_DATE);
   }
+
+  // componentWillReceiveProps(nextProps){
+  //   if(nextProps.agreement && nextProps.agreement.id){
+  //
+  //   }
+  // }
 
   handleHeaderHighlight() {
     const table_headers = document.getElementsByClassName("ride_index_heading");
@@ -84,7 +88,9 @@ class RideTable extends Component {
         sortedRides = rides.sort(this.compareByDate);
     }
     //Update state to reflect sorted rides and re-render
-    this.setState({sortedRides});
+    this.setState({
+      sortedRides
+    });
   }
 
   //Click handlers
@@ -103,7 +109,7 @@ class RideTable extends Component {
 
   renderRidesV2() {
     const mq = window.matchMedia("(min-width: 700px)");
-    const rides = this.state.sortedRides.rides;
+    const rides = this.state.sortedRides;
     let readableDate;
     if(rides){
       return rides.map((ride) => {
@@ -132,7 +138,7 @@ class RideTable extends Component {
         );
       });
     } else {
-      return (<div> Rides deleted! </div>);
+      return (<tr><td> Rides not found! </td></tr>);
     }
   }
   //Render Rideindex page --> table, title, button

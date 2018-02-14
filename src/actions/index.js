@@ -11,7 +11,6 @@ export const FB_USER_STATE = 'facebook_user_info';
 export const FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
 
 const LOCAL_ROOT_URL = process.env.LOCAL_ROOT_URL;
-console.log(process.env.LOCAL_ROOT_URL);
 
 export function fb_user_state(userInfo, callback) {
   if (userInfo.loggedIn === false) {

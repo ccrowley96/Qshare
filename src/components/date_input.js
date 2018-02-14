@@ -34,6 +34,9 @@ export default class renderDatePicker extends React.Component {
   }
 
   handleChange = (date) => {
+
+    // date.setMinutes( date.getMinutes() + date.getTimezoneOffset() );
+
     this.setState({
       selectedDate: date
     });

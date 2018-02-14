@@ -51204,10 +51204,7 @@
 	var FB_USER_STATE = exports.FB_USER_STATE = 'facebook_user_info';
 	var FETCH_RIDE_BY_UID = exports.FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
 
-	//const LOCAL_ROOT_URL = "https://qshare-193904.appspot.com/api";
-	var LOCAL_ROOT_URL = ("https://qshare-193904.appspot.com/api");
-	console.log(("https://qshare-193904.appspot.com/api"));
-	//const LOCAL_ROOT_URL = 'api';
+	var LOCAL_ROOT_URL = ("http://localhost:3000/api");
 
 	function fb_user_state(userInfo, callback) {
 	  if (userInfo.loggedIn === false) {
@@ -75919,6 +75916,9 @@
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = renderDatePicker.__proto__ || Object.getPrototypeOf(renderDatePicker)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      selectedDate: null
 	    }, _this.handleChange = function (date) {
+
+	      // date.setMinutes( date.getMinutes() + date.getTimezoneOffset() );
+
 	      _this.setState({
 	        selectedDate: date
 	      });

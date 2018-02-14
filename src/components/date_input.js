@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import moment from "moment";
+import "moment-timezone";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
+moment.tz.setDefault("America/New_York");
 
 export default class renderDatePicker extends React.Component {
   static propTypes = {
@@ -34,14 +37,13 @@ export default class renderDatePicker extends React.Component {
   }
 
   handleChange = (date) => {
-
     var d = moment.utc(date);
-    
+
     this.setState({
       selectedDate: d
     });
 
-    this.props.input.onChange(date);
+    this.props.input.onChange(d);
   }
 
   render() {

@@ -14,31 +14,27 @@ const SORT_BY_DESTINATION = 'sort_by_destination';
 class RideTable extends Component {
   constructor(props) {
     super(props);
-    this.props.fetchRides()
-      .then(() => {
-        if (this.props.rides) {
-          this.sortRides(SORT_BY_DATE);
-          this.updateRideFlag();
-          this.handleHeaderHighlight();
-        }
-      });
 
-      this.state = {
-        sortedRides: [],
-        ridesFetched: false
-      };
+    this.state = {
+      sortedRides: this.props.rides,
+    };
 
-      this.sortRides = this.sortRides.bind(this);
-      this.updateRideFlag = this.updateRideFlag.bind(this);
-      this.handleOriginClick = this.handleOriginClick.bind(this);
-      this.handleDestinationClick = this.handleDestinationClick.bind(this);
-      this.handleDateClick = this.handleDateClick.bind(this);
-      this.handleRowClick = this.handleRowClick.bind(this);
+    this.sortRides = this.sortRides.bind(this);
+    this.handleOriginClick = this.handleOriginClick.bind(this);
+    this.handleDestinationClick = this.handleDestinationClick.bind(this);
+    this.handleDateClick = this.handleDateClick.bind(this);
+    this.handleRowClick = this.handleRowClick.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.agreement && nextProps.agreement.id){
+      this.sortRides(SORT_BY_DATE);
+      this.handleHeaderHighlight();
+    }
   }
 
   handleHeaderHighlight() {
     const table_headers = document.getElementsByClassName("ride_index_heading");
-
     // Loop through the buttons and add the active class to the current/clicked button
     for (let i = 0; i < table_headers.length; i++) {
       table_headers[i].addEventListener("click", function() {
@@ -48,10 +44,7 @@ class RideTable extends Component {
       });
     }
 }
-  //Ride flag Helper
-  updateRideFlag() {
-    this.setState({ridesFetched: true});
-  }
+
   // Date comparison helper for sortRides
   compareByDate(a, b) {
     const a_time = new Date(a.date).getTime();
@@ -111,9 +104,9 @@ class RideTable extends Component {
   renderRides() {
     const mq = window.matchMedia("(min-width: 700px)");
     const rides = this.state.sortedRides;
-    let readableDate;
 
-    return _.map(rides, (ride) => {
+    let readableDate;
+    return _.map(rides.rides, (ride) => {
       // Change date format on smaller screen sizes
       if (mq.matches) {
         readableDate =  moment(ride.date).format('ddd, MMM Do');
@@ -122,10 +115,9 @@ class RideTable extends Component {
       }
       //return JSX for each table element
       return (
-
           <tr className="table-group-item ride-row" key={ride._id} onClick={()=> this.handleRowClick(ride._id)}>
               <td>
-                  <p>{capFirst(ride.name)}</p>
+                <p>{capFirst(ride.name)}</p>
               </td>
               <td>
                 <p>{capFirst(ride.origin)}</p>
@@ -140,17 +132,45 @@ class RideTable extends Component {
       );
     });
   }
+
+  renderRidesV2() {
+    const mq = window.matchMedia("(min-width: 700px)");
+    const rides = this.state.sortedRides.rides;
+    let readableDate;
+    if(rides){
+      return rides.map((ride) => {
+        // Change date format on smaller screen sizes
+        if (mq.matches) {
+          readableDate =  moment(ride.date).format('ddd, MMM Do');
+        } else {
+          readableDate =  moment(ride.date).format('MM/DD/YY');
+        }
+        //return JSX for each table element
+        return (
+            <tr className="table-group-item ride-row" key={ride._id} onClick={()=> this.handleRowClick(ride._id)}>
+                <td>
+                    <p>{capFirst(ride.name)}</p>
+                </td>
+                <td>
+                  <p>{capFirst(ride.origin)}</p>
+                </td>
+                <td>
+                  <p>{capFirst(ride.destination)}</p>
+                </td>
+                <td>
+                  <p>{readableDate}</p>
+                </td>
+            </tr>
+        );
+      });
+    } else {
+      return (<div> Rides deleted! </div>);
+    }
+  }
   //Render Rideindex page --> table, title, button
   render() {
-    // Wait for successfull ride fetch
-    if (!this.state.ridesFetched) {
-      return (
-        <div>
-        <h5>Loading...</h5>
-        </div>
-      );
-    }
     return (
+      <div className="rides-container">
         <div className="row">
           <h2> Rides </h2>
             <table className="table ride-table">
@@ -161,17 +181,16 @@ class RideTable extends Component {
                   <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Destination</h4></th>
                   <th className="ride_index_heading date-head active"onClick={this.handleDateClick}><h4><span><i className="fa fa-sort-up i-sort"></i></span> Date</h4></th>
                 </tr>
-                  {this.renderRides()}
+                  {this.renderRidesV2()}
               </tbody>
             </table>
         </div>
+      </div>
     );
   }
 }
 
 
-function mapStateToProps(state) {
-  return { rides: state.rides };
-}
 
-export default withRouter(connect(mapStateToProps, { fetchRides })(RideTable)); // MAP state to props stuff
+
+export default withRouter(RideTable); // MAP state to props stuff

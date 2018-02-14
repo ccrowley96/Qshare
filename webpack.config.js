@@ -25,10 +25,14 @@ module.exports = {
     {
       test: /\.css$/,
       loader: 'style!css!'
+    },
+    {
+    test: /\.json$/,
+    loader: "json-loader"
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.json', '.jsx', '.js'],
     modules: [
        path.join(__dirname, "src"),
        "node_modules"

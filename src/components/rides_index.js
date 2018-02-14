@@ -3,12 +3,39 @@ import { connect } from 'react-redux';
 import { Link, Route } from 'react-router-dom'; //Substitute for <a> tag
 import _ from 'lodash';
 import moment from 'moment';
+import { fetchRides } from '../actions';
 import FB_Login from './FacebookLogin/FacebookLogin';
 import RideTable from './ride_table';
 
-export default class RidesIndex extends Component {
+class RidesIndex extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      myRidesFetched: false
+    };
+    this.updateRideFlag = this.updateRideFlag.bind(this);
+    this.renderRidesTableWhenReady = this.renderRidesTableWhenReady.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchRides()
+      .then(() => {
+        this.updateRideFlag();
+      });
+  }
+
+  //Ride flag Helper
+  updateRideFlag() {
+    this.setState({myRidesFetched: true});
+  }
+
+  renderRidesTableWhenReady() {
+    if (this.state.myRidesFetched) {
+      return (
+        <RideTable rides={this.props.rides}/>
+      );
+    }
+    return (<div> Loading all rides... </div>);
   }
 
   //Render Rideindex page --> table, title, button
@@ -26,8 +53,14 @@ export default class RidesIndex extends Component {
               </Link>
           </div>
         </div>
-        <RideTable />
+        {this.renderRidesTableWhenReady()}
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { rides: state.rides };
+}
+
+export default connect(mapStateToProps, { fetchRides })(RidesIndex);

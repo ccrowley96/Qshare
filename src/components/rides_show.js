@@ -56,7 +56,7 @@ class RidesShow extends Component {
 
   renderDelete() {
     const uid  = this.props.ride.uid;
-    if (this.props.userInfo.uid === uid) {
+    if (this.props.userInfo.uid == uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
       return (
         <button className="my-delete-button btn btn-danger pull-xs-left" onClick={this.onDeleteClick.bind(this)}>
           Delete Ride
@@ -68,7 +68,7 @@ class RidesShow extends Component {
 
   renderEdit() {
     const uid  = this.props.ride.uid;
-    if (this.props.userInfo.uid === uid) {
+    if (this.props.userInfo.uid == uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
       return (
         <button className="my-edit-button btn btn-success pull-xs-left" onClick={this.onEditClick.bind(this)}>
           Edit Ride
@@ -92,7 +92,6 @@ class RidesShow extends Component {
 
 
   renderHeader() {
-    console.log("isMobile: ",isMobile);
     if (!isMobile) {
       return (
         <div>
@@ -136,7 +135,7 @@ class RidesShow extends Component {
     this.renderHeader();
     if(this.state.editOn){
       return (
-        <RidesUpdate action={this.resetEditFlag} initialValues={ride} rideID={this.props.match.params.id} oldRide={ride} />
+        <RidesUpdate action={this.resetEditFlag} initialValues={ride} rideID={this.props.match.params.id} oldRide={ride} adminOn={this.state.adminOn} />
       );
     } else {
       return (

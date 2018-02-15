@@ -122,14 +122,16 @@ body p{
 }
 .my-edit-button{
   margin-left: 20px;
+  margin-right: 20px;
 }
+
 .ride-profile-picture{
   width:200px;
   heigh:200px;
   border-radius: 50%;
 }
 .ride-header {
-  background-color: #FFFFFF;
+  background-color: #d4d4d438;
   border-radius: 5px;
   height: 250px;
   padding: 20px 20px 20px 20px;
@@ -159,6 +161,7 @@ body p{
 
 @media (max-width: 768px) {
   .ride-header {
+    background-color: #FFFFFF;
     height: 170px;
   }
   .ride-show-wrap .i-span{

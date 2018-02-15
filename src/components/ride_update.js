@@ -85,7 +85,7 @@ class RidesUpdate extends Component {
             className = "form-control uid-field"
             tabIndex = "-1"
             readOnly = "true"
-            value={this.props.userInfo.uid}
+            value={this.props.oldRide.uid}
             type = {field.type}
           />
       </div>
@@ -93,7 +93,7 @@ class RidesUpdate extends Component {
   }
 
   onSubmit(values) {
-    const uid = this.props.userInfo.uid;
+    const uid = this.props.oldRide.uid;
     const link = this.props.userInfo.link;
     const profile_picture = this.props.userInfo.profile_pic.data.url;
     const rideID = this.props.rideID;

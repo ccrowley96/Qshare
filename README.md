@@ -1,18 +1,6 @@
 # qshare
 GitHub Repo for qshare QTMA project.
 
-## Setting Up .env Environment Variables
-**Before you can run, test, or build the application, you must create a .env file!**
-
-|Variable|Value|
-|--------|-----|
-|DB_HOST|localhost|
-|DB_NAME|qshare|
-|PORT|3000|
-|LOCAL_ROOT_URL|http://localhost:3000/api|
-
-**See example.env for syntax reference**
-
 # Development & Contribution Set-up
 - Install Node.js, MongoDB, & node package manager NPM
   - [Install NPM & Node.js](https://www.npmjs.com/get-npm?utm_source=house&utm_medium=homepage&utm_campaign=free%20orgs&utm_term=Install%20npm)
@@ -45,11 +33,9 @@ npm run start
 |Variable|Value|
 |--------|-----|
 |DB_HOST|localhost|
-|DB_USER|[DB USERNAME HERE]|
-|DB_PASS|[DB PASSWORD HERE]|
 |DB_NAME|qshare|
-|PORT|8080|
-|LOCAL_ROOT_URL|http://localhost:8080/api|
+|PORT|3000|
+|LOCAL_ROOT_URL|http://localhost:3000/api|
 
 **See example.env for syntax reference**
 

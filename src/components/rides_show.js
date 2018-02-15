@@ -56,7 +56,7 @@ class RidesShow extends Component {
 
   renderDelete() {
     const uid  = this.props.ride.uid;
-    if (this.props.userInfo.uid === uid) {
+    if (this.props.userInfo.uid === uid || (this.props.userInfo.uid === '1400572109999748' && process.env.ADMIN_EDIT)) {
       return (
         <button className="my-delete-button btn btn-danger pull-xs-left" onClick={this.onDeleteClick.bind(this)}>
           Delete Ride
@@ -68,7 +68,7 @@ class RidesShow extends Component {
 
   renderEdit() {
     const uid  = this.props.ride.uid;
-    if (this.props.userInfo.uid === uid) {
+    if (this.props.userInfo.uid === uid || (this.props.userInfo.uid === '1400572109999748' && process.env.ADMIN_EDIT)) {
       return (
         <button className="my-edit-button btn btn-success pull-xs-left" onClick={this.onEditClick.bind(this)}>
           Edit Ride

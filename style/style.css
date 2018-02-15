@@ -1,6 +1,9 @@
 body{
+  width: 100%;
   padding-top:50px;
   padding-bottom: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 body h1,
 body h2,
@@ -20,6 +23,9 @@ body p{
 }
 
 /* Login Page */
+.jumbotron p{
+  margin-bottom: 0px;
+}
 .login-page-wrap{
   margin-top: 20px;
 }
@@ -28,9 +34,18 @@ body p{
   text-shadow: 20px;
 }
 /* Login Button */
+.index-buttons-wrap{
+  margin-bottom: 30px;
+}
 .login-button-wrap{
+  display: inline-block;
+  float:left;
   position: relative;
-  right: 10px;
+  margin-top: 0px;
+}
+.jumbotron .login-button-wrap{
+  float: none;
+  margin-top: 20px;
 }
 /* Ride Index */
 .ride_index_heading{
@@ -51,11 +66,35 @@ body p{
 }
 
 .user-buttons{
-  margin-top: 15px;
+  display: inline-block;
   float:right;
 }
 
-
+@media (max-width: 660px) {
+  .table-col-title h4,
+  .table-col-title .i-sort
+  {
+    font-size: .85em;
+  }
+  .table-group-item p{
+    font-size: .8em;
+  }
+}
+@media (max-width: 500px) {
+  .index-wrap .btn{
+    font-size: .8em;
+  }
+}
+@media (max-width: 374px) {
+  .table-col-title h4,
+  .table-col-title .i-sort
+  {
+    font-size: .75em;
+  }
+  .index-wrap .btn{
+    font-size: .7em;
+  }
+}
 /* Individual Ride Page */
 .ride-show-wrap{
   padding: 20px 20px 20px 20px;

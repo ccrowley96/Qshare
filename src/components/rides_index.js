@@ -41,9 +41,9 @@ class RidesIndex extends Component {
   //Render Rideindex page --> table, title, button
   render() {
     return (
-      <div>
-      <Route component={FB_Login} />
-        <div className="row">
+      <div className="index-wrap">
+      <div className="index-buttons-wrap row">
+          <Route component={FB_Login} />
           <div className="btn-toolbar user-buttons">
               <Link className="btn btn-info" to="/profile">
                 Profile
@@ -52,7 +52,7 @@ class RidesIndex extends Component {
                 Post a Ride
               </Link>
           </div>
-        </div>
+      </div>
         {this.renderRidesTableWhenReady()}
       </div>
     );

@@ -8,7 +8,8 @@ export default class Login extends Component {
       <div className="login-page-wrap">
         <div className="jumbotron">
           <h3>Login to use Qshare!</h3>
-          <h6><i>Safe. Reliable. Eco-Friendly.</i></h6>
+          <p><i>Safe. Reliable. Eco-Friendly.</i></p>
+          <p><i>Find your ride!</i></p>
           <Route component={FB_Login} />
         </div>
       </div>

@@ -138,10 +138,10 @@ class MyRideTable extends Component {
             <table className="table ride-table">
               <tbody>
                 <tr>
-                  <th>Name</th>
-                  <th className="ride_index_heading orig-head" onClick={this.handleOriginClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Origin</h4></th>
-                  <th className="ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Destination</h4></th>
-                  <th className="ride_index_heading date-head active"onClick={this.handleDateClick}><h4><span><i className="fa fa-sort-up i-sort"></i></span> Date</h4></th>
+                  <th className="table-col-title"><h4>Name</h4></th>
+                  <th className="table-col-title ride_index_heading orig-head" onClick={this.handleOriginClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Origin</h4></th>
+                  <th className="table-col-title ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Destination</h4></th>
+                  <th className="table-col-title ride_index_heading date-head active"onClick={this.handleDateClick}><h4><span><i className="fa fa-sort-up i-sort"></i></span> Date</h4></th>
                 </tr>
                   {this.renderRides()}
               </tbody>

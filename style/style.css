@@ -85,7 +85,7 @@ body p{
 }
 @media (max-width: 500px) {
   .table-col-title{
-    min-width: 115px;
+    min-width: 117px;
   }
   .index-wrap .btn{
     font-size: .8em;

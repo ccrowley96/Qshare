@@ -147,6 +147,7 @@ class RideTable extends Component {
       <div className="rides-container">
         <div className="row">
           <h2> Active Rides </h2>
+          <div className="ride-table-container">
             <table className="table ride-table">
               <tbody>
                 <tr>
@@ -158,6 +159,7 @@ class RideTable extends Component {
                   {this.renderRidesV2()}
               </tbody>
             </table>
+          </div>
         </div>
       </div>
     );

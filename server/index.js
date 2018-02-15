@@ -28,6 +28,19 @@ app.use(frameguard({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// HTTPS Redirect for production
+  if (process.env.FORCE_SSL) {
+      app.enable('trust proxy');
+      app.use((req, res, next) => {
+          if (req.secure) {
+              next();
+          } else {
+              res.redirect('https://' + req.headers.host + req.url);
+          }
+      });
+  }
+
+
 //API Endpoint Router
 app.use('/api', API);
 // Static Files

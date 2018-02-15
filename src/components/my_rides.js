@@ -135,6 +135,7 @@ class MyRideTable extends Component {
       <div className="my-rides-container">
         <div className="row">
           <h3> My Rides </h3>
+          <div className="ride-table-container">
             <table className="table ride-table">
               <tbody>
                 <tr>
@@ -146,6 +147,7 @@ class MyRideTable extends Component {
                   {this.renderRides()}
               </tbody>
             </table>
+          </div>
         </div>
       </div>
     );

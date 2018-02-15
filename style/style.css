@@ -69,6 +69,9 @@ body p{
   display: inline-block;
   float:right;
 }
+.table-col-title{
+  min-width: 106px;
+}
 
 @media (max-width: 660px) {
   .table-col-title h4,
@@ -264,6 +267,11 @@ form .description textarea{
 }
 .my-rides-container{
   margin-top: 20px;
+}
+.ride-table-container{
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x:auto;
 }
 .ride-table .ride-row:hover,
 .ride-table .ride-row:focus,

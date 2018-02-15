@@ -102,7 +102,7 @@ class MyRideTable extends Component {
     const mq = window.matchMedia("(min-width: 700px)");
     const rides = this.state.sortedRides;
     let readableDate;
-    
+
     return rides.map((ride) => {
       // Change date format on smaller screen sizes
       if (mq.matches) {

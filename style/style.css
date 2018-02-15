@@ -73,7 +73,7 @@ body p{
   min-width: 106px;
 }
 
-@media (max-width: 660px) {
+@media (max-width: 769px) {
   .table-col-title h4,
   .table-col-title .i-sort
   {
@@ -84,6 +84,9 @@ body p{
   }
 }
 @media (max-width: 500px) {
+  .table-col-title{
+    min-width: 115px;
+  }
   .index-wrap .btn{
     font-size: .8em;
   }

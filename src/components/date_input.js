@@ -31,14 +31,13 @@ export default class renderDatePicker extends React.Component {
   componentWillMount() {
     if (this.props.input.value) {
       this.setState({
-        selectedDate: moment(this.props.input.value, this.props.inputValueFormat)
+        selectedDate: moment.utc(this.props.input.value, this.props.inputValueFormat)
       });
     }
   }
 
   handleChange = (date) => {
     var d = moment.utc(date);
-
     this.setState({
       selectedDate: d
     });

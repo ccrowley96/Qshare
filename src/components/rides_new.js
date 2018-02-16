@@ -170,7 +170,7 @@ class RidesNew extends Component {
                   dateFormat="LL"
                   dateFormatCalendar="MMMM"
                   placeholderText={moment().format('LL')}
-                  normalize={(value) => (value ? moment(value).format('YYYY/MM/DD') : null)}
+                  normalize={(value) => (value ? moment.utc(value).format('YYYY/MM/DD') : null)}
                   minDate={moment()}
                   maxDate={moment().add(90, "days")}
                   component={renderDatePicker}

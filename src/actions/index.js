@@ -3,6 +3,7 @@
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import path from 'path';
+import moment from 'moment';
 export const FETCH_RIDES = 'fetch_rides';
 export const CREATE_RIDE = 'create_ride';
 export const FETCH_RIDE = 'fetch_ride';
@@ -32,6 +33,7 @@ export function fetchRides() {
 }
 
 export function createRide(values, uid, link, profile_picture, callback) {
+  values.date = moment.utc(values.date);
   values["uid"] = uid;
   values["link"] = link;
   values["profile_picture"] = profile_picture;

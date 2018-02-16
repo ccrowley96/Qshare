@@ -128,10 +128,8 @@ class RidesShow extends Component {
       );
     }
     const profilePicUrl = `http://graph.facebook.com/${this.props.ride.uid}/picture?type=large`;
-    const readableDate = moment(ride.date).format('dddd, MMMM Do');
-    //<img className="ride-profile-picture" src={ride.profile_picture} />
-    //http://graph.facebook.com/[ID]/picture?type=large
-    //http://graph.facebook.com/${ride.uid}/picture?type=large}
+
+    const readableDate = moment.utc(ride.date).format('dddd, MMMM Do');
     this.renderHeader();
     if(this.state.editOn){
       return (

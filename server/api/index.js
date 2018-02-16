@@ -22,7 +22,6 @@ const port = 27017;
 
 /* Connect to remote mongo instance only if username & password specified */
 if(!username || !password){
-  console.log('here!');
   mongoose.connect(`mongodb://${host}:${port}/${dbname}`);
 } else {
   mongoose.connect(`mongodb://${username}:${password}@${host}:${port}/${dbname}`);

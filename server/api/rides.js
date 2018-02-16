@@ -34,6 +34,8 @@ router.post('/', (req, res, next) => {
     ride.destination = req.body.destination.toLowerCase();
     ride.date = req.body.date;
 
+
+
     if (req.body.description) {
       ride.description = req.body.description;
     }
@@ -44,7 +46,6 @@ router.post('/', (req, res, next) => {
         res.send("Data Deposit Error A");
       }
       else {
-        console.log(`Ride Created, name: ${ride.name}`);
         res.redirect('/');
       }
     });
@@ -73,7 +74,6 @@ router.post('/update', (req, res, next) => {
         res.send("Data Update Error");
       }
       else {
-        console.log(`Ride Updated, name: ${ride.name}`);
         res.redirect('/');
       }
     });
@@ -82,7 +82,6 @@ router.post('/update', (req, res, next) => {
 //Query Ride by ID
 router.get('/:id', (req, res, next) => {
   const ride_id = req.params.id;
-  console.log(`Query for id: ${ride_id}`);
   Ride.find({"_id": ObjectId(`${ride_id}`) }, (err, ride) =>{
     if (err) {
       console.log(err);
@@ -99,7 +98,6 @@ router.get('/:id', (req, res, next) => {
 //Query Ride by User ID
 router.get('/user/:id', (req, res, next) => {
   const user_id = req.params.id;
-  console.log(`Query for user id: ${user_id}`);
   Ride.find({"uid": `${user_id}`}, (err, rides) =>{
     if (err) {
       console.log(err);

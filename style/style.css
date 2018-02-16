@@ -279,8 +279,18 @@ form .description textarea{
   padding-right: 5px;
   overflow-x:auto;
 }
-.ride-table .ride-row:hover,
-.ride-table .ride-row:focus,
-.ride-table .ride-row:active{
-  background-color: #d4d4d459;
+@media (min-width: 500px){
+  .ride-table .ride-row:hover,
+  .ride-table .ride-row:focus,
+  .ride-table .ride-row:active{
+    background-color: #d4d4d459;
+  }
 }
+
+/* @media (max-width: 500px) {
+  .ride-table .ride-row:hover,
+  .ride-table .ride-row:focus,
+  .ride-table .ride-row:active{
+    background-color: red;
+  }
+} */

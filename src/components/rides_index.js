@@ -43,7 +43,6 @@ class RidesIndex extends Component {
     return (
       <div className="index-wrap">
       <div className="index-buttons-wrap row">
-          <Route component={FB_Login} />
           <div className="btn-toolbar user-buttons">
               <Link className="btn btn-info" to="/profile">
                 Profile

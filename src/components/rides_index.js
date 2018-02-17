@@ -42,6 +42,7 @@ class RidesIndex extends Component {
   render() {
     return (
       <div className="index-wrap">
+      <img src="src/img/QShare_Logo_Black.svg" className="QShareLogo"/>
       <div className="index-buttons-wrap row">
           <div className="btn-toolbar user-buttons">
               <Link className="btn btn-info" to="/profile">

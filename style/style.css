@@ -17,6 +17,41 @@ body h6
 body p{
   font-family: 'Quicksand', sans-serif;
 }
+.QShareLogo{
+  max-width: 250px;
+  float:left;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+
+  animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s; /* Firefox */
+    -webkit-animation: fadein 1.5s; /* Safari and Chrome */
+    -o-animation: fadein 1.5s; /* Opera */
+}
+@media (max-width: 769px) {
+  .QShareLogo{
+    all: initial;
+    max-width: 180px;
+    float:left;
+    position: absolute;
+    top: 10px;
+    left:5px;
+    margin: auto;
+
+    animation: fadein 1.5s;
+      -moz-animation: fadein 1.5s; /* Firefox */
+      -webkit-animation: fadein 1.5s; /* Safari and Chrome */
+      -o-animation: fadein 1.5s; /* Opera */
+  }
+}
+@media (max-width: 400px) {
+  .QShareLogo{
+    display: none;
+  }
+}
 
 .btn{
   font-family: 'Quicksand', sans-serif;
@@ -36,9 +71,9 @@ body p{
 }
 .jumbotron .jumbo-content{
   animation: fadein 1.5s;
-    -moz-animation: fadein 1.5s; /* Firefox */
-    -webkit-animation: fadein 1.5s; /* Safari and Chrome */
-    -o-animation: fadein 1.5s; /* Opera */
+    -moz-animation: fadein 1.5s;
+    -webkit-animation: fadein 1.5s;
+    -o-animation: fadein 1.5s;
 }
 /* Login Button */
 .fb-login-button{

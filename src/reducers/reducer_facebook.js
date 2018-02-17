@@ -1,4 +1,5 @@
 import { FB_USER_STATE } from '../actions';
+import { LOGIN } from '../actions';
 
 export default function(state = { loggedIn: false}, action) {
   switch (action.type) {
@@ -12,6 +13,12 @@ export default function(state = { loggedIn: false}, action) {
         newState = { loggedIn: false };
       }
       return newState;
+    case LOGIN:
+      let tempState = {
+        ...state,
+        ...action.payload
+      };
+      return tempState;
 
     default:
       return state;

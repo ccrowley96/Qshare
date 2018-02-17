@@ -10,16 +10,24 @@ export const FETCH_RIDE = 'fetch_ride';
 export const DELETE_RIDE = 'delete_ride';
 export const FB_USER_STATE = 'facebook_user_info';
 export const FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
+export const LOGIN = 'login';
 
 const LOCAL_ROOT_URL = process.env.LOCAL_ROOT_URL;
 
 export function fb_user_state(userInfo, callback) {
-  if (userInfo.loggedIn === false) {
+  //if (userInfo.loggedIn === false) {
     callback();
-  }
+  //}
   return {
     type: FB_USER_STATE,
     payload: userInfo
+  };
+}
+
+export function loginTriggered(callback) {
+  return {
+    type: LOGIN,
+    payload: {login_pressed:true}
   };
 }
 

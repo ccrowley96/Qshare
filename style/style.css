@@ -227,6 +227,9 @@ body p{
   }
 }
 @media (max-width: 520px) {
+  .my-fblink-button{
+    margin-top: 20px;
+  }
   .ride-header {
     height: 120px;
   }

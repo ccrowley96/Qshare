@@ -40,11 +40,18 @@ if (process.env.FORCE_SSL) {
     });
 }
 
-
 //API Endpoint Router
 app.use('/api', API);
 // Static Files
 app.use(express.static(BUNDLE_DIR));
+//Default catch all -> to index.html
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 //Start Listening
 app.listen(port, () => {
     console.log(`Qshare server running on port: ${port}!`);

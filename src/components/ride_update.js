@@ -233,7 +233,7 @@ function mapStateToProps(state) {
 //This adds additional props to component
 export default withRouter(reduxForm({
   validate, //validate: validate
-  form: 'NewRidesForm'
+  form: 'UpdateRidesForm'
 })(
   connect(mapStateToProps, { updateRide })(RidesUpdate)
 ));

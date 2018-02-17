@@ -36,6 +36,17 @@ body p{
   border-color: #d9534f;
   border-width: 1.5px;
 }
+.btn-primary {
+    color: #fff;
+    background-color: rgba(2, 117, 216,0.75);
+    border-color: #0275d8;
+    border-width: 1.5px;
+}
+.my-fblink-button{
+  background-color: rgba(59, 89, 152, 0.75);
+  border-color: rgb(59, 89, 152);;
+  border-width: 1.5px;
+}
 .QShareLogo{
   max-width: 250px;
   float:left;

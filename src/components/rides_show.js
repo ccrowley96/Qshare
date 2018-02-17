@@ -82,9 +82,7 @@ class RidesShow extends Component {
     const uid  = this.props.ride.uid;
     if (this.props.userInfo.uid !== uid) {
       return (
-        <button className="my-fblink-button btn btn-primary pull-xs-left" onClick={this.onfblinkClick.bind(this)}>
-          Facebook Profile
-        </button>
+        <button className="my-fblink-button btn btn-primary pull-xs-left" onClick={this.onfblinkClick.bind(this)}><span><i className="fab fa-facebook"/></span> Facebook Profile</button>
       );
     }
     return (<div></div>);

@@ -121,11 +121,7 @@ class RidesShow extends Component {
     }
     // Wait for successfull ride fetch
     if (!this.state.rideFetched) {
-      return (
-        <div>
-        <h5>Loading...</h5>
-        </div>
-      );
+      return (<div><h5>Loading...</h5></div>);
     }
     const profilePicUrl = `http://graph.facebook.com/${this.props.ride.uid}/picture?type=large`;
 

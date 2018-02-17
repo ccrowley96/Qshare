@@ -56,7 +56,7 @@ class Profile extends Component {
         <MyRideTable userRides={this.props.userRides}/>
       );
     }
-    return (<div> Loading... </div>);
+    return (<div><h5>Loading...</h5></div>);
   }
 
   render() {

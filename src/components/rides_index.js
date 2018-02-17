@@ -35,7 +35,7 @@ class RidesIndex extends Component {
         <RideTable rides={this.props.rides}/>
       );
     }
-    return (<div> Loading all rides... </div>);
+    return (<div><h5>Loading rides...</h5></div>);
   }
 
   //Render Rideindex page --> table, title, button

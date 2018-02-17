@@ -1,5 +1,6 @@
 body{
   width: 100%;
+  height: 100%;
   padding-top:50px;
   padding-bottom: 100px;
   padding-left: 10px;
@@ -16,6 +17,24 @@ body h6
 }
 body p{
   font-family: 'Quicksand', sans-serif;
+}
+.btn-info {
+    color: #fff;
+    background-color: rgba(91, 192, 222, .75);
+    border-color: #5bc0de;
+    border-width: 1.5px;
+}
+.btn-success{
+  color: #fff;
+  background-color: rgba(92, 184, 92, 0.75);
+  border-color: #5cb85c;
+  border-width: 1.5px;
+}
+.btn-danger{
+  color: #fff;
+  background-color: rgba(217, 83, 79,0.75);
+  border-color: #d9534f;
+  border-width: 1.5px;
 }
 .QShareLogo{
   max-width: 250px;
@@ -58,6 +77,9 @@ body p{
 }
 
 /* Login Page */
+.jumbotron{
+   background-color: #eceeef8c;
+}
 .jumbotron p{
   margin-bottom: 0px;
 }
@@ -75,14 +97,7 @@ body p{
     -webkit-animation: fadein 1.5s;
     -o-animation: fadein 1.5s;
 }
-/* Login Button */
-.fb-login-button{
-  background-color: #3f5c9a;
-  border: none;
-  color:white;
-  border-radius: 6px;
-  padding: 7px 15px 7px 15px;
-}
+
 .index-buttons-wrap{
   margin-bottom: 30px;
 }
@@ -149,6 +164,14 @@ body p{
   .index-wrap .btn{
     font-size: .7em;
   }
+}
+/* Login Button */
+.login-button{
+  background-color: #3b5998;
+  border: none;
+  color:white;
+  border-radius: 6px;
+  padding: 7px 15px 7px 15px;
 }
 /* Individual Ride Page */
 .ride-show-wrap{

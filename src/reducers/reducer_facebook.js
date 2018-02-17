@@ -13,12 +13,6 @@ export default function(state = { loggedIn: false}, action) {
         newState = { loggedIn: false };
       }
       return newState;
-    case LOGIN:
-      let tempState = {
-        ...state,
-        ...action.payload
-      };
-      return tempState;
 
     default:
       return state;

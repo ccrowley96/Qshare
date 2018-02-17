@@ -1,5 +1,3 @@
-//import dotenv from 'dotenv';
-//dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import path from 'path';
@@ -14,22 +12,13 @@ export const LOGIN = 'login';
 
 const LOCAL_ROOT_URL = process.env.LOCAL_ROOT_URL;
 
-export function fb_user_state(userInfo, callback) {
-  //if (userInfo.loggedIn === false) {
-    callback();
-  //}
+export function fb_user_state(userInfo) {
   return {
     type: FB_USER_STATE,
     payload: userInfo
   };
 }
 
-export function loginTriggered(callback) {
-  return {
-    type: LOGIN,
-    payload: {login_pressed:true}
-  };
-}
 
 export function fetchRides() {
   const request = axios.get(`${LOCAL_ROOT_URL}/rides`);

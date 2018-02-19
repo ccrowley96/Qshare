@@ -9,6 +9,8 @@ export const DELETE_RIDE = 'delete_ride';
 export const FB_USER_STATE = 'facebook_user_info';
 export const FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
 export const LOGIN = 'login';
+export const JOIN_RIDE = 'join';
+export const LEAVE_RIDE = 'leave';
 
 const LOCAL_ROOT_URL = process.env.LOCAL_ROOT_URL;
 
@@ -59,8 +61,32 @@ export function updateRide(values, uid, link, rideID, profile_picture, callback)
   };
 }
 
-export function fetchRide(id) {
+export function joinRide(rideRequest, callback) {
+  //Callback redirects user to home page
+  const request = axios.post(`${LOCAL_ROOT_URL}/rides/join`, rideRequest)
+    .then(callback());
+    // .then(console.log(request));
+  return {
+    type: JOIN_RIDE,
+    payload: request
+  };
+}
+
+export function leaveRide(leaveRequest, callback) {
+  //Callback redirects user to home page
+  const request = axios.post(`${LOCAL_ROOT_URL}/rides/leave`, leaveRequest)
+    .then(callback());
+    // .then(console.log(request));
+  return {
+    type: LEAVE_RIDE,
+    payload: request
+  };
+}
+
+export function fetchRide(id, callback) {
+
   const request = axios.get(`${LOCAL_ROOT_URL}/rides/${id}`);
+
   return {
     type: FETCH_RIDE,
     payload: request

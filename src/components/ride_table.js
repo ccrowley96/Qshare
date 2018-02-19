@@ -31,12 +31,6 @@ class RideTable extends Component {
     this.sortRides(SORT_BY_DATE);
   }
 
-  // componentWillReceiveProps(nextProps){
-  //   if(nextProps.agreement && nextProps.agreement.id){
-  //
-  //   }
-  // }
-
   handleHeaderHighlight() {
     const table_headers = document.getElementsByClassName("ride_index_heading");
     // Loop through the buttons and add the active class to the current/clicked button

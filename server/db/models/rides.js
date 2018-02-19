@@ -39,7 +39,11 @@ const rideSchema = mongoose.Schema({
   description: {
     type: String,
     required: false
-  }
+  },
+  passengers: [{
+    uid : String,
+    name : String
+   }]
 });
 
 const Ride = module.exports = mongoose.model('Ride', rideSchema);

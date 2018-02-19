@@ -19,7 +19,7 @@ export default function(state = {}, action) {
       return newState;
     case DELETE_RIDE:
       return _.omit(state, action.payload);
-
+      
     default:
       return state;
   }

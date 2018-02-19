@@ -30,6 +30,12 @@ body p{
   border-color: #5cb85c;
   border-width: 1.5px;
 }
+.btn-warning{
+  color: #fff;
+  background-color: rgba(240, 173, 78,0.75);
+  border-color: rgb(240, 173, 78);
+  border-width: 1.5px;
+}
 .btn-danger{
   color: #fff;
   background-color: rgba(217, 83, 79,0.75);

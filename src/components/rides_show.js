@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
 import {isMobile} from 'react-device-detect';
-import { fetchRide, deleteRide } from '../actions';
+import { fetchRide, deleteRide, joinRide, leaveRide} from '../actions';
 import RidesUpdate from './ride_update'
 import { capFirst } from '../utils/string_manipulation';
 
@@ -13,18 +15,33 @@ class RidesShow extends Component {
     super(props);
     this.state = {
       editOn : false,
-      rideFetched: false
+      rideFetched: false,
+      ride: {}
     };
     this.resetEditFlag = this.resetEditFlag.bind(this);
-    const id  = this.props.match.params.id;
+    this.renderHeader = this.renderHeader.bind(this);
+    this.updateRideFlag = this.updateRideFlag.bind(this);
+    this.checkIfPassengerAlready = this.checkIfPassengerAlready.bind(this);
+    this.onLeaveClick = this.onLeaveClick.bind(this);
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+    this.grabRide = this.grabRide.bind(this);
 
+  }
+  componentDidMount() {
+    this.grabRide();
+  }
+
+  grabRide() {
+    this.setState({rideFetched: false});
+    const id  = this.props.match.params.id;
     this.props.fetchRide(id).then(()=>{
       this.updateRideFlag();
     });
-
-    this.renderHeader = this.renderHeader.bind(this);
-    this.updateRideFlag = this.updateRideFlag.bind(this);
   }
+
+  forceUpdateHandler(){
+    this.forceUpdate();
+  };
 
   updateRideFlag() {
     this.setState({rideFetched: true});
@@ -34,6 +51,27 @@ class RidesShow extends Component {
     const id  = this.props.match.params.id;
     this.props.deleteRide(id, () =>{
       this.props.history.push('/');
+    });
+  }
+  onJoinClick() {
+    const joinRequest = {
+      uid : this.props.ride.uid,
+      rideID: this.props.match.params.id,
+      name: this.props.userInfo.full_name
+    }
+    this.props.joinRide(joinRequest, () => {
+        this.grabRide();
+    });
+  }
+  onLeaveClick() {
+    console.log('clicked leave');
+    const leaveRequest = {
+      uid : this.props.ride.uid,
+      rideID: this.props.match.params.id,
+      name: this.props.userInfo.full_name
+    }
+    this.props.leaveRide(leaveRequest, () => {
+        this.grabRide();
     });
   }
 
@@ -70,8 +108,41 @@ class RidesShow extends Component {
     const uid  = this.props.ride.uid;
     if (this.props.userInfo.uid == uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
       return (
-        <button className="my-edit-button btn btn-success pull-xs-left" onClick={this.onEditClick.bind(this)}>
+        <button className="my-edit-button btn btn-warning pull-xs-left" onClick={this.onEditClick.bind(this)}>
           Edit Ride
+        </button>
+      );
+    }
+    return (<div></div>);
+  }
+
+  checkIfPassengerAlready() {
+    let isPassenger = false;
+    if(this.props.ride.passengers){
+       _.map(this.props.ride.passengers, (passenger) => {
+        if(this.props.userInfo.uid == passenger.uid) {
+          isPassenger = true;
+        }
+      });
+    }
+    return isPassenger;
+  }
+
+  renderJoin() {
+    let isAlreadyPassenger = this.checkIfPassengerAlready();
+    const uid  = this.props.ride.uid;
+    if(isAlreadyPassenger) {
+      return (
+        <button className="my-edit-button btn btn-danger pull-xs-right" onClick={this.onLeaveClick.bind(this)}>
+          Leave Ride
+        </button>
+      );
+    }
+    //If this is your ride or this is admin
+    if (this.props.userInfo.uid != uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
+      return (
+        <button className="my-edit-button btn btn-success pull-xs-right" onClick={this.onJoinClick.bind(this)}>
+          Join Ride
         </button>
       );
     }
@@ -121,6 +192,7 @@ class RidesShow extends Component {
     if (!this.state.rideFetched) {
       return (<div><h5>Loading...</h5></div>);
     }
+
     const profilePicUrl = `http://graph.facebook.com/${this.props.ride.uid}/picture?type=large`;
 
     const readableDate = moment.utc(ride.date).format('dddd, MMMM Do');
@@ -159,6 +231,12 @@ class RidesShow extends Component {
                         <td><h4><span className="i-span"><i className="fas fa-users"></i></span> Capacity</h4></td>
                         <td><p><b>{ride.capacity}</b> seats remaining</p></td>
                       </tr>
+                      <tr className="table-group-item">
+                        <td><h4><span className="i-span"><i className="fas fa-users"></i></span> Passengers</h4></td>
+                        <td><p><b>{
+                          ride.passengers[0] ? ride.passengers[0].name : 'no-one'
+                        }</b> is a passenger!</p></td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -183,6 +261,7 @@ class RidesShow extends Component {
           {this.renderDelete()}
           {this.renderEdit()}
           {this.renderFBLink()}
+          {this.renderJoin()}
         </div>
       );
     }
@@ -196,4 +275,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, {fetchRide, deleteRide})(RidesShow);
+export default connect(mapStateToProps, {fetchRide, deleteRide, joinRide, leaveRide})(RidesShow);

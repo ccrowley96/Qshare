@@ -41,7 +41,7 @@ ReactDOM.render(
           <Route path="/login" component={Login} />
           <PrivateRoute auth={checkLogin} path="/post-ride" component={RidesNew} />
           <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/rides/:id" component={RidesShow}/>
+          <PrivateRoute path="/rides/:id" component={RidesShow} render={(props) => ( <RidesShow {...props} key={this.checkJoinLeave} /> )}/>
           <Route path="/" component={RidesIndex} />
         </Switch>
       </div>

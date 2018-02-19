@@ -79,8 +79,42 @@ router.post('/update', (req, res, next) => {
     });
 });
 
+//JOIN single Ride
+router.post('/join', (req, res, next) => {
+  Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$push': {"passengers":{
+    uid: req.body.uid,
+    name: req.body.name
+  }}}, (err) => {
+    if (err) {
+      console.log(err);
+      res.send("Ride Join DB Error");
+    }
+    else {
+      res.redirect('/');
+    }
+  });
+});
+
+//LEAVE single Ride
+router.post('/leave', (req, res, next) => {
+  console.log('inside /leave endpoint');
+  console.log(req.body);
+
+  Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$pull': {"passengers":{"uid": req.body.uid}}}, (err) => {
+    if (err) {
+      console.log(err);
+      res.send("Ride Join DB Error");
+    }
+    else {
+      res.redirect('/');
+    }
+  });
+
+});
+
 //Query Ride by ID
 router.get('/:id', (req, res, next) => {
+  console.log(req.params);
   const ride_id = req.params.id;
   Ride.find({"_id": ObjectId(`${ride_id}`) }, (err, ride) =>{
     if (err) {

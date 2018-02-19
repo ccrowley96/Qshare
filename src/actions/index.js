@@ -64,7 +64,7 @@ export function updateRide(values, uid, link, rideID, profile_picture, callback)
 export function joinRide(rideRequest, callback) {
   //Callback redirects user to home page
   const request = axios.post(`${LOCAL_ROOT_URL}/rides/join`, rideRequest)
-    .then(callback());
+    .then(()=>{callback()});
     // .then(console.log(request));
   return {
     type: JOIN_RIDE,
@@ -75,7 +75,7 @@ export function joinRide(rideRequest, callback) {
 export function leaveRide(leaveRequest, callback) {
   //Callback redirects user to home page
   const request = axios.post(`${LOCAL_ROOT_URL}/rides/leave`, leaveRequest)
-    .then(callback());
+    .then(()=>{callback()});
     // .then(console.log(request));
   return {
     type: LEAVE_RIDE,
@@ -85,7 +85,7 @@ export function leaveRide(leaveRequest, callback) {
 
 export function fetchRide(id, callback) {
 
-  const request = axios.get(`${LOCAL_ROOT_URL}/rides/${id}`);
+  const request = axios.get(`${LOCAL_ROOT_URL}/rides/${id}`).then(callback());
 
   return {
     type: FETCH_RIDE,

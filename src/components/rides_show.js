@@ -15,8 +15,7 @@ class RidesShow extends Component {
     super(props);
     this.state = {
       editOn : false,
-      rideFetched: false,
-      ride: {}
+      rideFetched: false
     };
     this.resetEditFlag = this.resetEditFlag.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
@@ -34,8 +33,8 @@ class RidesShow extends Component {
   grabRide() {
     this.setState({rideFetched: false});
     const id  = this.props.match.params.id;
-    this.props.fetchRide(id).then(()=>{
-      this.updateRideFlag();
+    this.props.fetchRide(id, ()=> {
+        this.updateRideFlag();
     });
   }
 
@@ -64,7 +63,6 @@ class RidesShow extends Component {
     });
   }
   onLeaveClick() {
-    console.log('clicked leave');
     const leaveRequest = {
       uid : this.props.ride.uid,
       rideID: this.props.match.params.id,

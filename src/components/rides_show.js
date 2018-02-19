@@ -24,8 +24,10 @@ class RidesShow extends Component {
     this.onLeaveClick = this.onLeaveClick.bind(this);
     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.grabRide = this.grabRide.bind(this);
+    this.renderPassengers = this.renderPassengers.bind(this);
 
   }
+
   componentDidMount() {
     this.grabRide();
   }
@@ -53,23 +55,26 @@ class RidesShow extends Component {
     });
   }
   onJoinClick() {
+
     const joinRequest = {
-      uid : this.props.ride.uid,
+      uid : this.props.userInfo.uid,
       rideID: this.props.match.params.id,
       name: this.props.userInfo.full_name
     }
     this.props.joinRide(joinRequest, () => {
         this.grabRide();
+        console.log(this.props.ride.passengers);
     });
   }
   onLeaveClick() {
     const leaveRequest = {
-      uid : this.props.ride.uid,
+      uid : this.props.userInfo.uid,
       rideID: this.props.match.params.id,
       name: this.props.userInfo.full_name
     }
     this.props.leaveRide(leaveRequest, () => {
         this.grabRide();
+        console.log(this.props.ride.passengers);
     });
   }
 
@@ -115,6 +120,7 @@ class RidesShow extends Component {
   }
 
   checkIfPassengerAlready() {
+
     let isPassenger = false;
     if(this.props.ride.passengers){
        _.map(this.props.ride.passengers, (passenger) => {
@@ -123,6 +129,7 @@ class RidesShow extends Component {
         }
       });
     }
+    console.log('Is already passenger', isPassenger);
     return isPassenger;
   }
 
@@ -136,7 +143,7 @@ class RidesShow extends Component {
         </button>
       );
     }
-    //If this is your ride or this is admin
+    //If this is not your ride or this is admin
     if (this.props.userInfo.uid != uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
       return (
         <button className="my-edit-button btn btn-success pull-xs-right" onClick={this.onJoinClick.bind(this)}>
@@ -145,6 +152,24 @@ class RidesShow extends Component {
       );
     }
     return (<div></div>);
+  }
+
+  renderPassengers() {
+    let passengers = this.props.ride.passengers;
+    let passengerList = '';
+    if(passengers.length > 0) {
+      return (
+        <ol>
+          {_.map(passengers, (passenger) => {
+          console.log(passenger);
+          return (<li key={passenger.uid}><p>{passenger.name}</p></li>);
+          })}
+       </ol>
+      );
+      return (<p>{passengerList}</p>);
+    } else{
+      return (<p>No Passengers</p>)
+    }
   }
 
   renderFBLink() {
@@ -229,11 +254,9 @@ class RidesShow extends Component {
                         <td><h4><span className="i-span"><i className="fas fa-users"></i></span> Capacity</h4></td>
                         <td><p><b>{ride.capacity}</b> seats remaining</p></td>
                       </tr>
-                      <tr className="table-group-item">
+                      <tr className="table-group-item passenger-list">
                         <td><h4><span className="i-span"><i className="fas fa-users"></i></span> Passengers</h4></td>
-                        <td><p><b>{
-                          ride.passengers[0] ? ride.passengers[0].name : 'no-one'
-                        }</b> is a passenger!</p></td>
+                        <td>{this.renderPassengers()}</td>
                       </tr>
                     </tbody>
                   </table>

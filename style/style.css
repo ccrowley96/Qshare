@@ -287,6 +287,14 @@ body p{
     font-size: 20px;
   }
 }
+.passenger-list ol{
+  font-family: 'Quicksand', sans-serif;
+  list-style-type: upper-roman;
+  font-weight: bold;
+}
+/* .passenger-list li:before{
+color:red;
+} */
 /* Post Ride Form */
 form .form-group .input-field{
   background-color: rgba(0, 0, 0, 0.03);

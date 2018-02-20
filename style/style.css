@@ -209,10 +209,6 @@ body p{
   float: left;
   width: 40px;
 }
-.my-edit-button{
-  margin-left: 20px;
-  margin-right: 20px;
-}
 
 .ride-profile-picture{
   width:200px;
@@ -266,31 +262,24 @@ body p{
     font-size: 30px;
   }
 }
-.my-leave-button,
-.my-join-button{
-  float:right;
+
+.show-ride-button{
+  width: 100%;
+  margin-bottom: 20px;
 }
-@media (max-width: 768px) {
-  .my-leave-button,
-  .my-join-button{
-    margin-top:20px;
-    float:left;
-    margin-left: 0px;
-  }
-}
-@media (max-width: 526px){
+/* @media (max-width: 526px){
   .ride-button-wrap .btn{
     font-size: .8em;
   }
-}
-@media (max-width: 468px) {
+} */
+/* @media (max-width: 468px) {
   .my-fblink-button{
     margin-top: 20px;
   }
   .my-leave-button,
   .my-join-button{
     margin-left: 20px;
-  }
+  } */
 }
 @media (max-width: 520px) {
   .ride-header {

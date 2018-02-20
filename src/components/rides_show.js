@@ -101,9 +101,11 @@ class RidesShow extends Component {
     const uid  = this.props.ride.uid;
     if (this.props.userInfo.uid == uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
       return (
-        <button className="my-delete-button btn btn-danger pull-xs-left" onClick={this.onDeleteClick.bind(this)}>
-          Delete Ride
-        </button>
+        <div className="col-lg-3 col-sm-6 btn-xs-12">
+          <button className="show-ride-button my-delete-button btn btn-danger" onClick={this.onDeleteClick.bind(this)}>
+            Delete Ride
+          </button>
+        </div>
       );
     }
     return (<div></div>);
@@ -113,9 +115,11 @@ class RidesShow extends Component {
     const uid  = this.props.ride.uid;
     if (this.props.userInfo.uid == uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
       return (
-        <button className="my-edit-button btn btn-warning pull-xs-left" onClick={this.onEditClick.bind(this)}>
-          Edit Ride
-        </button>
+        <div className="col-lg-3 col-sm-6 btn-xs-12">
+          <button className="show-ride-button my-edit-button btn btn-warning" onClick={this.onEditClick.bind(this)}>
+            Edit Ride
+          </button>
+        </div>
       );
     }
     return (<div></div>);
@@ -139,17 +143,21 @@ class RidesShow extends Component {
     const uid  = this.props.ride.uid;
     if(isAlreadyPassenger) {
       return (
-        <button ref="leavebtn" className="my-leave-button btn btn-danger" onClick={this.onLeaveClick.bind(this)}>
-          Leave Ride
-        </button>
+        <div className="col-lg-3 col-sm-6 btn-xs-12">
+          <button ref="leavebtn" className="show-ride-button my-leave-button btn btn-danger" onClick={this.onLeaveClick.bind(this)}>
+            Leave Ride
+          </button>
+        </div>
       );
     }
     //If this is not your ride or this is admin
     if ((this.props.userInfo.uid != uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) && this.props.ride.capacity > 0) {
       return (
-        <button ref="joinbtn" className="my-join-button btn btn-success pull-xs-right" onClick={this.onJoinClick.bind(this)}>
-          Join Ride
-        </button>
+        <div className="col-lg-3 col-sm-6 btn-xs-12">
+          <button ref="joinbtn" className="show-ride-button my-join-button btn btn-success" onClick={this.onJoinClick.bind(this)}>
+            Join Ride
+          </button>
+        </div>
       );
     }
     return (<div></div>);
@@ -175,7 +183,9 @@ class RidesShow extends Component {
     const uid  = this.props.ride.uid;
     if (this.props.userInfo.uid !== uid) {
       return (
-        <button className="my-fblink-button btn btn-primary pull-xs-left" onClick={this.onfblinkClick.bind(this)}><span><i className="fab fa-facebook"/></span> Facebook Profile</button>
+        <div className="col-lg-3 col-sm-6 btn-xs-12">
+          <button className="show-ride-button my-fblink-button btn btn-primary" onClick={this.onfblinkClick.bind(this)}><span><i className="fab fa-facebook"/></span> Facebook Profile</button>
+        </div>
       );
     }
     return (<div></div>);
@@ -278,11 +288,13 @@ class RidesShow extends Component {
                 </div>
               </div>
             </div>
-          <div className="ride-button-wrap">
-            {this.renderDelete()}
-            {this.renderEdit()}
-            {this.renderFBLink()}
-            {this.renderJoin()}
+          <div className="ride-button-wrap container-fluid">
+            <div className="row">
+              {this.renderDelete()}
+              {this.renderEdit()}
+              {this.renderFBLink()}
+              {this.renderJoin()}
+            </div>
           </div>
         </div>
       );

@@ -34,8 +34,6 @@ router.post('/', (req, res, next) => {
     ride.destination = req.body.destination.toLowerCase();
     ride.date = req.body.date;
 
-
-
     if (req.body.description) {
       ride.description = req.body.description;
     }
@@ -81,31 +79,53 @@ router.post('/update', (req, res, next) => {
 
 //JOIN single Ride
 router.post('/join', (req, res, next) => {
-  Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$push': {"passengers":{
-    uid: req.body.uid,
-    name: req.body.name
-  }}}, (err) => {
+  //Check Capacity
+  Ride.findOne({"_id": ObjectId(`${req.body.rideID}`) }, (err, ride) =>{
     if (err) {
       console.log(err);
-      res.send("Ride Join DB Error");
-    }
-    else {
-      res.redirect('/');
+      throw err;
+    } else {
+      console.log(ride.capacity);
+      if(ride.capacity > 0){
+        //Decrement capacity
+        Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": -1 } }, (err) => {
+          if(err){
+            console.log(err);
+          }
+        });
+        //Join Ride if capacity is available
+        Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$push': {"passengers":{
+          uid: req.body.uid,
+          name: req.body.name,
+          fblink: req.body.link
+        }}}, (err) => {
+          if (err) {
+            console.log(err);
+            res.send("Ride Join DB Error");
+          }
+          else {
+            res.redirect('/');
+          }
+        });
+      }
     }
   });
 });
 
 //LEAVE single Ride
 router.post('/leave', (req, res, next) => {
-  console.log('inside /leave endpoint');
-  console.log(req.body);
-
   Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$pull': {"passengers":{"uid": req.body.uid}}}, (err) => {
     if (err) {
       console.log(err);
       res.send("Ride Join DB Error");
     }
     else {
+      //Decrement capacity
+      Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": 1 } }, (err) => {
+        if(err){
+          console.log(err);
+        }
+      });
       res.redirect('/');
     }
   });

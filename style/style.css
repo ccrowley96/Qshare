@@ -266,10 +266,33 @@ body p{
     font-size: 30px;
   }
 }
-@media (max-width: 520px) {
+.my-leave-button,
+.my-join-button{
+  float:right;
+}
+@media (max-width: 768px) {
+  .my-leave-button,
+  .my-join-button{
+    margin-top:20px;
+    float:left;
+    margin-left: 0px;
+  }
+}
+@media (max-width: 526px){
+  .ride-button-wrap .btn{
+    font-size: .8em;
+  }
+}
+@media (max-width: 468px) {
   .my-fblink-button{
     margin-top: 20px;
   }
+  .my-leave-button,
+  .my-join-button{
+    margin-left: 20px;
+  }
+}
+@media (max-width: 520px) {
   .ride-header {
     height: 120px;
   }
@@ -288,13 +311,26 @@ body p{
   }
 }
 .passenger-list ol{
-  font-family: 'Quicksand', sans-serif;
-  list-style-type: upper-roman;
-  font-weight: bold;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-/* .passenger-list li:before{
-color:red;
-} */
+.passenger-list-ol li{
+  padding: 8px 8px 8px 8px;
+  color:#0275d8;
+}
+.passenger-list-ol li:hover{
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #eceeef9e;
+  color:#41a4f9;
+}
+.passenger-list-ol p{
+
+  margin-bottom:5px;
+}
+
 /* Post Ride Form */
 form .form-group .input-field{
   background-color: rgba(0, 0, 0, 0.03);

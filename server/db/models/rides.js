@@ -42,7 +42,8 @@ const rideSchema = mongoose.Schema({
   },
   passengers: [{
     uid : String,
-    name : String
+    name : String,
+    fblink: String
    }]
 });
 

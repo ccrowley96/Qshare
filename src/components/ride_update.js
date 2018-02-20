@@ -208,6 +208,9 @@ function validate(values) {
   if (!values.price) {
     errors.price = "Enter price";
   }
+  if(values.capacity < 0){
+    errors.capacity = "Enter positive capacity";
+  }
   if (!values.capacity) {
     errors.capacity = "Enter ride capacity";
   }

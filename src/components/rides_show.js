@@ -32,11 +32,14 @@ class RidesShow extends Component {
     this.grabRide();
   }
 
-  grabRide() {
+  grabRide(callback) {
     this.setState({rideFetched: false});
     const id  = this.props.match.params.id;
     this.props.fetchRide(id, ()=> {
         this.updateRideFlag();
+        if(callback){
+          callback();
+        }
     });
   }
 
@@ -55,26 +58,28 @@ class RidesShow extends Component {
     });
   }
   onJoinClick() {
-
+    this.refs.joinbtn.setAttribute("disabled", "disabled");
     const joinRequest = {
       uid : this.props.userInfo.uid,
       rideID: this.props.match.params.id,
-      name: this.props.userInfo.full_name
+      name: this.props.userInfo.full_name,
+      link: this.props.userInfo.link
     }
     this.props.joinRide(joinRequest, () => {
-        this.grabRide();
-        console.log(this.props.ride.passengers);
+        this.grabRide(()=>{this.refs.joinbtn.removeAttribute("disabled");});
+
     });
   }
   onLeaveClick() {
+    this.refs.leavebtn.setAttribute("disabled", "disabled");
     const leaveRequest = {
       uid : this.props.userInfo.uid,
       rideID: this.props.match.params.id,
       name: this.props.userInfo.full_name
     }
     this.props.leaveRide(leaveRequest, () => {
-        this.grabRide();
-        console.log(this.props.ride.passengers);
+        this.grabRide(()=>{this.refs.leavebtn.removeAttribute("disabled");});
+
     });
   }
 
@@ -88,11 +93,8 @@ class RidesShow extends Component {
 
   resetEditFlag(){
     const id  = this.props.match.params.id;
-    this.setState({editOn:false, rideFetched:false });
-    this.props.fetchRide(id).then(()=>{
-      this.updateRideFlag();
-    });
-    this.forceUpdate();
+    this.setState({editOn:false});
+    this.grabRide();
   }
 
   renderDelete() {
@@ -129,7 +131,6 @@ class RidesShow extends Component {
         }
       });
     }
-    console.log('Is already passenger', isPassenger);
     return isPassenger;
   }
 
@@ -138,15 +139,15 @@ class RidesShow extends Component {
     const uid  = this.props.ride.uid;
     if(isAlreadyPassenger) {
       return (
-        <button className="my-edit-button btn btn-danger pull-xs-right" onClick={this.onLeaveClick.bind(this)}>
+        <button ref="leavebtn" className="my-leave-button btn btn-danger" onClick={this.onLeaveClick.bind(this)}>
           Leave Ride
         </button>
       );
     }
     //If this is not your ride or this is admin
-    if (this.props.userInfo.uid != uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
+    if ((this.props.userInfo.uid != uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) && this.props.ride.capacity > 0) {
       return (
-        <button className="my-edit-button btn btn-success pull-xs-right" onClick={this.onJoinClick.bind(this)}>
+        <button ref="joinbtn" className="my-join-button btn btn-success pull-xs-right" onClick={this.onJoinClick.bind(this)}>
           Join Ride
         </button>
       );
@@ -159,14 +160,12 @@ class RidesShow extends Component {
     let passengerList = '';
     if(passengers.length > 0) {
       return (
-        <ol>
+        <ol className="passenger-list-ol">
           {_.map(passengers, (passenger) => {
-          console.log(passenger);
-          return (<li key={passenger.uid}><p>{passenger.name}</p></li>);
+            return (<li key={passenger.uid} onClick={()=>{window.location = passenger.fblink;}}><p>{passenger.name}</p></li>);
           })}
        </ol>
       );
-      return (<p>{passengerList}</p>);
     } else{
       return (<p>No Passengers</p>)
     }
@@ -279,10 +278,12 @@ class RidesShow extends Component {
                 </div>
               </div>
             </div>
-          {this.renderDelete()}
-          {this.renderEdit()}
-          {this.renderFBLink()}
-          {this.renderJoin()}
+          <div className="ride-button-wrap">
+            {this.renderDelete()}
+            {this.renderEdit()}
+            {this.renderFBLink()}
+            {this.renderJoin()}
+          </div>
         </div>
       );
     }

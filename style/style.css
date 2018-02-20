@@ -305,20 +305,31 @@ body p{
   margin: 0;
 }
 .passenger-list-ol li{
-  padding: 8px 8px 8px 8px;
+  /* padding: 8px 8px 8px 8px; */
   color:#0275d8;
 }
-.passenger-list-ol li:hover{
+.passenger-list-ol li p:hover{
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  background-color: #eceeef9e;
-  color:#41a4f9;
+  /* background-color: #eceeef9e; */
+  color:#47b72d;
+  text-decoration: underline;
 }
 .passenger-list-ol p{
-
+  display: inline-block;
   margin-bottom:5px;
 }
+.i-span-kick{
+  cursor: pointer;
+  color: #ff0000a3;
+  margin-left: 10px;
+  font-size: 20px;
+}
+.i-span-kick:hover{
+  color:red;
+}
+
 
 /* Post Ride Form */
 form .form-group .input-field{

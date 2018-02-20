@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import axios from 'axios';
 import {isMobile} from 'react-device-detect';
 import { fetchRide, deleteRide, joinRide, leaveRide} from '../actions';
@@ -25,6 +27,9 @@ class RidesShow extends Component {
     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.grabRide = this.grabRide.bind(this);
     this.renderPassengers = this.renderPassengers.bind(this);
+    this.renderKick = this.renderKick.bind(this);
+    this.onKickClick = this.onKickClick.bind(this);
+    this.kickSubmit = this.kickSubmit.bind(this);
 
   }
 
@@ -42,6 +47,20 @@ class RidesShow extends Component {
         }
     });
   }
+
+  kickSubmit = (passengerID, passengerName) => {
+      return function(){
+      confirmAlert({
+        title: 'Confirm kick',                        // Title dialog
+        message: `Remove ${passengerName} from ride?`,               // Message dialog
+        // childrenElement: () => <div>Custom UI</div>,       // Custom UI or Component
+        confirmLabel: 'Confirm',                           // Text button confirm
+        cancelLabel: 'Cancel',                             // Text button cancel
+        onConfirm: () => {this.onKickClick(passengerID)},    // Action after Confirm
+        onCancel: () => alert('Action after Cancel'),      // Action after Cancel
+      })
+    }.bind(this);
+  };
 
   forceUpdateHandler(){
     this.forceUpdate();
@@ -81,6 +100,19 @@ class RidesShow extends Component {
         this.grabRide(()=>{this.refs.leavebtn.removeAttribute("disabled");});
 
     });
+  }
+
+  onKickClick(passengerID){
+      console.log('kick clicked');
+      console.log(passengerID);
+      this.refs.kickbtn.setAttribute("disabled", "disabled");
+      const leaveRequest = {
+        uid : passengerID,
+        rideID: this.props.match.params.id
+      }
+      this.props.leaveRide(leaveRequest, () => {
+          this.grabRide(()=>{this.refs.kickbtn.removeAttribute("disabled");});
+      });
   }
 
   onEditClick() {
@@ -125,8 +157,18 @@ class RidesShow extends Component {
     return (<div></div>);
   }
 
-  checkIfPassengerAlready() {
+  renderKick(passengerID,passengerName){
+    const uid  = this.props.ride.uid;
+    if(this.props.userInfo.uid == uid && !isMobile){
+      return (
+        <span ref="kickbtn" className="i-span-kick" onClick={this.kickSubmit(passengerID, passengerName)}><i className="fas fa-minus-circle"></i></span>
+      );
+    }
+    return(<div></div>);
+  }
+  //this.onKickClick(passengerID)
 
+  checkIfPassengerAlready() {
     let isPassenger = false;
     if(this.props.ride.passengers){
        _.map(this.props.ride.passengers, (passenger) => {
@@ -170,7 +212,14 @@ class RidesShow extends Component {
       return (
         <ol className="passenger-list-ol">
           {_.map(passengers, (passenger) => {
-            return (<li key={passenger.uid} onClick={()=>{window.location = passenger.fblink;}}><p>{passenger.name}</p></li>);
+            return (
+              <li key={passenger.uid}>
+              <span>
+              <p onClick={()=>{window.location = passenger.fblink;}}>{passenger.name}</p>
+              {this.renderKick(passenger.uid, passenger.name)}
+              </span>
+              </li>
+            );
           })}
        </ol>
       );

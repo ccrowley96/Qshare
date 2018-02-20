@@ -30,6 +30,8 @@ class RidesShow extends Component {
     this.renderKick = this.renderKick.bind(this);
     this.onKickClick = this.onKickClick.bind(this);
     this.kickSubmit = this.kickSubmit.bind(this);
+    this.leaveSubmit = this.leaveSubmit.bind(this);
+    this.deleteSubmit = this.deleteSubmit.bind(this);
 
   }
 
@@ -57,7 +59,35 @@ class RidesShow extends Component {
         confirmLabel: 'Confirm',                           // Text button confirm
         cancelLabel: 'Cancel',                             // Text button cancel
         onConfirm: () => {this.onKickClick(passengerID)},    // Action after Confirm
-        onCancel: () => alert('Action after Cancel'),      // Action after Cancel
+        onCancel: () => {},      // Action after Cancel
+      })
+    }.bind(this);
+  };
+
+  leaveSubmit = () => {
+      return function(){
+      confirmAlert({
+        title: 'Confirm leave',                        // Title dialog
+        message: `Are you sure you want to leave this ride?`,               // Message dialog
+        // childrenElement: () => <div>Custom UI</div>,       // Custom UI or Component
+        confirmLabel: 'Confirm',                           // Text button confirm
+        cancelLabel: 'Cancel',                             // Text button cancel
+        onConfirm: () => {this.onLeaveClick()},    // Action after Confirm
+        onCancel: () => {},      // Action after Cancel
+      })
+    }.bind(this);
+  };
+
+  deleteSubmit = (passengerID, passengerName) => {
+      return function(){
+      confirmAlert({
+        title: 'Confirm Delete',                        // Title dialog
+        message: `Are you sure you want to delete this ride?`,               // Message dialog
+        // childrenElement: () => <div>Custom UI</div>,       // Custom UI or Component
+        confirmLabel: 'Confirm',                           // Text button confirm
+        cancelLabel: 'Cancel',                             // Text button cancel
+        onConfirm: () => {this.onDeleteClick()},    // Action after Confirm
+        onCancel: () => {},      // Action after Cancel
       })
     }.bind(this);
   };
@@ -86,7 +116,6 @@ class RidesShow extends Component {
     }
     this.props.joinRide(joinRequest, () => {
         this.grabRide(()=>{this.refs.joinbtn.removeAttribute("disabled");});
-
     });
   }
   onLeaveClick() {
@@ -98,13 +127,10 @@ class RidesShow extends Component {
     }
     this.props.leaveRide(leaveRequest, () => {
         this.grabRide(()=>{this.refs.leavebtn.removeAttribute("disabled");});
-
     });
   }
 
   onKickClick(passengerID){
-      console.log('kick clicked');
-      console.log(passengerID);
       this.refs.kickbtn.setAttribute("disabled", "disabled");
       const leaveRequest = {
         uid : passengerID,
@@ -134,7 +160,7 @@ class RidesShow extends Component {
     if (this.props.userInfo.uid == uid || (this.props.userInfo.uid == '1400572109999748' && process.env.ADMIN_EDIT == 1)) {
       return (
         <div className="col-lg-3 col-sm-6 btn-xs-12">
-          <button className="show-ride-button my-delete-button btn btn-danger" onClick={this.onDeleteClick.bind(this)}>
+          <button className="show-ride-button my-delete-button btn btn-danger" onClick={this.deleteSubmit()}>
             Delete Ride
           </button>
         </div>
@@ -186,7 +212,7 @@ class RidesShow extends Component {
     if(isAlreadyPassenger) {
       return (
         <div className="col-lg-3 col-sm-6 btn-xs-12">
-          <button ref="leavebtn" className="show-ride-button my-leave-button btn btn-danger" onClick={this.onLeaveClick.bind(this)}>
+          <button ref="leavebtn" className="show-ride-button my-leave-button btn btn-danger" onClick={this.leaveSubmit()}>
             Leave Ride
           </button>
         </div>

@@ -77,7 +77,7 @@ router.post('/update', (req, res, next) => {
     });
 });
 
-//JOIN single Ride
+//JOIN single Ride TODO add no double join checking
 router.post('/join', (req, res, next) => {
   //Check Capacity
   Ride.findOne({"_id": ObjectId(`${req.body.rideID}`) }, (err, ride) =>{
@@ -85,14 +85,14 @@ router.post('/join', (req, res, next) => {
       console.log(err);
       throw err;
     } else {
-      console.log(ride.capacity);
-      if(ride.capacity > 0){
-        //Decrement capacity
-        Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": -1 } }, (err) => {
-          if(err){
-            console.log(err);
-          }
-        });
+      let isAlreadyPassenger = false;
+      ride.passengers.map((passenger)=>{
+        if(passenger.uid == req.body.uid){
+          isAlreadyPassenger = true;
+        }
+      });
+
+      if(ride.capacity > 0 && !isAlreadyPassenger){
         //Join Ride if capacity is available
         Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$push': {"passengers":{
           uid: req.body.uid,
@@ -104,9 +104,17 @@ router.post('/join', (req, res, next) => {
             res.send("Ride Join DB Error");
           }
           else {
+            //Decrement capacity
+            Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": -1 } }, (err) => {
+              if(err){
+                console.log(err);
+              }
+            });
             res.redirect('/');
           }
         });
+      } else{
+        res.redirect('/');
       }
     }
   });
@@ -114,23 +122,42 @@ router.post('/join', (req, res, next) => {
 
 //LEAVE single Ride
 router.post('/leave', (req, res, next) => {
-  Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$pull': {"passengers":{"uid": req.body.uid}}}, (err) => {
+
+  Ride.findOne({"_id": ObjectId(`${req.body.rideID}`) }, (err, ride) =>{
     if (err) {
       console.log(err);
-      res.send("Ride Join DB Error");
-    }
-    else {
-      //Decrement capacity
-      Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": 1 } }, (err) => {
-        if(err){
-          console.log(err);
+      throw err;
+    } else {
+
+      let isAlreadyPassenger = false;
+      ride.passengers.map((passenger)=>{
+        if(passenger.uid == req.body.uid){
+          isAlreadyPassenger = true;
         }
       });
-      res.redirect('/');
+      if(isAlreadyPassenger){
+        Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$pull': {"passengers":{"uid": req.body.uid}}}, (err) => {
+          if (err) {
+            console.log(err);
+            res.send("Ride Join DB Error");
+          }
+          else {
+            //Decrement capacity
+            Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": 1 } }, (err) => {
+              if(err){
+                console.log(err);
+              }
+            });
+            res.redirect('/');
+          }
+        });
+      } else{
+        res.redirect('/');
+      }
     }
   });
-
 });
+
 
 //Query Ride by ID
 router.get('/:id', (req, res, next) => {

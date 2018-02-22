@@ -21,7 +21,6 @@ export function fb_user_state(userInfo) {
   };
 }
 
-
 export function fetchRides() {
   const request = axios.get(`${LOCAL_ROOT_URL}/rides`);
 
@@ -86,7 +85,6 @@ export function leaveRide(leaveRequest, callback) {
 export function fetchRide(id, callback) {
 
   const request = axios.get(`${LOCAL_ROOT_URL}/rides/${id}`).then(callback());
-
   return {
     type: FETCH_RIDE,
     payload: request

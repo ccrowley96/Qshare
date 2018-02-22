@@ -85,35 +85,39 @@ router.post('/join', (req, res, next) => {
       console.log(err);
       throw err;
     } else {
-      let isAlreadyPassenger = false;
-      ride.passengers.map((passenger)=>{
-        if(passenger.uid == req.body.uid){
-          isAlreadyPassenger = true;
-        }
-      });
-
-      if(ride.capacity > 0 && !isAlreadyPassenger){
-        //Join Ride if capacity is available
-        Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$push': {"passengers":{
-          uid: req.body.uid,
-          name: req.body.name,
-          fblink: req.body.link
-        }}}, (err) => {
-          if (err) {
-            console.log(err);
-            res.send("Ride Join DB Error");
-          }
-          else {
-            //Decrement capacity
-            Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": -1 } }, (err) => {
-              if(err){
-                console.log(err);
-              }
-            });
-            res.redirect('/');
+      if(ride){
+        let isAlreadyPassenger = false;
+        ride.passengers.map((passenger)=>{
+          if(passenger.uid == req.body.uid){
+            isAlreadyPassenger = true;
           }
         });
-      } else{
+
+        if(ride.capacity > 0 && !isAlreadyPassenger){
+          //Join Ride if capacity is available
+          Ride.update({"_id": ObjectId(`${req.body.rideID}`)}, {'$push': {"passengers":{
+            uid: req.body.uid,
+            name: req.body.name,
+            fblink: req.body.link
+          }}}, (err) => {
+            if (err) {
+              console.log(err);
+              res.send("Ride Join DB Error");
+            }
+            else {
+              //Decrement capacity
+              Ride.update({"_id" : ObjectId(`${req.body.rideID}`)}, { '$inc': { "capacity": -1 } }, (err) => {
+                if(err){
+                  console.log(err);
+                }
+              });
+              res.redirect('/');
+            }
+          });
+        } else{
+          res.redirect('/');
+        }
+      } else {
         res.redirect('/');
       }
     }
@@ -163,17 +167,25 @@ router.post('/leave', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   console.log(req.params);
   const ride_id = req.params.id;
-  Ride.find({"_id": ObjectId(`${ride_id}`) }, (err, ride) =>{
-    if (err) {
-      console.log(err);
-      throw err;
-    } else {
-      res.json({
-        title: 'Ride',
-        ride
-      });
-    }
-  });
+  //ride_id must be 24 characters to qualify in mongoose find
+  if(ride_id.length == 24){
+    Ride.find({"_id": ObjectId(`${ride_id}`) }, (err, ride) =>{
+      if (err) {
+        console.log(err);
+        throw err;
+      } else {
+        res.json({
+          title: 'Ride',
+          ride
+        });
+      }
+    });
+  } else {
+    res.json({
+      title: 'Ride',
+      ride: []
+    });
+  }
 });
 
 //Query Ride by User ID

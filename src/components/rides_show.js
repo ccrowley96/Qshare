@@ -291,6 +291,9 @@ class RidesShow extends Component {
   }
 
   render() {
+    if(this.props.rideNotFound){
+      this.props.history.push('/');
+    }
     const { ride } = this.props;
     if (!ride) {
       return (<div><h5>Loading...</h5></div>);
@@ -380,7 +383,8 @@ class RidesShow extends Component {
 function mapStateToProps(state, ownProps) {
   return {
      ride: state.rides[ownProps.match.params.id],
-     userInfo: state.fb_state
+     userInfo: state.fb_state,
+     rideNotFound: state.rides.RIDE_NOT_FOUND
   };
 }
 

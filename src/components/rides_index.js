@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Route } from 'react-router-dom'; //Substitute for <a> tag
+import { Link, Route, withRouter } from 'react-router-dom'; //Substitute for <a> tag
 import _ from 'lodash';
 import moment from 'moment';
 import { fetchRides } from '../actions';
@@ -15,6 +15,7 @@ class RidesIndex extends Component {
     };
     this.updateRideFlag = this.updateRideFlag.bind(this);
     this.renderRidesTableWhenReady = this.renderRidesTableWhenReady.bind(this);
+    this.refreshRides = this.refreshRides.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,22 @@ class RidesIndex extends Component {
   //Ride flag Helper
   updateRideFlag() {
     this.setState({myRidesFetched: true});
+  }
+
+  refreshRides() {
+    let refreshBtn = document.querySelector('.refresh-btn');
+    refreshBtn.style.display = "none";
+    this.setState({myRidesFetched: false});
+    this.props.fetchRides()
+      .then(() => {
+        this.updateRideFlag();
+        this.renderRidesTableWhenReady();
+        if (refreshBtn.style.display === "none") {
+            refreshBtn.style.display = "block";
+        } else {
+            refreshBtn.style.display = "none";
+        }
+      });
   }
 
   renderRidesTableWhenReady() {
@@ -54,6 +71,7 @@ class RidesIndex extends Component {
           </div>
       </div>
         {this.renderRidesTableWhenReady()}
+        <button className="refresh-btn btn btn-success" onClick={this.refreshRides}>Refresh Rides <span>  <i className="fas fa-sync-alt"/></span></button>
       </div>
     );
   }
@@ -63,4 +81,4 @@ function mapStateToProps(state) {
   return { rides: state.rides };
 }
 
-export default connect(mapStateToProps, { fetchRides })(RidesIndex);
+export default withRouter(connect(mapStateToProps, { fetchRides })(RidesIndex));

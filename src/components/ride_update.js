@@ -16,6 +16,7 @@ class RidesUpdate extends Component {
     }
     this.attachUID = this.attachUID.bind(this);
     this.renderInputField = this.renderInputField.bind(this);
+    this.attachName = this.attachName.bind(this);
   }
 
   renderInputField(field) {
@@ -92,6 +93,23 @@ class RidesUpdate extends Component {
     );
   }
 
+  attachName(field) {
+    return (
+      <div className="form-group">
+          <label>{field.label}</label>
+          <input
+            {...field.input}
+            placeholder={field.placeholder}
+            className = "form-control uid-field"
+            tabIndex = "-1"
+            readOnly = "true"
+            value={this.props.userInfo.full_name}
+            type = {field.type}
+          />
+      </div>
+    );
+  }
+
   onSubmit(values) {
     const uid = this.props.oldRide.uid;
     const link = this.props.userInfo.link;
@@ -136,11 +154,11 @@ class RidesUpdate extends Component {
               component={this.attachUID}
             />
           <Field
-              label="Enter Name"
+              label="Name"
               type="text"
               name="name"
-              placeholder="What's your name?"
-              component={this.renderInputField}
+              value={this.props.userInfo.full_name}
+              component={this.attachName}
           />
           <Field
               label="Ride Price"

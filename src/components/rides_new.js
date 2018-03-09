@@ -12,6 +12,7 @@ class RidesNew extends Component {
   constructor(props) {
     super(props);
     this.attachUID = this.attachUID.bind(this);
+    this.attachName = this.attachName.bind(this);
   }
 
   renderInputField(field) {
@@ -92,6 +93,23 @@ class RidesNew extends Component {
     );
   }
 
+  attachName(field) {
+    return (
+      <div className="form-group">
+          <label>{field.label}</label>
+          <input
+            {...field.input}
+            placeholder={field.placeholder}
+            className = "form-control uid-field"
+            tabIndex = "-1"
+            readOnly = "true"
+            value={this.props.userInfo.full_name}
+            type = {field.type}
+          />
+      </div>
+    );
+  }
+
 
   onSubmit(values) {
     const uid = this.props.userInfo.uid;
@@ -143,11 +161,11 @@ class RidesNew extends Component {
             <div className="row">
               <div className="col-xs-12 col-md-6">
                 <Field
-                    label="Enter Name"
+                    label="Name"
                     type="text"
                     name="name"
-                    placeholder={this.props.userInfo.full_name}
-                    component={this.renderInputField}
+                    value={this.props.userInfo.full_name}
+                    component={this.attachName}
                 />
                 <Field
                     label="Ride Price"

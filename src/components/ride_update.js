@@ -211,7 +211,7 @@ function validate(values) {
   if(values.capacity < 0){
     errors.capacity = "Enter positive capacity";
   }
-  if (!values.capacity) {
+  if (!values.capacity && values.capacity != 0) {
     errors.capacity = "Enter ride capacity";
   }
   if (!values.origin) {

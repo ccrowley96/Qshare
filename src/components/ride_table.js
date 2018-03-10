@@ -8,6 +8,8 @@ import { fetchRides } from '../actions';
 import { capFirst } from '../utils/string_manipulation';
 
 const SORT_BY_DATE = 'sort_by_date';
+const SORT_BY_PRICE = 'sort_by_price';
+const SORT_BY_CAPACITY = 'sort_by_capacity';
 const SORT_BY_ORIGIN = 'sort_by_origin';
 const SORT_BY_DESTINATION = 'sort_by_destination';
 
@@ -22,6 +24,8 @@ class RideTable extends Component {
     this.sortRides = this.sortRides.bind(this);
     this.handleOriginClick = this.handleOriginClick.bind(this);
     this.handleDestinationClick = this.handleDestinationClick.bind(this);
+    this.handlePriceClick = this.handlePriceClick.bind(this);
+    this.handleCapacityClick = this.handleCapacityClick.bind(this);
     this.handleDateClick = this.handleDateClick.bind(this);
     this.handleRowClick = this.handleRowClick.bind(this);
   }
@@ -63,6 +67,14 @@ class RideTable extends Component {
   compareByDestination(a, b) {
     return a.destination.localeCompare(b.destination);
   }
+  // Price comparison helper for sortedRides
+  compareByPrice(a, b) {
+    return a.price > b.price;
+  }
+  // Capacity comparison helper for sortedRides
+  compareByCapacity(a, b) {
+    return a.capacity < b.capacity;
+  }
   // Sort Rides by switch case param
   sortRides(sortBy) {
     const {rides} = this.props.rides;
@@ -77,6 +89,12 @@ class RideTable extends Component {
         break;
       case SORT_BY_DESTINATION:
         sortedRides = rides.sort(this.compareByDestination);
+        break;
+      case SORT_BY_PRICE:
+        sortedRides = rides.sort(this.compareByPrice);
+        break;
+      case SORT_BY_CAPACITY:
+        sortedRides = rides.sort(this.compareByCapacity);
         break;
       default:
         sortedRides = rides.sort(this.compareByDate);
@@ -96,6 +114,12 @@ class RideTable extends Component {
   }
   handleDateClick() {
     this.sortRides(SORT_BY_DATE);
+  }
+  handlePriceClick() {
+    this.sortRides(SORT_BY_PRICE);
+  }
+  handleCapacityClick() {
+    this.sortRides(SORT_BY_CAPACITY);
   }
   handleRowClick(rideID) {
      this.props.history.push(`/rides/${rideID}`);
@@ -128,6 +152,12 @@ class RideTable extends Component {
                 <td>
                   <p>{readableDate}</p>
                 </td>
+                <td>
+                  <p>{ride.capacity}</p>
+                </td>
+                <td>
+                  <p>${ride.price}</p>
+                </td>
             </tr>
         );
       });
@@ -148,7 +178,9 @@ class RideTable extends Component {
                   <th className="table-col-title"><h4>Name</h4></th>
                   <th className="table-col-title ride_index_heading orig-head" onClick={this.handleOriginClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Origin</h4></th>
                   <th className="table-col-title ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-sort-alpha-up i-sort"></i></span> Destination</h4></th>
-                  <th className="table-col-title ride_index_heading date-head active"onClick={this.handleDateClick}><h4><span><i className="fa fa-sort-up i-sort"></i></span> Date</h4></th>
+                  <th className="table-col-title ride_index_heading date-head active" onClick={this.handleDateClick}><h4><span><i className="fa fa-clock i-sort"></i></span> Date</h4></th>
+                  <th className="table-col-title ride_index_heading cap-head" onClick={this.handleCapacityClick}><h4><span className="i-span"><i className="fas fa-users i-sort"></i></span> Seats</h4></th>
+                  <th className="table-col-title ride_index_heading price-head" onClick={this.handlePriceClick}><h4><span><i className="fa fa-dollar-sign i-sort"></i></span> Price</h4></th>
                 </tr>
                   {this.renderRidesV2()}
               </tbody>

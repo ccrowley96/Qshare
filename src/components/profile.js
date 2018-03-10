@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchRidesBy_UID } from '../actions';
+import { fetchRidesBy_UID, fetchRidesByPassengerID } from '../actions';
 import MyRideTable from './my_rides';
+import JoinedRideTable from './joined_rides';
 
 class Profile extends Component {
 
@@ -11,6 +12,8 @@ class Profile extends Component {
     this.state = {
       myRidesFetched: false
     };
+    this.renderUserRidesWhenReady = this.renderUserRidesWhenReady.bind(this);
+    this.renderPassengerRidesWhenReady = this.renderPassengerRidesWhenReady.bind(this);
   }
 
   componentDidMount() {
@@ -18,6 +21,7 @@ class Profile extends Component {
       .then(()=>{
         this.setState({ myRidesFetched: true });
       });
+    this.props.fetchRidesByPassengerID(this.props.userInfo.uid);
   }
 
   renderUser() {
@@ -42,21 +46,28 @@ class Profile extends Component {
         <div className="row welcome-row">
           <div className="container-fluid text-center">
             <h2>Hey {first_name}!</h2>
-            <h5>Here&#8217;s your unique rideshare ID: {uid},</h5>
-            <h5>& account email: {email}</h5>
           </div>
         </div>
       </div>
     );
   }
 
-  renderRidesWhenReady() {
+  renderUserRidesWhenReady() {
     if (this.props.userRides) {
       return (
         <MyRideTable userRides={this.props.userRides}/>
       );
     }
-    return (<div><h5>Loading...</h5></div>);
+    return (<div><h5>Loading Posted Rides...</h5></div>);
+  }
+
+  renderPassengerRidesWhenReady() {
+    if (this.props.passengerRides) {
+      return (
+        <JoinedRideTable userRides={this.props.passengerRides}/>
+      );
+    }
+    return (<div><h5>Loading Joined Rides...</h5></div>);
   }
 
   render() {
@@ -73,7 +84,10 @@ class Profile extends Component {
           </div>
         </div>
         {this.renderUser()}
-        {this.renderRidesWhenReady()}
+        <div className="row my-rides-container">
+          {this.renderUserRidesWhenReady()}
+          {this.renderPassengerRidesWhenReady()}
+        </div>
       </div>
     );
   }
@@ -82,8 +96,9 @@ class Profile extends Component {
 function mapStateToProps(state) {
   return {
     userInfo: state.fb_state,
-    userRides: state.rides.userRides
+    userRides: state.rides.userRides,
+    passengerRides: state.rides.passengerRides
   };
 }
 
-export default connect(mapStateToProps, { fetchRidesBy_UID })(Profile);
+export default connect(mapStateToProps, { fetchRidesBy_UID, fetchRidesByPassengerID })(Profile);

@@ -8,6 +8,7 @@ export const FETCH_RIDE = 'fetch_ride';
 export const DELETE_RIDE = 'delete_ride';
 export const FB_USER_STATE = 'facebook_user_info';
 export const FETCH_RIDE_BY_UID = 'fetch_rides_by_uid';
+export const FETCH_RIDE_BY_PASSENGER_ID = 'fetch_rides_by_passenger_id';
 export const LOGIN = 'login';
 export const JOIN_RIDE = 'join';
 export const LEAVE_RIDE = 'leave';
@@ -30,8 +31,9 @@ export function fetchRides() {
   };
 }
 
-export function createRide(values, uid, link, profile_picture, callback) {
+export function createRide(values, name, uid, link, profile_picture, callback) {
   values.date = moment.utc(values.date);
+  values["name"] = name;
   values["uid"] = uid;
   values["link"] = link;
   values["profile_picture"] = profile_picture;
@@ -64,7 +66,6 @@ export function joinRide(rideRequest, callback) {
   //Callback redirects user to home page
   const request = axios.post(`${LOCAL_ROOT_URL}/rides/join`, rideRequest)
     .then(()=>{callback()});
-    // .then(console.log(request));
   return {
     type: JOIN_RIDE,
     payload: request
@@ -75,7 +76,6 @@ export function leaveRide(leaveRequest, callback) {
   //Callback redirects user to home page
   const request = axios.post(`${LOCAL_ROOT_URL}/rides/leave`, leaveRequest)
     .then(()=>{callback()});
-    // .then(console.log(request));
   return {
     type: LEAVE_RIDE,
     payload: request
@@ -95,6 +95,14 @@ export function fetchRidesBy_UID(id) {
   const request = axios.get(`${LOCAL_ROOT_URL}/rides/user/${id}`);
   return {
     type: FETCH_RIDE_BY_UID,
+    payload: request
+  };
+}
+
+export function fetchRidesByPassengerID(id) {
+  const request = axios.get(`${LOCAL_ROOT_URL}/rides/passenger/${id}`);
+  return {
+    type: FETCH_RIDE_BY_PASSENGER_ID,
     payload: request
   };
 }

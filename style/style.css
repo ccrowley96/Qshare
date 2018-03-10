@@ -154,7 +154,7 @@ body p{
   min-width: 106px;
 }
 
-@media (max-width: 769px) {
+@media (max-width: 992px) {
   .table-col-title h4,
   .table-col-title .i-sort
   {
@@ -222,6 +222,11 @@ body p{
   padding: 20px 20px 20px 20px;
   margin-top: 10px;
   margin-bottom: 15px;
+}
+.profile-ride-table{
+}
+.profile-ride-table h3{
+  text-align: center;
 }
 
 .ride-header img{
@@ -337,7 +342,7 @@ form .form-group .input-field{
   width:100%;
 }
 form .form-group .uid-field{
-  width:25%;
+  width:75%;
   border: none;
   background-color: rgba(0, 0, 0, 0.2);
 }
@@ -361,7 +366,7 @@ form .description textarea{
   background-color: rgba(0, 0, 0, 0.03);
 }
 /* Tablet Form Query */
-@media (max-width: 775px) {
+@media (max-width: 767px) {
   form .form-group .input-field{
     width:75%;
   }

@@ -1,8 +1,9 @@
 import _ from 'lodash';
-import { FETCH_RIDES, FETCH_RIDE, DELETE_RIDE, FETCH_RIDE_BY_UID } from '../actions';
+import { FETCH_RIDES, FETCH_RIDE, DELETE_RIDE, FETCH_RIDE_BY_UID, FETCH_RIDE_BY_PASSENGER_ID } from '../actions';
 
 export default function(state = {}, action) {
   let newState;
+  let rides;
   switch (action.type) {
     case FETCH_RIDES:
       return action.payload.data;
@@ -18,9 +19,14 @@ export default function(state = {}, action) {
         return newState;
       }
     case FETCH_RIDE_BY_UID:
-      const { rides } = action.payload.data;
+      rides  = action.payload.data.rides;
       newState = {...state};
       newState.userRides = rides;
+      return newState;
+    case FETCH_RIDE_BY_PASSENGER_ID:
+      rides  = action.payload.data.rides;
+      newState = {...state};
+      newState.passengerRides = rides;
       return newState;
     case DELETE_RIDE:
       return _.omit(state, action.payload);

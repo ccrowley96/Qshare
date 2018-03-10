@@ -204,6 +204,23 @@ router.get('/user/:id', (req, res, next) => {
   });
 });
 
+//Query Ride by passenger ID
+router.get('/passenger/:id', (req, res, next) => {
+  const passenger_id = req.params.id;
+  //db.users.find({awards: {$elemMatch: {award:'National Medal', year:1975}}})
+  Ride.find({passengers: {$elemMatch: {uid:`${passenger_id}`}}}, (err, rides) =>{
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      res.json({
+        title: 'Ride',
+        rides
+      });
+    }
+  });
+});
+
 //Delete Ride by ID
 router.delete('/:id', (req, res, next) => {
   const ID = req.params.id;

@@ -114,8 +114,9 @@ class RidesNew extends Component {
   onSubmit(values) {
     const uid = this.props.userInfo.uid;
     const link = this.props.userInfo.link;
+    const name = this.props.userInfo.full_name;
     const profile_picture = this.props.userInfo.profile_pic.data.url;
-    this.props.createRide(values, uid, link, profile_picture, () => {
+    this.props.createRide(values, name, uid, link, profile_picture, () => {
       // Programmatic Redirect
       this.props.history.push('/');
     });
@@ -148,7 +149,7 @@ class RidesNew extends Component {
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div className="container-fluid">
             <div className="row">
-              <div className="col-xs-12">
+              <div className="col-xs-12 col-md-6">
                 <Field
                     name="uid"
                     label="User ID"
@@ -157,8 +158,6 @@ class RidesNew extends Component {
                     component={this.attachUID}
                   />
               </div>
-            </div>
-            <div className="row">
               <div className="col-xs-12 col-md-6">
                 <Field
                     label="Name"
@@ -167,6 +166,10 @@ class RidesNew extends Component {
                     value={this.props.userInfo.full_name}
                     component={this.attachName}
                 />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xs-12 col-md-6">
                 <Field
                     label="Ride Price"
                     type="number"
@@ -234,9 +237,6 @@ function validate(values) {
   const errors = {};
 
   //Validate inputs from 'values'
-  if (!values.name) {
-    errors.name = "Enter name";
-  }
   if (!values.price) {
     errors.price = "Enter price";
   }

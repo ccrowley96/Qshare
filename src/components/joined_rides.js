@@ -9,7 +9,7 @@ import { capFirst } from '../utils/string_manipulation';
 
 const SORT_BY_DATE = 'sort_by_date';
 
-class MyRideTable extends Component {
+class JoinedRideTable extends Component {
   constructor(props) {
     super(props);
 
@@ -89,20 +89,20 @@ class MyRideTable extends Component {
     if(!this.props.userRides || this.props.userRides.length == 0){
       return(
         <div className="col-md-12 col-lg-6 profile-ride-table">
-        <h3>No Rides Posted!</h3>
+        <h3>No Rides Joined!</h3>
         </div>
       );
     }
-    return (
+    return (//user-plus
       <div className="col-md-12 col-lg-6 profile-ride-table">
-          <h3> Rides Posted  <span className="i-span"><i className="fas fa-car"></i></span></h3>
+          <h3>Rides Joined  <span className="i-span"><i className="fas fa-user-plus"></i></span></h3>
           <div className="ride-table-container">
             <table className="table ride-table">
               <tbody>
                 <tr>
                   <th className="table-col-title orig-head"><h4>Origin</h4></th>
                   <th className="table-col-title dest-head"><h4>Destination</h4></th>
-                  <th className="table-col-title date-head"><h4><span><i className="fa fa-sort-up"></i></span> Date</h4></th>
+                  <th className="table-col-title date-head"><h4><span><i className="fa fa-sort-up"></i></span>  Date</h4></th>
                 </tr>
                   {this.renderRides()}
               </tbody>
@@ -113,4 +113,4 @@ class MyRideTable extends Component {
   }
 }
 
-export default withRouter(MyRideTable); // MAP state to props stuff
+export default withRouter(JoinedRideTable); // MAP state to props stuff

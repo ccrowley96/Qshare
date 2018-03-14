@@ -127,7 +127,7 @@ class RidesUpdate extends Component {
       return (
         <div>
           <div className="text-xs-right">
-            <Link className="btn btn-danger" to="/">
+            <Link className="btn btn-danger" to="/index">
               Cancel
             </Link>
           </div>
@@ -142,7 +142,7 @@ class RidesUpdate extends Component {
     return (
       <div>
         <div className="text-xs-right">
-          <Link className="btn btn-danger" to="/">
+          <Link className="btn btn-danger" to="/index">
             Cancel
           </Link>
         </div>

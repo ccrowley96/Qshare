@@ -118,7 +118,7 @@ class RidesNew extends Component {
     const profile_picture = this.props.userInfo.profile_pic.data.url;
     this.props.createRide(values, name, uid, link, profile_picture, () => {
       // Programmatic Redirect
-      this.props.history.push('/');
+      this.props.history.push('/index');
     });
   }
 
@@ -127,7 +127,7 @@ class RidesNew extends Component {
       return (
         <div>
           <div className="text-xs-right">
-            <Link className="btn btn-danger" to="/">
+            <Link className="btn btn-danger" to="/index">
               Cancel
             </Link>
           </div>
@@ -142,7 +142,7 @@ class RidesNew extends Component {
     return (
       <div>
         <div className="text-xs-right">
-          <Link className="btn btn-danger" to="/">
+          <Link className="btn btn-danger" to="/index">
             Cancel
           </Link>
         </div>

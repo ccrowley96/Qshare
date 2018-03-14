@@ -103,7 +103,7 @@ class RidesShow extends Component {
   onDeleteClick() {
     const id  = this.props.match.params.id;
     this.props.deleteRide(id, () =>{
-      this.props.history.push('/');
+      this.props.history.push('/index');
     });
   }
   onJoinClick() {
@@ -292,7 +292,7 @@ class RidesShow extends Component {
 
   render() {
     if(this.props.rideNotFound){
-      this.props.history.push('/');
+      this.props.history.push('/index');
     }
     const { ride } = this.props;
     if (!ride) {
@@ -315,7 +315,7 @@ class RidesShow extends Component {
       return (
         <div className="ride-show-wrap">
             <div className="text-xs-right">
-              <Link to="/" className="btn btn-primary">Home</Link>
+              <Link to="/index" className="btn btn-primary">Home</Link>
             </div>
             <div className="container-fluid">
               <div className="row ride-header" id="header-bg">

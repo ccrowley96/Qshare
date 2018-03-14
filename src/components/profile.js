@@ -75,7 +75,7 @@ class Profile extends Component {
       <div>
         <div className="row">
           <div className="btn-toolbar user-buttons">
-              <Link className="btn btn-info" to="/">
+              <Link className="btn btn-info" to="/index">
                 Home
               </Link>
               <Link className="btn btn-success" to="/post-ride">

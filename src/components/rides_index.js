@@ -6,6 +6,7 @@ import moment from 'moment';
 import { fetchRides } from '../actions';
 import FB_Login from './FacebookLogin/FacebookLogin';
 import RideTable from './ride_table';
+import {isMobile} from 'react-device-detect';
 
 class RidesIndex extends Component {
   constructor(props) {
@@ -55,11 +56,22 @@ class RidesIndex extends Component {
     return (<div><h5>Loading rides...</h5></div>);
   }
 
+  renderLogo(){
+    if(!isMobile){
+      return(
+        <img src="src/img/QShare_Logo_Black.svg" className="QShareLogo"/>
+      );
+    }
+    return(
+      <div></div>
+    )
+  }
+
   //Render Rideindex page --> table, title, button
   render() {
     return (
       <div className="index-wrap">
-      <img src="src/img/QShare_Logo_Black.svg" className="QShareLogo"/>
+      {this.renderLogo()}
       <div className="index-buttons-wrap row">
           <div className="btn-toolbar user-buttons">
               <Link className="btn btn-info" to="/profile">
@@ -67,6 +79,9 @@ class RidesIndex extends Component {
               </Link>
               <Link className="btn btn-success" to="/post-ride">
                 Post a Ride
+              </Link>
+              <Link className="btn btn-warning" to="/contact">
+                Contact Us
               </Link>
           </div>
       </div>

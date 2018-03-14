@@ -53,6 +53,9 @@ body p{
   border-color: rgb(59, 89, 152);;
   border-width: 1.5px;
 }
+.continue-btn{
+  width: 200px;
+}
 .QShareLogo{
   max-width: 250px;
   float:left;
@@ -67,7 +70,7 @@ body p{
     -webkit-animation: fadein 1.5s; /* Safari and Chrome */
     -o-animation: fadein 1.5s; /* Opera */
 }
-@media (max-width: 769px) {
+@media (max-width: 992px) {
   .QShareLogo{
     all: initial;
     max-width: 180px;
@@ -83,7 +86,7 @@ body p{
       -o-animation: fadein 1.5s; /* Opera */
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 460px) {
   .QShareLogo{
     display: none;
   }
@@ -93,6 +96,14 @@ body p{
   font-family: 'Quicksand', sans-serif;
 }
 
+/* Welcome Page */
+.tag-lines{
+  margin-bottom: 25px;
+}
+/* Contact Page */
+.more-info p{
+  margin-bottom: 0px;
+}
 /* Login Page */
 .jumbotron{
    background-color: #eceeef8c;

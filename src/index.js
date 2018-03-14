@@ -12,6 +12,8 @@ import RidesShow from './components/rides_show';
 import FB_Login from './components/FacebookLogin/FacebookLogin';
 import Profile from './components/profile';
 import Login from './components/login';
+import Landing from './components/landing';
+import Contact from './components/contact';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 export const store = createStoreWithMiddleware(reducers);
@@ -42,7 +44,9 @@ ReactDOM.render(
           <PrivateRoute auth={checkLogin} path="/post-ride" component={RidesNew} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/rides/:id" component={RidesShow} render={(props) => ( <RidesShow {...props} key={this.checkJoinLeave} /> )}/>
-          <Route path="/" component={RidesIndex} />
+          <Route path="/index" component={RidesIndex} />
+          <Route path="/contact" component={Contact} />
+          <Route path="/" component={Landing} />
         </Switch>
       </div>
     </BrowserRouter>

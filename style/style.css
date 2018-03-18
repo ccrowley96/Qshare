@@ -70,6 +70,7 @@ body p{
     -webkit-animation: fadein 1.5s; /* Safari and Chrome */
     -o-animation: fadein 1.5s; /* Opera */
 }
+
 @media (max-width: 992px) {
   .QShareLogo{
     all: initial;
@@ -99,6 +100,22 @@ body p{
 /* Welcome Page */
 .tag-lines{
   margin-bottom: 25px;
+}
+.LandingLogo{
+  max-width: 250px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+
+  animation: fadein 4s;
+    -moz-animation: fadein 4s; /* Firefox */
+    -webkit-animation: fadein 4s; /* Safari and Chrome */
+    -o-animation: fadein 4s; /* Opera */
+}
+.landing-page .jumbotron{
+  padding-top:15px;
+  padding-bottom: 15px;
 }
 /* Contact Page */
 .more-info p{

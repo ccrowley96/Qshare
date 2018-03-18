@@ -223,7 +223,6 @@ class RideTable extends Component {
   }
   handlePriceClick() {
     if(this.state.priceToggle == 1){
-      console.log('price click toggled, priceToggle: ', this.state.priceToggle);
       this.sortRides(SORT_BY_PRICE_INVERSE)
       this.setState({priceToggle:0});
     } else {

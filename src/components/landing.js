@@ -13,9 +13,9 @@ export default class Login extends Component {
     return (
       <div className="landing-page">
         <div className="jumbotron" style={centerStyle}>
-          <h1>Queen&#39;s Rideshare</h1>
-          <h5>Safe. Reliable. Eco-Friendly.</h5>
+          <img src="src/img/QShare_Logo_Black.svg" className="LandingLogo"/>
         </div>
+
         <div className="row tag-lines">
           <div className="col-xs-12 col-sm-4">
               <h5>Safer</h5>
@@ -31,10 +31,10 @@ export default class Login extends Component {
           </div>
         </div>
         <div className="root-buttons">
-          <div className="col-xs-12 col-sm-6" style={centerStyle}>
+          <div className="col-xs-12 col-sm-6 col-md-4 col-md-offset-2" style={centerStyle}>
             <Link className="continue-btn btn button_sliding_bg_blue" to="/contact">Contact Us<span>  <i className="fas fa-question-circle"/></span></Link>
           </div>
-          <div className="col-xs-12 col-sm-6" style={centerStyle}>
+          <div className="col-xs-12 col-sm-6 col-md-4" style={centerStyle}>
             <Link className="continue-btn btn button_sliding_bg_green" to="/index">Continue<span>  <i className="fas fa-car"/></span></Link>
           </div>
         </div>

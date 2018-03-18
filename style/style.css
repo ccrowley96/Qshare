@@ -173,7 +173,6 @@ body p{
 .active .i-sort{
   visibility: visible;
 }
-
 .user-buttons{
   display: inline-block;
   float:right;
@@ -181,7 +180,15 @@ body p{
 .table-col-title{
   min-width: 106px;
 }
-
+.ride-table p{
+  margin-bottom: 0px;
+}
+.refresh-btn{
+  margin-top: 15px;
+}
+.ride-table td{
+  height: 73px;
+}
 @media (max-width: 992px) {
   .table-col-title h4,
   .table-col-title .i-sort
@@ -208,6 +215,21 @@ body p{
   }
   .index-wrap .btn{
     font-size: .7em;
+  }
+}
+@media (min-width: 700px) {
+  .ride-table tbody{
+   display:block;
+   height:365px;
+   overflow:auto;
+  }
+  .ride-table thead, tbody tr {
+      display:table;
+      width:100%;
+      table-layout:fixed;/* even columns width , fix width of table too*/
+  }
+  .ride-table thead {
+      width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width */
   }
 }
 /* Login Button */

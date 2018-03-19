@@ -8,7 +8,6 @@ body
   color: #31302B;
   background: none;
   padding: 12px 17px;
-  margin: 25px;
   margin-top: 5px;
   margin-bottom: 10px;
   font-family: 'OpenSansBold', sans-serif;
@@ -38,7 +37,6 @@ body
   color: #31302B;
   background: none;
   padding: 12px 17px;
-  margin: 25px;
   margin-top: 5px;
   margin-bottom: 10px;
   font-family: 'OpenSansBold', sans-serif;
@@ -58,6 +56,35 @@ body
   transition: all ease 0.8s;
 }
 .button_sliding_bg_blue:hover {
+  background-size: 200% 200%; /* 200% because gradient is colored only for 50% */
+  background-position: 0px 0px; /* bring it fully into view */
+  color: #FFF;
+  border: 3px solid #FFF;
+}
+/* Orange Button Slide */
+.button_sliding_bg_orange {
+  color: #31302B;
+  background: none;
+  padding: 12px 17px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-family: 'OpenSansBold', sans-serif;
+  border: 3px solid #31302B;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  background-image: linear-gradient(135deg, #f0ad4ebf 50%, transparent 51%);
+  background-size: 100px 100px; /* some initial size to get the slanted appearance */
+  background-position: -50px -50px; /* negative positioning to hide it initially */
+  background-repeat: no-repeat;
+  transition: all ease 0.8s;
+}
+.button_sliding_bg_orange:hover {
   background-size: 200% 200%; /* 200% because gradient is colored only for 50% */
   background-position: 0px 0px; /* bring it fully into view */
   color: #FFF;

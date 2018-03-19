@@ -442,6 +442,9 @@ form .description textarea{
 .form-submit-button{
   float: right;
 }
+.react-datepicker__input-container{
+  width:215px;
+}
 /* Profile Page */
 .profile-login-message{
   margin-top: 30px;

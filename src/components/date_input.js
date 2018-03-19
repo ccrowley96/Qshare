@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from "moment";
 import "moment-timezone";
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import '../../style/react-datepicker.css';
 
 moment.tz.setDefault("America/New_York");
 
@@ -31,13 +31,13 @@ export default class renderDatePicker extends React.Component {
   componentWillMount() {
     if (this.props.input.value) {
       this.setState({
-        selectedDate: moment.utc(this.props.input.value, this.props.inputValueFormat)
+        selectedDate: moment(this.props.input.value, this.props.inputValueFormat)
       });
     }
   }
 
   handleChange = (date) => {
-    var d = moment.utc(date);
+    var d = moment(date);
     this.setState({
       selectedDate: d
     });
@@ -62,6 +62,11 @@ export default class renderDatePicker extends React.Component {
         <DatePicker
           className = "form-control"
           {...rest}
+          showTimeSelect
+          timeFormat="h:mm A"
+          timeIntervals={30}
+          dateFormat="LLL"
+          timeCaption="time"
           selected={this.state.selectedDate}
           onChange={this.handleChange}
         />

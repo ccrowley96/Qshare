@@ -32,7 +32,7 @@ export function fetchRides() {
 }
 
 export function createRide(values, name, uid, link, profile_picture, callback) {
-  values.date = moment.utc(values.date);
+  values.date = moment(values.date, 'YYYY/MM/DD HH:mm A').toISOString();
   values["name"] = name;
   values["uid"] = uid;
   values["link"] = link;
@@ -48,6 +48,7 @@ export function createRide(values, name, uid, link, profile_picture, callback) {
 }
 
 export function updateRide(values, uid, link, rideID, profile_picture, callback) {
+  values.date = moment(values.date, 'YYYY/MM/DD HH:mm A').toISOString();
   values["uid"] = uid;
   values["link"] = link;
   values["rideID"] = rideID;

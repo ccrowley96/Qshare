@@ -25,7 +25,7 @@ class RideTable extends Component {
     this.state = {
       sortedRides: this.props.rides.rides,
       priceToggle: 0,
-      capacityToggle: 0,
+      capacityToggle: 1,
       dateToggle: 0,
       originToggle: 0,
       destinationToggle: 0
@@ -223,7 +223,6 @@ class RideTable extends Component {
   }
   handlePriceClick() {
     if(this.state.priceToggle == 1){
-      console.log('price click toggled, priceToggle: ', this.state.priceToggle);
       this.sortRides(SORT_BY_PRICE_INVERSE)
       this.setState({priceToggle:0});
     } else {
@@ -252,9 +251,9 @@ class RideTable extends Component {
       return rides.map((ride) => {
         // Change date format on smaller screen sizes
         if (mq.matches) {
-          readableDate =  moment.utc(ride.date).format('ddd, MMM Do');
+          readableDate =  moment(ride.date).format('ddd, MMM Do');
         } else {
-          readableDate =  moment.utc(ride.date).format('MM/DD/YY');
+          readableDate =  moment(ride.date).format('MM/DD/YY');
         }
         //return JSX for each table element
         return (
@@ -292,16 +291,18 @@ class RideTable extends Component {
           <h2> Active Rides </h2>
           <div className="ride-table-container">
             <table className="table ride-table">
-              <tbody>
+              <thead>
                 <tr>
                   <th className="table-col-title"><h4>Name</h4></th>
                   <th className="table-col-title ride_index_heading orig-head" onClick={this.handleOriginClick}><h4><span><i className="fa fa-location-arrow i-sort"></i></span> Origin</h4></th>
-                  <th className="table-col-title ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-map-pin i-sort"></i></span> Destination</h4></th>
+                  <th className="table-col-title ride_index_heading dest-head" onClick={this.handleDestinationClick}><h4><span><i className="fa fa-map-pin i-sort"></i></span> Dest.</h4></th>
                   <th className="table-col-title ride_index_heading date-head active" onClick={this.handleDateClick}><h4><span><i className="fa fa-clock i-sort"></i></span> Date</h4></th>
                   <th className="table-col-title ride_index_heading cap-head" onClick={this.handleCapacityClick}><h4><span className="i-span"><i className="fas fa-users i-sort"></i></span> Seats</h4></th>
                   <th className="table-col-title ride_index_heading price-head" onClick={this.handlePriceClick}><h4><span><i className="fa fa-dollar-sign i-sort"></i></span> Price</h4></th>
                 </tr>
-                  {this.renderRidesV2()}
+              </thead>
+              <tbody>
+                {this.renderRidesV2()}
               </tbody>
             </table>
           </div>

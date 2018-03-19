@@ -305,11 +305,11 @@ class RidesShow extends Component {
 
     const profilePicUrl = `http://graph.facebook.com/${this.props.ride.uid}/picture?type=large`;
 
-    const readableDate = moment.utc(ride.date).format('dddd, MMMM Do');
+    const readableDate = moment(ride.date).format('dddd, MMMM Do hh:mm A');
     this.renderHeader();
     if(this.state.editOn){
       return (
-        <RidesUpdate action={this.resetEditFlag} initialValues={ride} rideID={this.props.match.params.id} oldRide={ride} adminOn={this.state.adminOn} />
+        <RidesUpdate action={this.resetEditFlag} initialValues={{...ride, date:moment(ride.date).format('YYYY/MM/DD HH:mm A')}} rideID={this.props.match.params.id} oldRide={{...ride, date:moment(ride.date).format('YYYY/MM/DD HH:mm A')}} adminOn={this.state.adminOn} />
       );
     } else {
       return (

@@ -31,11 +31,14 @@ export default class Login extends Component {
           </div>
         </div>
         <div className="root-buttons">
-          <div className="col-xs-12 col-sm-6 col-md-4 col-md-offset-2" style={centerStyle}>
+          <div className="col-xs-12 col-md-4 " style={centerStyle}>
             <Link className="continue-btn btn button_sliding_bg_blue" to="/contact">Contact Us<span>  <i className="fas fa-question-circle"/></span></Link>
           </div>
-          <div className="col-xs-12 col-sm-6 col-md-4" style={centerStyle}>
+          <div className="col-xs-12 col-md-4" style={centerStyle}>
             <Link className="continue-btn btn button_sliding_bg_green" to="/index">Continue<span>  <i className="fas fa-car"/></span></Link>
+          </div>
+          <div className="col-xs-12 col-md-4" style={centerStyle}>
+            <a className="continue-btn btn button_sliding_bg_orange" href="https://qshare.typeform.com/to/Fzb9e5">Feedback<span>  <i className="fas fa-comments"/></span></a>
           </div>
         </div>
       </div>

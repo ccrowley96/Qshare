@@ -64,9 +64,9 @@ class MyRideTable extends Component {
     return rides.map((ride) => {
       // Change date format on smaller screen sizes
       if (mq.matches) {
-        readableDate =  moment.utc(ride.date).format('ddd, MMM Do');
+        readableDate =  moment(ride.date).format('ddd, MMM Do');
       } else {
-        readableDate =  moment.utc(ride.date).format('MM/DD/YY');
+        readableDate =  moment(ride.date).format('MM/DD/YY');
       }
       //return JSX for each table element
       return (

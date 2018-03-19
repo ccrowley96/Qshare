@@ -17,7 +17,6 @@ class RidesUpdate extends Component {
     this.attachUID = this.attachUID.bind(this);
     this.renderInputField = this.renderInputField.bind(this);
     this.attachName = this.attachName.bind(this);
-    console.log('oldRide date: ', this.state.oldRide.date);
   }
 
   renderInputField(field) {

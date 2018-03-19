@@ -1,5 +1,6 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
+const moment = require('moment');
 const router = express.Router();
 
 //Bring in Rides Model
@@ -33,6 +34,8 @@ router.post('/', (req, res, next) => {
     ride.origin = req.body.origin.toLowerCase();
     ride.destination = req.body.destination.toLowerCase();
     ride.date = req.body.date;
+    const expireTime = moment(req.body.date).add(12, "hours").toISOString();
+    ride.expireAt = expireTime;
 
     if (req.body.description) {
       ride.description = req.body.description;
@@ -61,6 +64,8 @@ router.post('/update', (req, res, next) => {
     ride.origin = req.body.origin.toLowerCase();
     ride.destination = req.body.destination.toLowerCase();
     ride.date = req.body.date;
+    const expireTime = moment(req.body.date).add(12, "hours").toISOString();
+    ride.expireAt = expireTime;
 
     if (req.body.description) {
       ride.description = req.body.description;
@@ -77,7 +82,7 @@ router.post('/update', (req, res, next) => {
     });
 });
 
-//JOIN single Ride TODO add no double join checking
+//JOIN single Ride
 router.post('/join', (req, res, next) => {
   //Check Capacity
   Ride.findOne({"_id": ObjectId(`${req.body.rideID}`) }, (err, ride) =>{

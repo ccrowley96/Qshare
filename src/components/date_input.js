@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from "moment";
 import "moment-timezone";
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import '../../style/react-datepicker.css';
 
 moment.tz.setDefault("America/New_York");
 

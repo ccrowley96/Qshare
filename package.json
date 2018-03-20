@@ -72,6 +72,7 @@
     "react-redux": "4.3.0",
     "react-router": "^2.0.1",
     "react-router-dom": "^4.0.0",
+    "react-table": "^6.8.0",
     "redux": "^3.0.4",
     "redux-form": "^7.2.1",
     "redux-promise": "^0.5.3",

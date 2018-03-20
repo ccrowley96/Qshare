@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 // Article Schema
 const rideSchema = mongoose.Schema({
   name: {
@@ -44,7 +43,14 @@ const rideSchema = mongoose.Schema({
     uid : String,
     name : String,
     fblink: String
-   }]
+  }],
+  expireAt: {
+        type: Date,
+        required: true
+  }
 });
+
+// Expire at the time indicated by the expireAt field
+rideSchema.index({ expireAt: 1 }, { expireAfterSeconds : 0 });
 
 const Ride = module.exports = mongoose.model('Ride', rideSchema);

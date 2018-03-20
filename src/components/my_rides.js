@@ -89,13 +89,13 @@ class MyRideTable extends Component {
     if(!this.props.userRides || this.props.userRides.length == 0){
       return(
         <div className="col-md-12 col-lg-6 profile-ride-table">
-        <h3>No Rides Posted!</h3>
+        <h4>No Rides Posted!</h4>
         </div>
       );
     }
     return (
       <div className="col-md-12 col-lg-6 profile-ride-table">
-          <h3> Rides Posted  <span className="i-span"><i className="fas fa-car"></i></span></h3>
+          <h4> Rides Posted  <span className="i-span"><i className="fas fa-car"></i></span></h4>
           <div className="ride-table-container">
             <table className="table ride-table">
               <tbody>

@@ -95,7 +95,7 @@ class JoinedRideTable extends Component {
     }
     return (//user-plus
       <div className="col-md-12 col-lg-6 profile-ride-table">
-          <h3>Rides Joined  <span className="i-span"><i className="fas fa-user-plus"></i></span></h3>
+          <h4>Rides Joined  <span className="i-span"><i className="fas fa-user-plus"></i></span></h4>
           <div className="ride-table-container">
             <table className="table ride-table">
               <tbody>

@@ -271,7 +271,7 @@ class RidesShow extends Component {
     if (!isMobile) {
       return (
         <div>
-          <div className="col-xs-12 col-lg-3 col-sm-12 text-center">
+          <div className="col-xs-12 col-lg-3 col-sm-12 text-center profile-picture-wrap">
             <img className="ride-profile-picture" src={this.props.ride.profile_picture} />
           </div>
           <div className="col-xs-12 col-lg-9 col-sm-12 locations-wrap">

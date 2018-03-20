@@ -51,7 +51,6 @@ class RidesIndex extends Component {
   renderRidesTableWhenReady() {
     if (this.state.myRidesFetched) {
       return (
-        // <RideTable rides={this.props.rides}/>
         <ReactRideTable rides={this.props.rides} />
       );
     }

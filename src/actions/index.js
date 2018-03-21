@@ -50,7 +50,7 @@ export function createRide(values, name, uid, link, profile_picture, callback) {
 export function updateRide(values, uid, link, rideID, profile_picture, callback) {
   values.date = moment(values.date, 'YYYY/MM/DD HH:mm A').toISOString();
   values["uid"] = uid;
-  values["link"] = link;
+  //values["link"] = link;
   values["rideID"] = rideID;
   values["profile_picture"] = profile_picture;
   //Callback redirects user to home page

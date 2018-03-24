@@ -268,26 +268,23 @@ class RidesShow extends Component {
 
 
   renderHeader() {
-    if (!isMobile) {
+    //if (!isMobile) {
       return (
         <div>
-          <div className="col-xs-12 col-lg-3 col-sm-12 text-center profile-picture-wrap">
+          <div className="col-xs-12 text-center profile-picture-wrap">
             <img className="ride-profile-picture" src={this.props.ride.profile_picture} />
-          </div>
-          <div className="col-xs-12 col-lg-9 col-sm-12 locations-wrap">
-            <span className="locations">{capFirst(this.props.ride.origin)} <span className="i-span-arrow"><i className="fas fa-long-arrow-alt-right"></i></span> {capFirst(this.props.ride.destination)}</span>
           </div>
         </div>
       );
-    }
-
-    return (
-      <div>
-        <div className="col-xs-12 locations-wrap">
-          <span className="locations">{capFirst(this.props.ride.origin)} <span className="i-span-arrow"><i className="fas fa-long-arrow-alt-right"></i></span> {capFirst(this.props.ride.destination)}</span>
-        </div>
-      </div>
-    );
+    //}
+    // Fixes broken fb images on mobile (removes)
+    // return (
+    //   <div>
+    //     <div className="col-xs-12 locations-wrap">
+    //       <span className="locations">{capFirst(this.props.ride.origin)} <span className="i-span-arrow"><i className="fas fa-long-arrow-alt-right"></i></span> {capFirst(this.props.ride.destination)}</span>
+    //     </div>
+    //   </div>
+    // );
   }
 
   render() {
@@ -326,23 +323,31 @@ class RidesShow extends Component {
                   <table className="table">
                     <tbody>
                       <tr className="table-group-item">
-                        <td><h4><span className="i-span"><i className="fas fa-car"></i></span> Driver</h4></td>
+                        <td className="ride-show-row-title"><h4><span className="i-span"><i className="fas fa-car"></i></span> Driver</h4></td>
                         <td><p>{capFirst(ride.name)}</p></td>
                       </tr>
                       <tr className="table-group-item">
-                        <td><h4><span className="i-span"><i className="fas fa-calendar-alt"></i></span> Departure Date</h4></td>
+                        <td className="ride-show-row-title"><h4><span className="i-span"><i className="fas fa-location-arrow"></i></span> Origin</h4></td>
+                        <td><p>{capFirst(ride.origin)}</p></td>
+                      </tr>
+                      <tr className="table-group-item">
+                        <td className="ride-show-row-title"><h4><span className="i-span"><i className="fas fa-map-pin"></i></span> Destination </h4></td>
+                        <td><p>{capFirst(ride.destination)}</p></td>
+                      </tr>
+                      <tr className="table-group-item">
+                        <td className="ride-show-row-title"><h4><span className="i-span"><i className="fas fa-calendar-alt"></i></span> Date</h4></td>
                         <td><p>{readableDate}</p></td>
                       </tr>
                       <tr className="table-group-item">
-                        <td><h4><span className="i-span"><i className="fas fa-dollar-sign"></i></span>  Price</h4></td>
+                        <td className="ride-show-row-title"><h4><span className="i-span"><i className="fas fa-dollar-sign"></i></span>  Price</h4></td>
                         <td><p>${ride.price}</p></td>
                       </tr>
                       <tr className="table-group-item">
-                        <td><h4><span className="i-span"><i className="fas fa-users"></i></span> Capacity</h4></td>
+                        <td className="ride-show-row-title"><h4><span className="i-span"><i className="fas fa-users"></i></span> Capacity</h4></td>
                         <td><p><b>{ride.capacity}</b> seats remaining</p></td>
                       </tr>
                       <tr className="table-group-item passenger-list">
-                        <td><h4><span className="i-span"><i className="fas fa-users"></i></span> Passengers</h4></td>
+                        <td className="ride-show-row-title"><h4><span className="i-span"><i className="fas fa-users"></i></span> Passengers</h4></td>
                         <td>{this.renderPassengers()}</td>
                       </tr>
                     </tbody>

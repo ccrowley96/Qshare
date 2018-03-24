@@ -297,13 +297,22 @@ body p{
   vertical-align: middle;
   text-align: center;
   font-family: 'Quicksand', sans-serif;
-  font-size: 45px;
+  font-size: 30px;
+}
+
+.ride-show-row-title{
+  width:220px;
+}
+
+@media (max-width: 992px) {
+  .locations-wrap{
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
-  .ride-header {
-    background-color: unset;
-    height: 170px;
+  .ride-show-row-title{
+    width:180px;
   }
   .ride-show-wrap .i-span{
     display:none;
@@ -341,23 +350,10 @@ body p{
   width: 150px;
   float:left;
 }
-/* @media (max-width: 526px){
-  .ride-button-wrap .btn{
-    font-size: .8em;
-  }
-} */
-/* @media (max-width: 468px) {
-  .my-fblink-button{
-    margin-top: 20px;
-  }
-  .my-leave-button,
-  .my-join-button{
-    margin-left: 20px;
-  } */
-}
+
 @media (max-width: 520px) {
-  .ride-header {
-    height: 120px;
+  .ride-show-row-title{
+    width:100px;
   }
   .ride-show-wrap h4{
     font-weight: bolder;
@@ -406,19 +402,29 @@ body p{
 
 
 /* Post Ride Form */
-#PlacesAutocomplete__root{
-  z-index: 1000;
-}
 #PlacesAutocomplete__root input{
   background-color: rgba(0, 0, 0, 0.03);
 }
-.places-container{
+.places-container-origin{
   z-index: 1000;
   position: absolute;
   display: block;
 }
-.places-text-help{
+.places-text-help-origin{
   display:none;
+}
+.places-container-destination{
+  z-index: 800;
+  position: absolute;
+  display: block;
+}
+.places-text-help-destination{
+  display:none;
+}
+#powered-by-google{
+  float: right;
+  width: 120px;
+  height: auto;
 }
 form .form-group .input-field{
   background-color: rgba(0, 0, 0, 0.03);

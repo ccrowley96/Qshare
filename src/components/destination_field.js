@@ -1,12 +1,12 @@
 import React from 'react'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
-class OriginField extends React.Component {
+class DestinationField extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       address: '',
-      label: 'Origin',
+      label: 'Destination',
       badInput: false
     }
     this.onAddressChange = this.onAddressChange.bind(this);
@@ -39,8 +39,8 @@ class OriginField extends React.Component {
 
   dangerFlag(){
     console.log(`bad input: ${this.state.badInput}`)
-    const input_wrapper = document.getElementsByClassName("places-wrapper-origin");
-    const text_help = document.getElementsByClassName("places-text-help-origin");
+    const input_wrapper = document.getElementsByClassName("places-wrapper-destination");
+    const text_help = document.getElementsByClassName("places-text-help-destination");
     if(this.state.badInput || this.state.address.length == 0){
       if(!input_wrapper[0].classList.contains("has-danger")){
         input_wrapper[0].classList.add("has-danger");
@@ -88,7 +88,7 @@ class OriginField extends React.Component {
       value: this.state.address,
       onChange: this.onAddressChange,
       onBlur: () => {
-        //this.populateAddress();
+        this.populateAddress();
       },
       type: 'search',
       placeholder: 'Where are you leaving from?'
@@ -96,20 +96,12 @@ class OriginField extends React.Component {
 
     const cssClasses = {
       input: 'form-control',
-      autocompleteContainer: 'places-container-origin'
+      autocompleteContainer: 'places-container-destination'
     }
 
-    const renderFooter = () => (
-      <div className="dropdown-footer" style={{backgroundColor:"white"}}>
-        <div>
-          <img id="powered-by-google" src='/src/img/google-logo.png' />
-        </div>
-      </div>
-    )
-
     const options = {
-      location: new google.maps.LatLng(44.2304708,-76.4948024),
-      radius: 10000,
+      location: new google.maps.LatLng(-44.224997, -76.495099),
+      radius: 100000,
       types: ['address']
     }
 
@@ -159,7 +151,7 @@ class OriginField extends React.Component {
   )
 
     return (
-      <div className='places-wrapper-origin form-group'>
+      <div className='places-wrapper-destination form-group'>
         <label>{this.state.label}</label>
           <PlacesAutocomplete
             inputProps={inputProps}
@@ -170,12 +162,11 @@ class OriginField extends React.Component {
             onSelect={handleSelect}
             onEnter={handleEnter}
             renderSuggestion={renderSuggestion}
-            renderFooter={renderFooter}
           />
-          <div className="text-help places-text-help-origin">Enter Valid Origin</div>
+          <div className="text-help places-text-help-destination">Enter Valid Destination</div>
       </div>
     )
   }
 }
 
-export default OriginField
+export default DestinationField

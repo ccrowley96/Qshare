@@ -7,6 +7,7 @@ import  DatePicker from 'react-datepicker';
 import moment from 'moment';
 import renderDatePicker from './date_input.js';
 import OriginField from './origin_field';
+import DestinationField from './destination_field';
 
 class RidesNew extends Component {
 
@@ -208,11 +209,11 @@ class RidesNew extends Component {
                  component={OriginField}
                 />
                 <Field
-                    label="Destination"
-                    placeholder="Where are you going?"
-                    type="text"
-                    name="destination"
-                    component={this.renderInputField}
+                 name="destination"
+                 type="text"
+                 label="Destination"
+                 placeholder="Where are you heading?"
+                 component={DestinationField}
                 />
                 <Field
                     label="Description"

@@ -7,7 +7,8 @@ class DestinationField extends React.Component {
     this.state = {
       address: '',
       label: 'Destination',
-      badInput: false
+      badInput: false,
+      suggestionSelected: false
     }
     this.onAddressChange = this.onAddressChange.bind(this);
     this.populateAddress = this.populateAddress.bind(this);
@@ -16,6 +17,7 @@ class DestinationField extends React.Component {
   }
 
   onAddressChange(address){
+    this.setState({suggestionSelected:false});
     const { input } = this.props;
     const { onChange } = input;
     if(address.length == 0){
@@ -41,15 +43,17 @@ class DestinationField extends React.Component {
     console.log(`bad input: ${this.state.badInput}`)
     const input_wrapper = document.getElementsByClassName("places-wrapper-destination");
     const text_help = document.getElementsByClassName("places-text-help-destination");
-    if(this.state.badInput || this.state.address.length == 0){
+    if(this.state.badInput || this.state.address.length == 0 || !this.state.suggestionSelected){
+      this.props.checkValidity(false);
       if(!input_wrapper[0].classList.contains("has-danger")){
         input_wrapper[0].classList.add("has-danger");
-        text_help[0].style.display = "block";
+        text_help[0].style.visibility = "visible";
       }
     } else{
+      this.props.checkValidity(true);
       if(input_wrapper[0].classList.contains("has-danger")){
         input_wrapper[0].classList.remove("has-danger");
-        text_help[0].style.display = "none";
+        text_help[0].style.visibility = "hidden";
       }
     }
   }
@@ -88,7 +92,7 @@ class DestinationField extends React.Component {
       value: this.state.address,
       onChange: this.onAddressChange,
       onBlur: () => {
-        this.populateAddress();
+        //this.populateAddress();
       },
       type: 'search',
       placeholder: 'Where are you leaving from?'
@@ -99,9 +103,17 @@ class DestinationField extends React.Component {
       autocompleteContainer: 'places-container-destination'
     }
 
+    const renderFooter = () => (
+      <div className="dropdown-footer" style={{backgroundColor:"white"}}>
+        <div>
+          <img id="powered-by-google" src='/src/img/google-logo.png' />
+        </div>
+      </div>
+    )
+
     const options = {
-      location: new google.maps.LatLng(-44.224997, -76.495099),
-      radius: 100000,
+      location: new google.maps.LatLng(44.2304708,-76.4948024),
+      radius: 10000,
       types: ['address']
     }
 
@@ -140,7 +152,7 @@ class DestinationField extends React.Component {
         .catch((err)=>{
           this.setState({badInput:true});
         });
-        this.setState({ address });
+        this.setState({ address , suggestionSelected: true});
     }
 
     const renderSuggestion = ({ formattedSuggestion }) => (
@@ -160,10 +172,10 @@ class DestinationField extends React.Component {
             highlightFirstSuggestion={true}
             onEnterKeyDown={this.populateAddress}
             onSelect={handleSelect}
-            onEnter={handleEnter}
             renderSuggestion={renderSuggestion}
+            renderFooter={renderFooter}
           />
-          <div className="text-help places-text-help-destination">Enter Valid Destination</div>
+          <div className="text-help places-text-help-destination">Select Valid Destination From List</div>
       </div>
     )
   }

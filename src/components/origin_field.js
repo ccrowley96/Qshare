@@ -7,7 +7,8 @@ class OriginField extends React.Component {
     this.state = {
       address: '',
       label: 'Origin',
-      badInput: false
+      badInput: false,
+      suggestionSelected: false
     }
     this.onAddressChange = this.onAddressChange.bind(this);
     this.populateAddress = this.populateAddress.bind(this);
@@ -16,6 +17,7 @@ class OriginField extends React.Component {
   }
 
   onAddressChange(address){
+    this.setState({suggestionSelected:false});
     const { input } = this.props;
     const { onChange } = input;
     if(address.length == 0){
@@ -41,15 +43,17 @@ class OriginField extends React.Component {
     console.log(`bad input: ${this.state.badInput}`)
     const input_wrapper = document.getElementsByClassName("places-wrapper-origin");
     const text_help = document.getElementsByClassName("places-text-help-origin");
-    if(this.state.badInput || this.state.address.length == 0){
+    if(this.state.badInput || this.state.address.length == 0 || !this.state.suggestionSelected){
+      this.props.checkValidity(false);
       if(!input_wrapper[0].classList.contains("has-danger")){
         input_wrapper[0].classList.add("has-danger");
-        text_help[0].style.display = "block";
+        text_help[0].style.visibility = "visible";
       }
     } else{
+      this.props.checkValidity(true);
       if(input_wrapper[0].classList.contains("has-danger")){
         input_wrapper[0].classList.remove("has-danger");
-        text_help[0].style.display = "none";
+        text_help[0].style.visibility = "hidden";
       }
     }
   }
@@ -148,7 +152,7 @@ class OriginField extends React.Component {
         .catch((err)=>{
           this.setState({badInput:true});
         });
-        this.setState({ address });
+        this.setState({ address , suggestionSelected: true});
     }
 
     const renderSuggestion = ({ formattedSuggestion }) => (
@@ -168,11 +172,10 @@ class OriginField extends React.Component {
             highlightFirstSuggestion={true}
             onEnterKeyDown={this.populateAddress}
             onSelect={handleSelect}
-            onEnter={handleEnter}
             renderSuggestion={renderSuggestion}
             renderFooter={renderFooter}
           />
-          <div className="text-help places-text-help-origin">Enter Valid Origin</div>
+          <div className="text-help places-text-help-origin">Select Valid Origin From List</div>
       </div>
     )
   }

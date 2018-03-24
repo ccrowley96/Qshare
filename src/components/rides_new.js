@@ -9,6 +9,8 @@ import renderDatePicker from './date_input.js';
 import OriginField from './origin_field';
 import DestinationField from './destination_field';
 
+let RidesNewThis;
+
 class RidesNew extends Component {
 
   constructor(props) {
@@ -16,6 +18,11 @@ class RidesNew extends Component {
     this.attachUID = this.attachUID.bind(this);
     this.attachName = this.attachName.bind(this);
     console.log(typeof(PlaceField));
+    this.state ={
+      originOK:false,
+      destinationOK:false
+    }
+    RidesNewThis = this;
   }
 
   renderInputField(field) {
@@ -43,6 +50,7 @@ class RidesNew extends Component {
             ? field.meta.error
             : ''
           }
+          <span id='hidden-height-buffer'>XXX</span>
         </div>
       </div>
     );
@@ -73,6 +81,7 @@ class RidesNew extends Component {
             ? field.meta.error
             : ''
           }
+          <span id='hidden-height-buffer'>XXX</span>
         </div>
       </div>
     );
@@ -123,6 +132,13 @@ class RidesNew extends Component {
       // Programmatic Redirect
       this.props.history.push('/index');
     });
+  }
+
+  checkOriginValidity = (originOK) => {
+        this.setState({originOK});
+  }
+  checkDestinationValidity = (originOK) => {
+        this.setState({destinationOK});
   }
 
   render() {
@@ -206,6 +222,7 @@ class RidesNew extends Component {
                  type="text"
                  label="Origin"
                  placeholder="Where are you leaving from?"
+                 checkValidity={this.checkOriginValidity}
                  component={OriginField}
                 />
                 <Field
@@ -213,6 +230,7 @@ class RidesNew extends Component {
                  type="text"
                  label="Destination"
                  placeholder="Where are you heading?"
+                 checkValidity={this.checkDestinationValidity}
                  component={DestinationField}
                 />
                 <Field
@@ -249,10 +267,10 @@ function validate(values) {
   if (!values.capacity) {
     errors.capacity = "Enter ride capacity";
   }
-  if (!values.origin) {
+  if (!values.origin || !RidesNewThis.state.originOK) {
     errors.origin = "Enter Origin";
   }
-  if (!values.destination) {
+  if (!values.destination || !RidesNewThis.state.destinationOK) {
     errors.destination = "Enter Destination";
   }
   if (!values.date) {

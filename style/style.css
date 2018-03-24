@@ -411,7 +411,7 @@ body p{
   display: block;
 }
 .places-text-help-origin{
-  display:none;
+  visibility: hidden;
 }
 .places-container-destination{
   z-index: 800;
@@ -419,7 +419,10 @@ body p{
   display: block;
 }
 .places-text-help-destination{
-  display:none;
+  visibility: hidden;
+}
+#hidden-height-buffer{
+  visibility: hidden;
 }
 #powered-by-google{
   float: right;

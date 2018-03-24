@@ -24,6 +24,7 @@ router.get('/', (req, res, next) => {
 });
 //POST single Ride
 router.post('/', (req, res, next) => {
+    console.log(req.body);
     const ride = new Ride();
     ride.uid = req.body.uid;
     ride.link = req.body.link;

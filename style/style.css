@@ -406,6 +406,20 @@ body p{
 
 
 /* Post Ride Form */
+#PlacesAutocomplete__root{
+  z-index: 1000;
+}
+#PlacesAutocomplete__root input{
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.places-container{
+  z-index: 1000;
+  position: absolute;
+  display: block;
+}
+.places-text-help{
+  display:none;
+}
 form .form-group .input-field{
   background-color: rgba(0, 0, 0, 0.03);
   width:100%;

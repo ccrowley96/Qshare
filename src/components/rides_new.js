@@ -6,6 +6,7 @@ import { createRide } from '../actions';
 import  DatePicker from 'react-datepicker';
 import moment from 'moment';
 import renderDatePicker from './date_input.js';
+import OriginField from './origin_field';
 
 class RidesNew extends Component {
 
@@ -13,6 +14,7 @@ class RidesNew extends Component {
     super(props);
     this.attachUID = this.attachUID.bind(this);
     this.attachName = this.attachName.bind(this);
+    console.log(typeof(PlaceField));
   }
 
   renderInputField(field) {
@@ -199,11 +201,11 @@ class RidesNew extends Component {
                 </div>
                 <div className="col-xs-12 col-md-6">
                 <Field
-                    label="Origin"
-                    type="text"
-                    name="origin"
-                    placeholder="Where are you leaving from?"
-                    component={this.renderInputField}
+                 name="origin"
+                 type="text"
+                 label="Origin"
+                 placeholder="Where are you leaving from?"
+                 component={OriginField}
                 />
                 <Field
                     label="Destination"

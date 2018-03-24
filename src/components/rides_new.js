@@ -23,6 +23,8 @@ class RidesNew extends Component {
       destinationOK:false
     }
     RidesNewThis = this;
+    this.checkOriginValidity = this.checkOriginValidity.bind(this);
+    this.checkDestinationValidity = this.checkDestinationValidity.bind(this);
   }
 
   renderInputField(field) {
@@ -137,7 +139,7 @@ class RidesNew extends Component {
   checkOriginValidity = (originOK) => {
         this.setState({originOK});
   }
-  checkDestinationValidity = (originOK) => {
+  checkDestinationValidity = (destinationOK) => {
         this.setState({destinationOK});
   }
 

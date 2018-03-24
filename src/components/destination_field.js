@@ -95,7 +95,7 @@ class DestinationField extends React.Component {
         //this.populateAddress();
       },
       type: 'search',
-      placeholder: 'Where are you leaving from?'
+      placeholder: 'Where are you heading?'
     }
 
     const cssClasses = {

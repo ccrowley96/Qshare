@@ -5,7 +5,7 @@ export const Tips = React.createClass({
   getInitialState: function() {
     return {
       counter: 0,
-      text: ["Tip: click on any row in the ride table to view that ride!","Tip: name, origin, and destination entries can be searched!","Tip: click column heading to sort alphabetically, by time, or numerically!", "Tip: click column heading a second time to toggle inverted sort!", "Tip: hold shift when sorting to multi-sort!"]
+      text: ["Pro Tip: click on any row in the ride table to view that ride!","Pro Tip: name, origin, and destination entries can be searched!","Pro Tip: click column heading to sort alphabetically, by time, or numerically!", "Pro Tip: click column heading a second time to toggle inverted sort!", "Pro Tip: hold shift when sorting to multi-sort!"]
     };
   },
   tick: function() {

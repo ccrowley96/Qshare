@@ -144,6 +144,7 @@ class RidesShow extends Component {
   onEditClick() {
     this.setState({editOn:true});
   }
+
   onfblinkClick() {
     const link  = this.props.ride.link;
     window.open(link, '_blank');
@@ -306,7 +307,7 @@ class RidesShow extends Component {
     this.renderHeader();
     if(this.state.editOn){
       return (
-        <RidesUpdate action={this.resetEditFlag} initialValues={{...ride, date:moment(ride.date).format('YYYY/MM/DD HH:mm A')}} rideID={this.props.match.params.id} oldRide={{...ride, date:moment(ride.date).format('YYYY/MM/DD HH:mm A')}} adminOn={this.state.adminOn} />
+        <RidesUpdate action={this.resetEditFlag} initialValues={{...ride, date:moment(ride.date).format('YYYY/MM/DD HH:mm A')}} rideID={this.props.match.params.id} oldRide={{...ride, date:moment(ride.date).format('YYYY/MM/DD HH:mm A')}} adminOn={this.state.adminOn} originFill={ride.origin} destinationFill={ride.destination}/>
       );
     } else {
       return (

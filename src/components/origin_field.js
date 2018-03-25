@@ -1,14 +1,15 @@
-import React from 'react'
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import React from 'react';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { capFirst } from '../utils/string_manipulation';
 
 class OriginField extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: '',
-      label: 'Origin',
+      address: this.props.initialAddress ? this.props.initialAddress : '',
+      label: 'Origin *',
       badInput: false,
-      suggestionSelected: false
+      suggestionSelected: this.props.initialAddress ? true: false
     }
     this.onAddressChange = this.onAddressChange.bind(this);
     this.populateAddress = this.populateAddress.bind(this);

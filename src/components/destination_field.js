@@ -5,10 +5,10 @@ class DestinationField extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      address: '',
-      label: 'Destination',
+      address: this.props.initialAddress ? this.props.initialAddress : '',
+      label: 'Destination *',
       badInput: false,
-      suggestionSelected: false
+      suggestionSelected: this.props.initialAddress ? true: false
     }
     this.onAddressChange = this.onAddressChange.bind(this);
     this.populateAddress = this.populateAddress.bind(this);

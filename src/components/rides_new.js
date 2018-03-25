@@ -17,7 +17,6 @@ class RidesNew extends Component {
     super(props);
     this.attachUID = this.attachUID.bind(this);
     this.attachName = this.attachName.bind(this);
-    console.log(typeof(PlaceField));
     this.state ={
       originOK:false,
       destinationOK:false
@@ -102,8 +101,10 @@ class RidesNew extends Component {
             readOnly = "true"
             value={this.props.userInfo.uid}
             type = {field.type}
-
           />
+          <div>
+          <span id='hidden-height-buffer'>XXX</span>
+          </div>
       </div>
     );
   }
@@ -121,6 +122,9 @@ class RidesNew extends Component {
             value={this.props.userInfo.full_name}
             type = {field.type}
           />
+          <div>
+          <span id='hidden-height-buffer'>XXX</span>
+          </div>
       </div>
     );
   }
@@ -193,7 +197,7 @@ class RidesNew extends Component {
             <div className="row">
               <div className="col-xs-12 col-md-6">
                 <Field
-                    label="Ride Price (CAD)"
+                    label="Ride Price (CAD) *"
                     type="number"
                     name="price"
                     step="5"
@@ -201,7 +205,7 @@ class RidesNew extends Component {
                     component={this.renderInputField}
                 />
                 <Field
-                    label="Ride Capacity"
+                    label="Ride Capacity *"
                     type="number"
                     step="1"
                     name="capacity"
@@ -209,7 +213,7 @@ class RidesNew extends Component {
                     component={this.renderInputField}
                 />
                 <Field
-                  label="Date"
+                  label="Date *"
                   name="date"
                   inputValueFormat="YYYY/MM/DD HH:mm A"
                   dateFormat="LLL"
@@ -225,7 +229,7 @@ class RidesNew extends Component {
                 <Field
                  name="origin"
                  type="text"
-                 label="Origin"
+                 label="Origin *"
                  placeholder="Where are you leaving from?"
                  checkValidity={this.checkOriginValidity}
                  component={OriginField}
@@ -233,7 +237,7 @@ class RidesNew extends Component {
                 <Field
                  name="destination"
                  type="text"
-                 label="Destination"
+                 label="Destination *"
                  placeholder="Where are you heading?"
                  checkValidity={this.checkDestinationValidity}
                  component={DestinationField}

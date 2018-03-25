@@ -429,6 +429,9 @@ body p{
   width: 120px;
   height: auto;
 }
+form .form-group{
+  margin-bottom: 5px;
+}
 form .form-group .input-field{
   background-color: rgba(0, 0, 0, 0.03);
   width:100%;
@@ -483,6 +486,9 @@ form .description textarea{
 }
 .form-submit-button{
   float: right;
+}
+#save-button{
+  width: 100px;
 }
 .react-datepicker__input-container{
   width:215px;

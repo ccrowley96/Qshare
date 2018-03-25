@@ -173,7 +173,7 @@ class DestinationField extends React.Component {
             onEnterKeyDown={this.populateAddress}
             onSelect={handleSelect}
             renderSuggestion={renderSuggestion}
-            renderFooter={renderFooter}
+
           />
           <div className="text-help places-text-help-destination">Select Valid Destination From List</div>
       </div>

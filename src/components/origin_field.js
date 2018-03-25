@@ -173,7 +173,6 @@ class OriginField extends React.Component {
             onEnterKeyDown={this.populateAddress}
             onSelect={handleSelect}
             renderSuggestion={renderSuggestion}
-            renderFooter={renderFooter}
           />
           <div className="text-help places-text-help-origin">Select Valid Origin From List</div>
       </div>

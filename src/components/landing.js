@@ -38,7 +38,7 @@ export default class Login extends Component {
             <Link className="continue-btn btn button_sliding_bg_green" to="/index">Continue<span>  <i className="fas fa-car"/></span></Link>
           </div>
           <div className="col-xs-12 col-md-4" style={centerStyle}>
-            <a className="continue-btn btn button_sliding_bg_orange" href="https://qshare.typeform.com/to/Fzb9e5">Feedback<span>  <i className="fas fa-comments"/></span></a>
+            <a className="continue-btn btn button_sliding_bg_orange" href="https://qshare.typeform.com/to/Fzb9e5" target="_blank" rel="noopener noreferrer">Feedback<span>  <i className="fas fa-comments"/></span></a>
           </div>
         </div>
       </div>

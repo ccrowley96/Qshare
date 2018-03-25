@@ -146,7 +146,7 @@ class RidesShow extends Component {
   }
   onfblinkClick() {
     const link  = this.props.ride.link;
-    window.location = link;
+    window.open(link, '_blank');
   }
 
   resetEditFlag(){

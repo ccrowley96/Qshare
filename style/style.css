@@ -448,7 +448,7 @@ form .form-group .uid-field:focus{
 form .description textarea{
   width:100%;
   background-color: rgba(0, 0, 0, 0.03);
-  height: 100px;
+  height: 128px;
 }
 .form-login-message{
   margin-top: 30px;

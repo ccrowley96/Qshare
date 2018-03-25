@@ -28,7 +28,6 @@ class DestinationField extends React.Component {
       .then(results => {
         if(results.length > 1){throw('too many results')}
         getLatLng(results[0]);
-        console.log(results[0]);
         onChange(address);
       })
       .then(latLng => {
@@ -40,7 +39,6 @@ class DestinationField extends React.Component {
   }
 
   dangerFlag(){
-    console.log(`bad input: ${this.state.badInput}`)
     const input_wrapper = document.getElementsByClassName("places-wrapper-destination");
     const text_help = document.getElementsByClassName("places-text-help-destination");
     if(this.state.badInput || this.state.address.length == 0 || !this.state.suggestionSelected){
@@ -69,10 +67,8 @@ class DestinationField extends React.Component {
 
   populateAddress(){
     let tempThis = this;
-    console.log('initial blur address: ', this.state.address);
     geocodeByAddress(this.state.address)
       .then(results => {
-        console.log('populate blur result: ', results);
         if(results.length > 1){throw('too many results')}
         let fullAddress = results[0].formatted_address;
         this.setState({address:fullAddress});

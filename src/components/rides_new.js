@@ -44,6 +44,7 @@ class RidesNew extends Component {
           placeholder={field.placeholder}
           className = "form-control input-field"
           type = {field.type}
+          step = {field.step ? field.step : ""}
           {...field.input}
         />
         <div className="text-help">
@@ -192,15 +193,17 @@ class RidesNew extends Component {
             <div className="row">
               <div className="col-xs-12 col-md-6">
                 <Field
-                    label="Ride Price"
+                    label="Ride Price (CAD)"
                     type="number"
                     name="price"
-                    placeholder="How much are you charging?"
+                    step="5"
+                    placeholder="How much $$$ are you charging?"
                     component={this.renderInputField}
                 />
                 <Field
                     label="Ride Capacity"
                     type="number"
+                    step="1"
                     name="capacity"
                     placeholder="How many seats are available?"
                     component={this.renderInputField}
@@ -239,7 +242,8 @@ class RidesNew extends Component {
                     label="Description"
                     type="textarea"
                     name="description"
-                    placeholder="Enter ride details (optional)"
+                    placeholder={`Enter ride details (optional) \n• Car description / Luggage space\n• Multiple drop-off points?\n• Aux or nah?
+                    `}
                     customClass = "description"
                     component={this.renderTextAreaField}
                 />
@@ -260,6 +264,9 @@ function validate(values) {
   const errors = {};
 
   //Validate inputs from 'values'
+  if (values.price <= 0) {
+    errors.price = "Enter positive price";
+  }
   if (!values.price) {
     errors.price = "Enter price";
   }

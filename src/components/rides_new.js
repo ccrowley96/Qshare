@@ -6,6 +6,10 @@ import { createRide } from '../actions';
 import  DatePicker from 'react-datepicker';
 import moment from 'moment';
 import renderDatePicker from './date_input.js';
+import OriginField from './origin_field';
+import DestinationField from './destination_field';
+
+let RidesNewThis;
 
 class RidesNew extends Component {
 
@@ -13,6 +17,13 @@ class RidesNew extends Component {
     super(props);
     this.attachUID = this.attachUID.bind(this);
     this.attachName = this.attachName.bind(this);
+    this.state ={
+      originOK:false,
+      destinationOK:false
+    }
+    RidesNewThis = this;
+    this.checkOriginValidity = this.checkOriginValidity.bind(this);
+    this.checkDestinationValidity = this.checkDestinationValidity.bind(this);
   }
 
   renderInputField(field) {
@@ -32,6 +43,7 @@ class RidesNew extends Component {
           placeholder={field.placeholder}
           className = "form-control input-field"
           type = {field.type}
+          step = {field.step ? field.step : ""}
           {...field.input}
         />
         <div className="text-help">
@@ -40,6 +52,7 @@ class RidesNew extends Component {
             ? field.meta.error
             : ''
           }
+          <span id='hidden-height-buffer'>XXX</span>
         </div>
       </div>
     );
@@ -70,6 +83,7 @@ class RidesNew extends Component {
             ? field.meta.error
             : ''
           }
+          <span id='hidden-height-buffer'>XXX</span>
         </div>
       </div>
     );
@@ -87,8 +101,10 @@ class RidesNew extends Component {
             readOnly = "true"
             value={this.props.userInfo.uid}
             type = {field.type}
-
           />
+          <div>
+          <span id='hidden-height-buffer'>XXX</span>
+          </div>
       </div>
     );
   }
@@ -106,6 +122,9 @@ class RidesNew extends Component {
             value={this.props.userInfo.full_name}
             type = {field.type}
           />
+          <div>
+          <span id='hidden-height-buffer'>XXX</span>
+          </div>
       </div>
     );
   }
@@ -120,6 +139,13 @@ class RidesNew extends Component {
       // Programmatic Redirect
       this.props.history.push('/index');
     });
+  }
+
+  checkOriginValidity = (originOK) => {
+        this.setState({originOK});
+  }
+  checkDestinationValidity = (destinationOK) => {
+        this.setState({destinationOK});
   }
 
   render() {
@@ -171,52 +197,57 @@ class RidesNew extends Component {
             <div className="row">
               <div className="col-xs-12 col-md-6">
                 <Field
-                    label="Ride Price"
+                    label="Ride Price (CAD) *"
                     type="number"
                     name="price"
-                    placeholder="How much are you charging?"
+                    step="5"
+                    placeholder="How much $$$ are you charging?"
                     component={this.renderInputField}
                 />
                 <Field
-                    label="Ride Capacity"
+                    label="Ride Capacity *"
                     type="number"
+                    step="1"
                     name="capacity"
                     placeholder="How many seats are available?"
                     component={this.renderInputField}
                 />
                 <Field
-                  label="Date"
+                  label="Date *"
                   name="date"
-                  inputValueFormat="YYYY/MM/DD"
-                  dateFormat="LL"
+                  inputValueFormat="YYYY/MM/DD HH:mm A"
+                  dateFormat="LLL"
                   dateFormatCalendar="MMMM"
-                  placeholderText={moment().utc().format('LL')}
-                  normalize={(value) => (value ? moment.utc(value).format('YYYY/MM/DD') : null)}
-                  minDate={moment().utc()}
-                  maxDate={moment().utc().add(90, "days")}
+                  placeholderText={moment().format('LLL')}
+                  normalize={(value) => (value ? moment(value).format('YYYY/MM/DD HH:mm A') : null)}
+                  minDate={moment()}
+                  maxDate={moment().add(90, "days")}
                   component={renderDatePicker}
                 />
                 </div>
                 <div className="col-xs-12 col-md-6">
                 <Field
-                    label="Origin"
-                    type="text"
-                    name="origin"
-                    placeholder="Where are you leaving from?"
-                    component={this.renderInputField}
+                 name="origin"
+                 type="text"
+                 label="Origin *"
+                 placeholder="Where are you leaving from?"
+                 checkValidity={this.checkOriginValidity}
+                 component={OriginField}
                 />
                 <Field
-                    label="Destination"
-                    placeholder="Where are you going?"
-                    type="text"
-                    name="destination"
-                    component={this.renderInputField}
+                 name="destination"
+                 type="text"
+                 label="Destination *"
+                 placeholder="Where are you heading?"
+                 checkValidity={this.checkDestinationValidity}
+                 component={DestinationField}
                 />
                 <Field
                     label="Description"
                     type="textarea"
                     name="description"
-                    placeholder="Enter ride details (optional)"
+                    placeholder={`Enter ride details (optional) \n• Car description / Luggage space\n• Multiple drop-off points?\n• Aux or nah?
+                    `}
                     customClass = "description"
                     component={this.renderTextAreaField}
                 />
@@ -237,6 +268,9 @@ function validate(values) {
   const errors = {};
 
   //Validate inputs from 'values'
+  if (values.price <= 0) {
+    errors.price = "Enter positive price";
+  }
   if (!values.price) {
     errors.price = "Enter price";
   }
@@ -246,10 +280,10 @@ function validate(values) {
   if (!values.capacity) {
     errors.capacity = "Enter ride capacity";
   }
-  if (!values.origin) {
+  if (!values.origin || !RidesNewThis.state.originOK) {
     errors.origin = "Enter Origin";
   }
-  if (!values.destination) {
+  if (!values.destination || !RidesNewThis.state.destinationOK) {
     errors.destination = "Enter Destination";
   }
   if (!values.date) {

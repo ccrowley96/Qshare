@@ -45,7 +45,7 @@ class Profile extends Component {
         </div>
         <div className="row welcome-row">
           <div className="container-fluid text-center">
-            <h2>Hey {first_name}!</h2>
+            <h3>Hey {first_name} :)</h3>
           </div>
         </div>
       </div>

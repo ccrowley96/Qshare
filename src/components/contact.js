@@ -10,6 +10,9 @@ export default class Contact extends Component {
     let centerStyle = {
       textAlign:"center"
     }
+    let marginTop = {
+      marginTop: "25px"
+    }
     return (
       <div className="landing-page">
         <div className="jumbotron" style={centerStyle}>
@@ -48,9 +51,12 @@ export default class Contact extends Component {
             </ul>
           </div>
         </div>
-        <div className="root-buttons">
-          <div className="col-xs-12" style={centerStyle}>
+        <div className="root-buttons" style={marginTop}>
+          <div className="col-xs-12 col-sm-6" style={centerStyle}>
             <Link className="continue-btn btn button_sliding_bg_green" to="/index">Home<span>  <i className="fas fa-car"/></span></Link>
+          </div>
+          <div className="col-xs-12 col-sm-6" style={centerStyle}>
+            <a className="continue-btn btn button_sliding_bg_orange" href="https://qshare.typeform.com/to/Fzb9e5" target="_blank" rel="noopener noreferrer">Feedback<span>  <i className="fas fa-comments"/></span></a>
           </div>
         </div>
       </div>

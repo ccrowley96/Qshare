@@ -6,6 +6,7 @@ import moment from 'moment';
 import { fetchRides } from '../actions';
 import FB_Login from './FacebookLogin/FacebookLogin';
 import RideTable from './ride_table';
+import ReactRideTable from './react_ride_table';
 import {isMobile} from 'react-device-detect';
 
 class RidesIndex extends Component {
@@ -50,7 +51,7 @@ class RidesIndex extends Component {
   renderRidesTableWhenReady() {
     if (this.state.myRidesFetched) {
       return (
-        <RideTable rides={this.props.rides}/>
+        <ReactRideTable rides={this.props.rides} />
       );
     }
     return (<div><h5>Loading rides...</h5></div>);

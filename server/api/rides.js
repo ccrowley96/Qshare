@@ -1,5 +1,6 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
+const moment = require('moment');
 const router = express.Router();
 
 //Bring in Rides Model
@@ -23,6 +24,7 @@ router.get('/', (req, res, next) => {
 });
 //POST single Ride
 router.post('/', (req, res, next) => {
+    console.log(req.body);
     const ride = new Ride();
     ride.uid = req.body.uid;
     ride.link = req.body.link;
@@ -30,9 +32,11 @@ router.post('/', (req, res, next) => {
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;
-    ride.origin = req.body.origin.toLowerCase();
-    ride.destination = req.body.destination.toLowerCase();
+    ride.origin = req.body.origin;
+    ride.destination = req.body.destination;
     ride.date = req.body.date;
+    const expireTime = moment(req.body.date).add(12, "hours").toISOString();
+    ride.expireAt = expireTime;
 
     if (req.body.description) {
       ride.description = req.body.description;
@@ -58,9 +62,11 @@ router.post('/update', (req, res, next) => {
     ride.name = req.body.name.toLowerCase();
     ride.price = req.body.price;
     ride.capacity = req.body.capacity;
-    ride.origin = req.body.origin.toLowerCase();
-    ride.destination = req.body.destination.toLowerCase();
+    ride.origin = req.body.origin;
+    ride.destination = req.body.destination;
     ride.date = req.body.date;
+    const expireTime = moment(req.body.date).add(12, "hours").toISOString();
+    ride.expireAt = expireTime;
 
     if (req.body.description) {
       ride.description = req.body.description;
@@ -77,7 +83,7 @@ router.post('/update', (req, res, next) => {
     });
 });
 
-//JOIN single Ride TODO add no double join checking
+//JOIN single Ride
 router.post('/join', (req, res, next) => {
   //Check Capacity
   Ride.findOne({"_id": ObjectId(`${req.body.rideID}`) }, (err, ride) =>{

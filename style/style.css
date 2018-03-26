@@ -2,9 +2,10 @@ body{
   width: 100%;
   height: 100%;
   padding-top:50px;
-  padding-bottom: 100px;
+  padding-bottom: 25px;
   padding-left: 10px;
   padding-right: 10px;
+  margin-top: 30px;
 }
 body h1,
 body h2,
@@ -17,6 +18,9 @@ body h6
 }
 body p{
   font-family: 'Quicksand', sans-serif;
+}
+#main-container{
+  margin-top: -25px;
 }
 .btn-info {
     color: #fff;
@@ -57,36 +61,31 @@ body p{
   width: 200px;
 }
 .QShareLogo{
-  max-width: 250px;
+  max-width: 200px;
   float:left;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: -5px;
+  left: 20px;
   right: 0px;
-  margin: auto;
-
+  margin:auto;
   animation: fadein 1.5s;
     -moz-animation: fadein 1.5s; /* Firefox */
     -webkit-animation: fadein 1.5s; /* Safari and Chrome */
     -o-animation: fadein 1.5s; /* Opera */
 }
+
 @media (max-width: 992px) {
   .QShareLogo{
     all: initial;
     max-width: 180px;
     float:left;
     position: absolute;
-    top: 10px;
-    left:5px;
+    top: -5px;
+    left:25px;
     margin: auto;
-
-    animation: fadein 1.5s;
-      -moz-animation: fadein 1.5s; /* Firefox */
-      -webkit-animation: fadein 1.5s; /* Safari and Chrome */
-      -o-animation: fadein 1.5s; /* Opera */
   }
 }
-@media (max-width: 460px) {
+@media (max-width: 525px) {
   .QShareLogo{
     display: none;
   }
@@ -99,6 +98,22 @@ body p{
 /* Welcome Page */
 .tag-lines{
   margin-bottom: 25px;
+}
+.LandingLogo{
+  max-width: 250px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+
+  animation: fadein 4s;
+    -moz-animation: fadein 4s; /* Firefox */
+    -webkit-animation: fadein 4s; /* Safari and Chrome */
+    -o-animation: fadein 4s; /* Opera */
+}
+.landing-page .jumbotron{
+  padding-top:15px;
+  padding-bottom: 15px;
 }
 /* Contact Page */
 .more-info p{
@@ -140,6 +155,20 @@ body p{
   margin-top: 20px;
 }
 /* Ride Index */
+.ReactTable{
+  font-family: 'Quicksand', sans-serif;
+}
+.ReactTable .rt-thead{
+  font-family: 'Signika', sans-serif;
+  font-size: 1.1em;
+  height: 40px;
+}
+.ReactTable .rt-thead{
+  line-height: unset;
+}
+.ReactTable .rt-tbody .rt-tr-group{
+  cursor: pointer;
+}
 .ride_index_heading{
   cursor: pointer;
 }
@@ -156,7 +185,6 @@ body p{
 .active .i-sort{
   visibility: visible;
 }
-
 .user-buttons{
   display: inline-block;
   float:right;
@@ -164,13 +192,21 @@ body p{
 .table-col-title{
   min-width: 106px;
 }
-
+.ride-table p{
+  margin-bottom: 0px;
+}
+.refresh-btn{
+  margin-top: 15px;
+}
+.ride-table td{
+  height: 40px;
+}
+.table-col-title h4,
+.table-col-title .i-sort
+{
+  font-size: 1em;
+}
 @media (max-width: 992px) {
-  .table-col-title h4,
-  .table-col-title .i-sort
-  {
-    font-size: .85em;
-  }
   .table-group-item p{
     font-size: .8em;
   }
@@ -193,6 +229,7 @@ body p{
     font-size: .7em;
   }
 }
+
 /* Login Button */
 .login-button{
   background-color: #3b5998;
@@ -203,7 +240,7 @@ body p{
 }
 /* Individual Ride Page */
 .ride-show-wrap{
-  padding: 20px 20px 20px 20px;
+  /* padding: 20px 20px 20px 20px; */
   border-radius: 3px;
 }
 .ride-show-wrap p{
@@ -220,21 +257,24 @@ body p{
   float: left;
   width: 40px;
 }
-
+.profile-picture-wrap{
+  display: block;
+  margin: auto;
+  top:0px;
+  bottom:0px;
+}
 .ride-profile-picture{
-  width:200px;
-  heigh:200px;
+  width:170px;
+  heigh:170px;
   border-radius: 50%;
 }
 .ride-header {
   background-color: #d4d4d438;
   border-radius: 5px;
-  height: 250px;
+  height: 210px;
   padding: 20px 20px 20px 20px;
   margin-top: 10px;
-  margin-bottom: 15px;
-}
-.profile-ride-table{
+  /* margin-bottom: 15px;  */
 }
 .profile-ride-table h3{
   text-align: center;
@@ -248,7 +288,7 @@ body p{
   right:0;
 }
 .locations-wrap{
-  height: 210px;
+  height: 170px;
   text-align: center;
   display: table;
 }
@@ -257,13 +297,22 @@ body p{
   vertical-align: middle;
   text-align: center;
   font-family: 'Quicksand', sans-serif;
-  font-size: 45px;
+  font-size: 30px;
+}
+
+.ride-show-row-title{
+  width:220px;
+}
+
+@media (max-width: 992px) {
+  .locations-wrap{
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
-  .ride-header {
-    background-color: #FFFFFF;
-    height: 170px;
+  .ride-show-row-title{
+    width:180px;
   }
   .ride-show-wrap .i-span{
     display:none;
@@ -283,23 +332,28 @@ body p{
   width: 100%;
   margin-bottom: 20px;
 }
-/* @media (max-width: 526px){
-  .ride-button-wrap .btn{
-    font-size: .8em;
-  }
-} */
-/* @media (max-width: 468px) {
-  .my-fblink-button{
-    margin-top: 20px;
-  }
-  .my-leave-button,
-  .my-join-button{
-    margin-left: 20px;
-  } */
+.ride-show-table table{
+  margin-top: 5px;
 }
+.ride-show-table  td{
+  padding-top: 3px;
+  padding-bottom: 3px;
+  vertical-align: middle;
+}
+.ride-show-table  .table-group-item p{
+  margin-bottom: 0px;
+}
+.ride-table-filter-text{
+  font-family: 'Quicksand', sans-serif;
+  font-style: italic;
+  height: 90%;
+  width: 150px;
+  float:left;
+}
+
 @media (max-width: 520px) {
-  .ride-header {
-    height: 120px;
+  .ride-show-row-title{
+    width:100px;
   }
   .ride-show-wrap h4{
     font-weight: bolder;
@@ -348,6 +402,36 @@ body p{
 
 
 /* Post Ride Form */
+#PlacesAutocomplete__root input{
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.places-container-origin{
+  z-index: 1000;
+  position: absolute;
+  display: block;
+}
+.places-text-help-origin{
+  visibility: hidden;
+}
+.places-container-destination{
+  z-index: 800;
+  position: absolute;
+  display: block;
+}
+.places-text-help-destination{
+  visibility: hidden;
+}
+#hidden-height-buffer{
+  visibility: hidden;
+}
+#powered-by-google{
+  float: right;
+  width: 120px;
+  height: auto;
+}
+form .form-group{
+  margin-bottom: 5px;
+}
 form .form-group .input-field{
   background-color: rgba(0, 0, 0, 0.03);
   width:100%;
@@ -367,7 +451,7 @@ form .form-group .uid-field:focus{
 form .description textarea{
   width:100%;
   background-color: rgba(0, 0, 0, 0.03);
-  height: 100px;
+  height: 128px;
 }
 .form-login-message{
   margin-top: 30px;
@@ -403,6 +487,12 @@ form .description textarea{
 .form-submit-button{
   float: right;
 }
+#save-button{
+  width: 100px;
+}
+.react-datepicker__input-container{
+  width:215px;
+}
 /* Profile Page */
 .profile-login-message{
   margin-top: 30px;
@@ -420,7 +510,7 @@ form .description textarea{
   border-radius: 50%;
 }
 .welcome-row{
-  margin-top: 25px;
+  margin-top: 10px;
   text-align: center;
 }
 .my-rides-container{
@@ -470,4 +560,11 @@ form .description textarea{
     to {
         opacity: 1;
     }
+}
+.smooth-transition{
+  -webkit-transition: all 0.4s ease-in-out;
+  animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s; /* Firefox */
+    -webkit-animation: fadein 1.5s; /* Safari and Chrome */
+    -o-animation: fadein 1.5s; /* Opera */
 }

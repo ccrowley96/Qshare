@@ -64,9 +64,9 @@ class JoinedRideTable extends Component {
     return rides.map((ride) => {
       // Change date format on smaller screen sizes
       if (mq.matches) {
-        readableDate =  moment.utc(ride.date).format('ddd, MMM Do');
+        readableDate =  moment(ride.date).format('ddd, MMM Do');
       } else {
-        readableDate =  moment.utc(ride.date).format('MM/DD/YY');
+        readableDate =  moment(ride.date).format('MM/DD/YY');
       }
       //return JSX for each table element
       return (
@@ -95,7 +95,7 @@ class JoinedRideTable extends Component {
     }
     return (//user-plus
       <div className="col-md-12 col-lg-6 profile-ride-table">
-          <h3>Rides Joined  <span className="i-span"><i className="fas fa-user-plus"></i></span></h3>
+          <h4>Rides Joined  <span className="i-span"><i className="fas fa-user-plus"></i></span></h4>
           <div className="ride-table-container">
             <table className="table ride-table">
               <tbody>

@@ -7,16 +7,26 @@ import { updateRide } from '../actions';
 import  DatePicker from 'react-datepicker';
 import moment from 'moment';
 import renderDatePicker from './date_input.js';
+import OriginField from './origin_field';
+import DestinationField from './destination_field';
+
+let RidesNewThis;
 
 class RidesUpdate extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      oldRide : props.oldRide
+      oldRide : props.oldRide,
+      originOK:false,
+      destinationOK:false
     }
     this.attachUID = this.attachUID.bind(this);
     this.renderInputField = this.renderInputField.bind(this);
     this.attachName = this.attachName.bind(this);
+    RidesNewThis = this;
+    this.checkOriginValidity = this.checkOriginValidity.bind(this);
+    this.checkDestinationValidity = this.checkDestinationValidity.bind(this);
   }
 
   renderInputField(field) {
@@ -35,6 +45,7 @@ class RidesUpdate extends Component {
           placeholder={field.placeholder}
           className = "form-control input-field"
           type = {field.type}
+          step = {field.step ? field.step : ""}
         />
         <div className="text-help">
           {
@@ -42,6 +53,7 @@ class RidesUpdate extends Component {
             ? field.meta.error
             : ''
           }
+          <span id='hidden-height-buffer'>XXX</span>
         </div>
       </div>
     );
@@ -72,6 +84,7 @@ class RidesUpdate extends Component {
             ? field.meta.error
             : ''
           }
+          <span id='hidden-height-buffer'>XXX</span>
         </div>
       </div>
     );
@@ -89,6 +102,9 @@ class RidesUpdate extends Component {
             value={this.props.oldRide.uid}
             type = {field.type}
           />
+          <div>
+          <span id='hidden-height-buffer'>XXX</span>
+          </div>
       </div>
     );
   }
@@ -106,6 +122,9 @@ class RidesUpdate extends Component {
             value={this.props.userInfo.full_name}
             type = {field.type}
           />
+          <div>
+          <span id='hidden-height-buffer'>XXX</span>
+          </div>
       </div>
     );
   }
@@ -120,6 +139,13 @@ class RidesUpdate extends Component {
       // Programmatic Redirect to ride_show on specific ID
       this.props.history.push(`/rides/${rideID}`);
     });
+  }
+
+  checkOriginValidity = (originOK) => {
+        this.setState({originOK});
+  }
+  checkDestinationValidity = (destinationOK) => {
+        this.setState({destinationOK});
   }
 
   render() {
@@ -147,68 +173,92 @@ class RidesUpdate extends Component {
           </Link>
         </div>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field
-              name="uid"
-              label="User ID"
-              type="text"
-              component={this.attachUID}
-            />
-          <Field
-              label="Name"
-              type="text"
-              name="name"
-              value={this.props.userInfo.full_name}
-              component={this.attachName}
-          />
-          <Field
-              label="Ride Price"
-              type="number"
-              name="price"
-              placeholder="How much are you charging?"
-              component={this.renderInputField}
-          />
-          <Field
-              label="Ride Capacity"
-              type="number"
-              name="capacity"
-              placeholder="How many seats are available?"
-              component={this.renderInputField}
-          />
-          <Field
-              label="Origin"
-              type="text"
-              name="origin"
-              placeholder="Where are you leaving from?"
-              component={this.renderInputField}
-          />
-          <Field
-              label="Destination"
-              placeholder="Where are you going?"
-              type="text"
-              name="destination"
-              component={this.renderInputField}
-          />
-          <Field
-            label="Date"
-            name="date"
-            inputValueFormat="YYYY/MM/DD"
-            dateFormat="LL"
-            dateFormatCalendar="MMMM"
-            placeholderText={moment().utc().format('LL')}
-            normalize={(value) => (value ? moment.utc(value).format('YYYY/MM/DD') : null)}
-            minDate={moment().utc()}
-            maxDate={moment().utc().add(90, "days")}
-            component={renderDatePicker}
-          />
-          <Field
-              label="Description"
-              type="textarea"
-              name="description"
-              placeholder="Enter ride details (optional)"
-              customClass = "description"
-              component={this.renderTextAreaField}
-          />
-        <button type="submit" className="btn btn-success">Save</button>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-xs-12 col-md-6">
+                <Field
+                    name="uid"
+                    label="User ID"
+                    type="text"
+                    component={this.attachUID}
+                  />
+              </div>
+              <div className="col-xs-12 col-md-6">
+                <Field
+                    label="Name"
+                    type="text"
+                    name="name"
+                    value={this.props.userInfo.full_name}
+                    component={this.attachName}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xs-12 col-md-6">
+                <Field
+                    label="Ride Price *"
+                    type="number"
+                    name="price"
+                    step="5"
+                    placeholder="How much are you charging?"
+                    component={this.renderInputField}
+                />
+                <Field
+                    label="Ride Capacity *"
+                    type="number"
+                    step="1"
+                    name="capacity"
+                    placeholder="How many seats are available?"
+                    component={this.renderInputField}
+                />
+                <Field
+                  label="Date *"
+                  name="date"
+                  inputValueFormat="YYYY/MM/DD HH:mm A"
+                  dateFormat="LLL"
+                  dateFormatCalendar="MMMM"
+                  placeholderText={moment().format('LLL')}
+                  normalize={(value) => (value ? moment(value).format('YYYY/MM/DD HH:mm A') : null)}
+                  minDate={moment()}
+                  maxDate={moment().add(90, "days")}
+                  component={renderDatePicker}
+                />
+              </div>
+              <div className="col-xs-12 col-md-6">
+                <Field
+                 name="origin"
+                 type="text"
+                 label="Origin"
+                 initialAddress={this.props.originFill}
+                 placeholder="Where are you leaving from?"
+                 checkValidity={this.checkOriginValidity}
+                 component={OriginField}
+                />
+                <Field
+                 name="destination"
+                 type="text"
+                 label="Destination"
+                 initialAddress={this.props.destinationFill}
+                 placeholder="Where are you heading?"
+                 checkValidity={this.checkDestinationValidity}
+                 component={DestinationField}
+                />
+                <Field
+                    label="Description"
+                    type="textarea"
+                    name="description"
+                    initialAddress={this.props.destinationFill}
+                    placeholder={`Enter ride details (optional) \n• Car description / Luggage space\n• Multiple drop-off points?\n• Aux or nah?
+                    `}
+                    customClass = "description"
+                    component={this.renderTextAreaField}
+                />
+                </div>
+                </div>
+                <div className="row">
+                  <button type="submit" id="save-button" className="btn btn-success form-submit-button">Save</button>
+                </div>
+              </div>
         </form>
       </div>
     );

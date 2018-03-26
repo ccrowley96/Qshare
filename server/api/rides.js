@@ -47,18 +47,28 @@ router.post('/', (req, res, next) => {
       ride.description = req.body.description;
     }
 
-    ride.save((err) => {
+    ride.save((err,savedRide) => {
       if (err) {
         console.log(err);
         res.send("Data Deposit Error A");
       }
       else {
         //Send Ride Created Email
-        fs.readFile(path.resolve(__dirname, '../emails/ride-created.txt'), 'utf8', function(err, data) {
+        fs.readFile(path.resolve(__dirname, '../emails/ride-created.html'), 'utf8', function(err, data) {
             if (err) throw err;
             const emailHTML = data;
             const msg = {
               to: `${req.body.email}`,
+              substitutionWrappers: ['{{','}}'],
+              substitutions: {
+                name:`${req.body.name.substr(0, req.body.name.indexOf(" "))}`,
+                origin:`${req.body.origin}`,
+                destination:`${req.body.destination}`,
+                date:`${moment(req.body.date).format('dddd, MMMM Do hh:mm A')}`,
+                price:`${req.body.price}`,
+                capacity:`${req.body.capacity}`,
+                rideID:`${savedRide.id}`
+              },
               from: 'rides@qshare.ca',
               subject: 'Your QShare Ride is Live!',
               text: 'Safe. Reliable. Eco-Friendly',

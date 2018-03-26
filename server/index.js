@@ -9,6 +9,9 @@ const API = require('./api/index');
 const sgMail = require('@sendgrid/mail');
 const BUNDLE_DIR = path.join(__dirname, '../'); // Path to static files
 
+//Set up SENDGRID api key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const port = process.env.PORT;

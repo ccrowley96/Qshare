@@ -1,7 +1,13 @@
 const express = require('express');
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
+const path = require('path');
 const router = express.Router();
+const sgMail = require('@sendgrid/mail');
+const fs = require('fs');
+
+//Set up SENDGRID api key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 //Bring in Rides Model
 const Ride = require('../db/models/rides');
@@ -24,7 +30,6 @@ router.get('/', (req, res, next) => {
 });
 //POST single Ride
 router.post('/', (req, res, next) => {
-    console.log(req.body);
     const ride = new Ride();
     ride.uid = req.body.uid;
     ride.link = req.body.link;
@@ -48,6 +53,19 @@ router.post('/', (req, res, next) => {
         res.send("Data Deposit Error A");
       }
       else {
+        //Send Ride Created Email
+        fs.readFile(path.resolve(__dirname, '../emails/ride-created.txt'), 'utf8', function(err, data) {
+            if (err) throw err;
+            const emailHTML = data;
+            const msg = {
+              to: `${req.body.email}`,
+              from: 'rides@qshare.ca',
+              subject: 'Your QShare Ride is Live!',
+              text: 'Safe. Reliable. Eco-Friendly',
+              html: emailHTML
+            };
+            sgMail.send(msg);
+        });
         res.redirect('/');
       }
     });

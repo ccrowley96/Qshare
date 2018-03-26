@@ -135,7 +135,8 @@ class RidesNew extends Component {
     const link = this.props.userInfo.link;
     const name = this.props.userInfo.full_name;
     const profile_picture = this.props.userInfo.profile_pic.data.url;
-    this.props.createRide(values, name, uid, link, profile_picture, () => {
+    const email = this.props.userInfo.email;
+    this.props.createRide(values, name, uid, link, profile_picture, email, () => {
       // Programmatic Redirect
       this.props.history.push('/index');
     });

@@ -31,12 +31,13 @@ export function fetchRides() {
   };
 }
 
-export function createRide(values, name, uid, link, profile_picture, callback) {
+export function createRide(values, name, uid, link, profile_picture, email, callback) {
   values.date = moment(values.date, 'YYYY/MM/DD HH:mm A').toISOString();
   values["name"] = name;
   values["uid"] = uid;
   values["link"] = link;
   values["profile_picture"] = profile_picture;
+  values["email"] = email;
   //Callback redirects user to home page
   const request = axios.post(`${LOCAL_ROOT_URL}/rides`, values)
     .then(() => callback());

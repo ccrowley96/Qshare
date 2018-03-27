@@ -117,38 +117,38 @@ class DestinationField extends React.Component {
       const { input } = this.props;
       const { onChange } = input;
       let fullAddress;
-      geocodeByAddress(address)
-        .then(results => {
-          if(results.length > 1){throw('too many results')}
-          fullAddress = results[0];
-          getLatLng(results[0]);
-          onChange(fullAddress);
-        })
-        .then(latLng => {
-          this.setState({badInput:false});
-        })
-        .catch((err)=>{
-          this.setState({badInput:true});
-        });
+      // geocodeByAddress(address)
+      //   .then(results => {
+      //     if(results.length > 1){throw('too many results')}
+      //     fullAddress = results[0];
+      //     getLatLng(results[0]);
+      //     onChange(fullAddress);
+      //   })
+      //   .then(latLng => {
+      //     this.setState({badInput:false});
+      //   })
+      //   .catch((err)=>{
+      //     this.setState({badInput:true});
+      //   });
         this.setState({ fullAddress });
     }
 
     const handleSelect = (address) => {
       const { input } = this.props;
       const { onChange } = input;
-      geocodeByAddress(address)
-        .then(results => {
-          if(results.length > 1){throw('too many results')}
-          getLatLng(results[0]);
-          onChange(address);
-        })
-        .then(latLng => {
-          this.setState({badInput:false});
-        })
-        .catch((err)=>{
-          this.setState({badInput:true});
-        });
-        this.setState({ address , suggestionSelected: true});
+      // geocodeByAddress(address)
+      //   .then(results => {
+      //     if(results.length > 1){throw('too many results')}
+      //     getLatLng(results[0]);
+      //     onChange(address);
+      //   })
+      //   .then(latLng => {
+      //     this.setState({badInput:false});
+      //   })
+      //   .catch((err)=>{
+      //     this.setState({badInput:true});
+      //   });
+        this.setState({ address , suggestionSelected: true, badInput:false});
     }
 
     const renderSuggestion = ({ formattedSuggestion }) => (
@@ -166,7 +166,6 @@ class DestinationField extends React.Component {
             onError={this.onError}
             classNames={cssClasses}
             highlightFirstSuggestion={true}
-            onEnterKeyDown={this.populateAddress}
             onSelect={handleSelect}
             renderSuggestion={renderSuggestion}
 

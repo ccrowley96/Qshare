@@ -14,6 +14,7 @@ import Profile from './components/profile';
 import Login from './components/login';
 import Landing from './components/landing';
 import Contact from './components/contact';
+import RideNotFound from './components/ride_not_found';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 export const store = createStoreWithMiddleware(reducers);
@@ -46,6 +47,7 @@ ReactDOM.render(
           <PrivateRoute path="/rides/:id" component={RidesShow} render={(props) => ( <RidesShow {...props} key={this.checkJoinLeave} /> )}/>
           <Route path="/index" component={RidesIndex} />
           <Route path="/contact" component={Contact} />
+          <Route path="/ride-not-found" component={RideNotFound} />
           <Route path="/" component={Landing} />
         </Switch>
       </div>

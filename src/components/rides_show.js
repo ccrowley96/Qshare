@@ -288,10 +288,14 @@ class RidesShow extends Component {
     // );
   }
 
-  render() {
-    if(this.props.rideNotFound){
-      this.props.history.push('/index');
+  componentWillReceiveProps(nextProps){
+    if(nextProps.rideNotFound){
+      console.log(`Ride (${nextProps.match.params.id}) not found :(`);
+      nextProps.history.push('/ride-not-found');
     }
+  }
+  render() {
+
     const { ride } = this.props;
     if (!ride) {
       return (<div><h5>Loading...</h5></div>);

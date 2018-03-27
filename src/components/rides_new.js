@@ -198,7 +198,7 @@ class RidesNew extends Component {
             <div className="row">
               <div className="col-xs-12 col-md-6">
                 <Field
-                    label="Ride Price (CAD) *"
+                    label="Price Per Seat (CAD) *"
                     type="number"
                     name="price"
                     step="5"
@@ -214,7 +214,7 @@ class RidesNew extends Component {
                     component={this.renderInputField}
                 />
                 <Field
-                  label="Date *"
+                  label="Departure Date *"
                   name="date"
                   inputValueFormat="YYYY/MM/DD HH:mm A"
                   dateFormat="LLL"

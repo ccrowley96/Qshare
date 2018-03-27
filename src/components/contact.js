@@ -36,11 +36,11 @@ export default class Contact extends Component {
           <div className="planned-features col-xs-12 col-sm-6 col-md-4">
               <h5>Planned Features</h5>
               <ul>
-              <li><p>Email notification system</p></li>
               <li><p>Google maps integration</p></li>
-              <li><p>Text input filtering</p></li>
-              <li><p>24 Hour time of departure</p></li>
-              <li><p>Auto removed rides after departure date</p></li>
+              <li><p>Accept / deny passengers joining ride</p></li>
+              <li><p>Required <b>@queensu.ca</b> emails to use platform</p></li>
+              <li><p>Full email notification system</p></li>
+              <li><p><b>Ride requests</b></p></li>
               </ul>
           </div>
           <div className="contact-info col-xs-12 col-sm-6 col-md-4">

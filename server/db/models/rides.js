@@ -47,6 +47,9 @@ const rideSchema = mongoose.Schema({
   expireAt: {
         type: Date,
         required: true
+  },
+  email: {
+    type: String
   }
 });
 

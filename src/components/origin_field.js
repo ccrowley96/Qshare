@@ -117,7 +117,7 @@ class OriginField extends React.Component {
     const handleEnter = (address) => {
       const { input } = this.props;
       const { onChange } = input;
-      let fullAddress;
+      onChange(address);
       // geocodeByAddress(address)
       //   .then(results => {
       //     if(results.length > 1){throw('too many results')}
@@ -131,12 +131,13 @@ class OriginField extends React.Component {
       //   .catch((err)=>{
       //     this.setState({badInput:true});
       //   });
-        this.setState({ fullAddress });
+        this.setState({ address });
     }
 
     const handleSelect = (address) => {
       const { input } = this.props;
       const { onChange } = input;
+      onChange(address);
       // geocodeByAddress(address)
       //   .then(results => {
       //     if(results.length > 1){throw('too many results')}

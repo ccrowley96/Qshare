@@ -22,6 +22,7 @@ body p{
 #main-container{
   margin-top: -25px;
 }
+
 .btn-info {
     color: #fff;
     background-color: rgba(91, 192, 222, .75);
@@ -459,6 +460,13 @@ form .description textarea{
 }
 .react-datepicker-wrapper input{
   background-color: rgba(0, 0, 0, 0.03);
+}
+/* Datepicker iphone 5 fix */
+@media (max-width: 360px){
+  .date-picker{
+    margin-left: -22px;
+    margin-right: -22px;
+  }
 }
 /* Tablet Form Query */
 @media (max-width: 767px) {

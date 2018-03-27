@@ -8,6 +8,7 @@ import moment from 'moment';
 import renderDatePicker from './date_input.js';
 import OriginField from './origin_field';
 import DestinationField from './destination_field';
+import {isMobile} from 'react-device-detect';
 
 let RidesNewThis;
 
@@ -166,7 +167,9 @@ class RidesNew extends Component {
     }
     const { handleSubmit } = this.props;
     // Field handles redux action / reducer interaction & event handling
+    let mobileDate = isMobile ? true : false;
     return (
+
       <div>
         <div className="text-xs-right">
           <Link className="btn btn-danger" to="/index">
@@ -224,6 +227,7 @@ class RidesNew extends Component {
                   minDate={moment()}
                   maxDate={moment().add(90, "days")}
                   component={renderDatePicker}
+                  inline={mobileDate}
                 />
                 </div>
                 <div className="col-xs-12 col-md-6">

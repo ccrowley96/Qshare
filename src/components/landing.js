@@ -9,23 +9,24 @@ export default class Login extends Component {
   render(){
     let centerStyle = {
       textAlign:"center"
+
     }
+
     return (
       <div className="landing-page">
-
+      <div className="row">
       <nav className="navbar navbar-light navbar-fixed-top">
-        <div className="col-sm-2">
-          <img src="src/img/QShare_Logo_Black.svg"/>
+        <div className="col-xs-4 col-sm-2 col-lg-2">
+          <img className="img-responsive" src="src/img/QShare_Logo_Black.svg"/>
         </div>
-        <div className="col-sm-4" style={centerStyle}></div>
-        <div className="col-sm-1" style={centerStyle}></div>
-        <div className="col-sm-1" style={centerStyle}>
-          <Link className="btn button_sliding_bg_blue" to="/contact">Contact Us</Link>
+        <div className="col-xs-4 col-sm-5 col-lg-1" style={centerStyle}>
+          <Link className="btn btn-md" to="/contact">Contact Us</Link>
         </div>
-        <div className="col-sm-4" style={centerStyle}>
-          <a className="btn button_sliding_bg_orange" href="https://qshare.typeform.com/to/Fzb9e5">Feedback</a>
+        <div className="col-xs-4 col-sm-5 col-lg-1" style={centerStyle}>
+          <a className="btn btn-md" href="https://qshare.typeform.com/to/Fzb9e5">Feedback</a>
         </div>
       </nav>
+      </div>
       <br></br>
       <br></br>
         <div className="jumbotron" style={centerStyle}>

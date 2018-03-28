@@ -12,8 +12,39 @@ export default class Login extends Component {
     }
     return (
       <div className="landing-page">
+
+      <nav className="navbar navbar-light navbar-fixed-top">
+        <div className="col-sm-2">
+          <img src="src/img/QShare_Logo_Black.svg"/>
+        </div>
+        <div className="col-sm-4" style={centerStyle}></div>
+        <div className="col-sm-1" style={centerStyle}></div>
+        <div className="col-sm-1" style={centerStyle}>
+          <Link className="btn button_sliding_bg_blue" to="/contact">Contact Us</Link>
+        </div>
+        <div className="col-sm-4" style={centerStyle}>
+          <a className="btn button_sliding_bg_orange" href="https://qshare.typeform.com/to/Fzb9e5">Feedback</a>
+        </div>
+      </nav>
+      <br></br>
+      <br></br>
         <div className="jumbotron" style={centerStyle}>
-          <img src="src/img/QShare_Logo_Black.svg" className="LandingLogo"/>
+          <br></br>
+          <br></br>
+          <h1>A New Way for Students to Travel</h1>
+          <p>From getting yourself home for the weekend, to catching a concert in Toronto. Qshare will get you there for the lowest fare.</p>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <img className="img-fluid" src="src/img/HeroImg.png"/>
+          <br></br>
+          <br></br>
+          <p>Find where you will go this weekend</p>
+          <Link className="continue-btn btn button_sliding_bg_green" to="/index">Continue<span>  <i className="fas fa-car"/></span></Link>
+          <br></br>
+          <br></br>
+
         </div>
 
         <div className="row tag-lines">
@@ -28,17 +59,6 @@ export default class Login extends Component {
           <div className="col-xs-12 col-sm-4">
               <h5>Eco-Friendly</h5>
               <p>Carpooling means saving money, making new karaoke friends, and driving toward a cleaner planet.</p>
-          </div>
-        </div>
-        <div className="root-buttons">
-          <div className="col-xs-12 col-md-4 " style={centerStyle}>
-            <Link className="continue-btn btn button_sliding_bg_blue" to="/contact">Contact Us<span>  <i className="fas fa-question-circle"/></span></Link>
-          </div>
-          <div className="col-xs-12 col-md-4" style={centerStyle}>
-            <Link className="continue-btn btn button_sliding_bg_green" to="/index">Continue<span>  <i className="fas fa-car"/></span></Link>
-          </div>
-          <div className="col-xs-12 col-md-4" style={centerStyle}>
-            <a className="continue-btn btn button_sliding_bg_orange" href="https://qshare.typeform.com/to/Fzb9e5">Feedback<span>  <i className="fas fa-comments"/></span></a>
           </div>
         </div>
       </div>

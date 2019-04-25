@@ -1,5 +1,6 @@
-# qshare
-GitHub Repo for qshare QTMA project.
+# QShare
+### QShare is a free ridesharing connector for Queen's University students.
+GitHub Repo for qshare QTMA project.  QShare was developed by Cory Crowley in Kingston Ontario (Queen's University).  
 
 # Development & Contribution Set-up
 - Install Node.js, MongoDB, & node package manager NPM

@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/webpack --config webpack.config.js && node server
+web: ./node_modules/.bin/webpack --config webpack.config.js && npm run webpack && node server

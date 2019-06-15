@@ -13,7 +13,7 @@ export const LOGIN = 'login';
 export const JOIN_RIDE = 'join';
 export const LEAVE_RIDE = 'leave';
 
-const LOCAL_ROOT_URL = process.env.LOCAL_ROOT_URL;
+const LOCAL_ROOT_URL = process.env.LOCAL_ROOT_URL + "/api";
 
 export function fb_user_state(userInfo) {
   return {

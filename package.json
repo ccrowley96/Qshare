@@ -9,6 +9,7 @@
     "server-dev": "nodemon server/index.js",
     "client-prod": "webpack",
     "start": "node server",
+    "heroku-postbuild": "npm run client-prod",
     "bundle": "./node_modules/.bin/webpack --config webpack.config.js",
     "prestart": "npm run bundle",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",

@@ -1,1 +1,0 @@
-web: npm install && ./node_modules/.bin/webpack --config webpack.config.js && npm run webpack && node server

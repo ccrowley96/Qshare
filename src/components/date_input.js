@@ -46,7 +46,6 @@ export default class renderDatePicker extends React.Component {
   }
 
   render() {
-
     const {
       meta: { touched, error },
       ...rest

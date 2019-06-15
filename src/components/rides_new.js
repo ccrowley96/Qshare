@@ -3,12 +3,13 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom'; //Substitute for <a> tag
 import { connect } from 'react-redux';
 import { createRide } from '../actions';
-import  DatePicker from 'react-datepicker';
 import moment from 'moment';
 import renderDatePicker from './date_input.js';
 import OriginField from './origin_field';
 import DestinationField from './destination_field';
 import {isMobile} from 'react-device-detect';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 let RidesNewThis;
 
@@ -165,11 +166,11 @@ class RidesNew extends Component {
         </div>
       );
     }
+
     const { handleSubmit } = this.props;
     // Field handles redux action / reducer interaction & event handling
     let mobileDate = isMobile ? true : false;
     return (
-
       <div>
         <div className="text-xs-right">
           <Link className="btn btn-danger" to="/index">

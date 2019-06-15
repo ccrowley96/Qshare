@@ -9,7 +9,7 @@
     "server-dev": "nodemon server/index.js",
     "client-prod": "webpack",
     "start": "node server",
-    "heroku-postbuild": "npm install && && ./node_modules/.bin/webpack --config webpack.config.js && npm run client-prod",
+    "heroku-postbuild": "npm install && ./node_modules/.bin/webpack --config webpack.config.js && npm run client-prod",
     "bundle": "./node_modules/.bin/webpack --config webpack.config.js",
     "prestart": "npm run bundle",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
@@ -66,7 +66,7 @@
     "prop-types": "^15.7.2",
     "react": "^0.14.3",
     "react-confirm-alert": "^1.0.8",
-    "react-datepicker": "^1.8.0",
+    "react-datepicker": "^1.6.0",
     "react-device-detect": "^0.1.0",
     "react-dom": "^0.14.9",
     "react-facebook-login": "^3.7.2",
@@ -82,6 +82,7 @@
     "webpack": "^1.15.0"
   },
   "engines": {
-    "node": "10.x"
+    "node": "10.x",
+    "npm": "~6.4.1"
   }
 }

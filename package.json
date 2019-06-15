@@ -11,7 +11,6 @@
     "start": "node server.js",
     "heroku-postbuild": "webpack -p",
     "bundle": "./node_modules/.bin/webpack --config webpack.config.js",
-    "prestart": "npm run bundle",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },

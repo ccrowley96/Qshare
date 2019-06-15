@@ -46,7 +46,7 @@ class ReactRideTable extends Component {
     const columns = [{
       Header: 'Name',
       accessor: 'name', // String-based value accessors!
-      Cell: row => ( capFirst(row.value)),
+      Cell: row => ( <div>{capFirst(row.value)}</div>),
       Filter: ({filter, onChange}) => (
                 <input
                        type='text'
@@ -60,7 +60,7 @@ class ReactRideTable extends Component {
     {
       Header: 'Origin',
       accessor: 'origin',
-      Cell: row => ( capFirst(row.value)),
+      Cell: row => ( <div>{capFirst(row.value)}</div>),
       Filter: ({filter, onChange}) => (
                 <input
                        type='text'
@@ -74,7 +74,7 @@ class ReactRideTable extends Component {
     {
       Header: 'Destination',
       accessor: 'destination',
-      Cell: row => ( capFirst(row.value)),
+      Cell: row => ( <div>{capFirst(row.value)}</div>),
       Filter: ({filter, onChange}) => (
                 <input
                        type='text'
@@ -91,7 +91,9 @@ class ReactRideTable extends Component {
       filterable: false,
       accessor: d => d.date, // Custom value accessors!
       Cell: row => (
-        this.formatDate(row.value)
+        <div>
+        {this.formatDate(row.value)}
+        </div>
       )
     },
     {

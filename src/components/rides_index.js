@@ -54,7 +54,7 @@ class RidesIndex extends Component {
         <ReactRideTable rides={this.props.rides} />
       );
     }
-    return (<div><h5>Loading rides...</h5></div>);
+    return (<div><h5>Loading Rides...</h5></div>);
   }
 
   renderLogo(){

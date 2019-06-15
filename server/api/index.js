@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const ObjectId = require('mongodb').ObjectID;
 const router = express.Router();
 const Rides = require('./rides');
 
@@ -24,8 +22,9 @@ const port = 27017;
 if(!username || !password){
   mongoose.connect(`mongodb://${host}:${port}/${dbname}`);
 } else {
-  mongoose.connect(`mongodb://${username}:${password}@${host}:${port}/${dbname}`);
+  mongoose.connect(`mongodb+srv://${username}:${password}@${host}`);
 }
+
 const db = mongoose.connection;
 //Check connection
 db.once('open', () =>{

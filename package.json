@@ -80,5 +80,8 @@
     "redux-promise": "^0.5.3",
     "style-loader": "^0.19.1",
     "webpack": "^1.15.0"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }

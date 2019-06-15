@@ -8,7 +8,7 @@
     "client-dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "server-dev": "nodemon server/index.js",
     "client-prod": "webpack",
-    "start": "node server.js",
+    "start": "node server",
     "heroku-postbuild": "webpack -p",
     "bundle": "./node_modules/.bin/webpack --config webpack.config.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",

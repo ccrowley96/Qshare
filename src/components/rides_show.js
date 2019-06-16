@@ -380,7 +380,6 @@ class RidesShow extends Component {
             <div className="row">
               {this.renderDelete()}
               {this.renderEdit()}
-              {this.renderFBLink()}
               {this.renderJoin()}
             </div>
           </div>
